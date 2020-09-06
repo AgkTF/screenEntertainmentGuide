@@ -1,0 +1,20 @@
+@import url("https://allfont.net/allfont.css?fonts=ethnocentric");
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Ethnocentric", arial;
+  src: local("Ethnocentric"),
+    url("https://allfont.net/allfont.css?fonts=ethnocentric");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bai Jamjuree", sans-serif;
+  src: local("Bai Jamjuree"),
+    url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap");
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
