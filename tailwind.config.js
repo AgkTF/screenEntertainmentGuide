@@ -32,7 +32,7 @@ module.exports = {
       },
       fontFamily: {
         bai: "Bai Jamjuree",
-        ethno: "Ethnocenteric",
+        ethno: "Ethnocentric",
       },
     },
   },
