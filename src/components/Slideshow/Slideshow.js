@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import Slider from "react-slick";
 import classes from "./Slideshow.module.css";
-import "./slick.css";
 import "./slick-theme.css";
 
 const Slideshow = () => {
@@ -45,7 +44,7 @@ const Slideshow = () => {
             className="h-full w-full object-cover"
           />
           <span className="absolute bottom-8 px-8 text-gray-200 font-bai text-xl font-bold bg-gray-500 bg-opacity-25">
-            Tenet
+            TENET
           </span>
         </div>
         <div className={classes.imgCont}>
