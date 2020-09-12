@@ -24,7 +24,6 @@ const MovieCarousel = () => {
   }, [windowWidth]);
 
   let padding = (windowWidth - 208) / 2;
-  console.log(window.innerWidth);
 
   const settings = {
     className: "center",
@@ -35,25 +34,10 @@ const MovieCarousel = () => {
     arrows: false,
     initialSlide: 0,
     slidesToShow: 1,
-    // responsive: [
-    //   {
-    //     breakpoint: 480,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 640,
-    //     settings: {
-    //       slidesToShow: 5,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
   };
+
   return (
-    <div className={`mx-auto my-1 w-full ${classes.listContainer}`}>
+    <div className={`my-20 w-full ${classes.listContainer}`}>
       <Slider {...settings}>
         <div
           className={`bg-pink-300 rounded-lg overflow-hidden flex justify-center ${classes.imgContainer}`}

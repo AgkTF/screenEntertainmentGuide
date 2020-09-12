@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "../components/Navbar/Navbar";
-import MovieCarousel from "../components/MovieCarousel/MovieCarousel";
+import Slideshow from "../components/Slideshow/Slideshow";
+// import MovieCarousel from "../components/MovieCarousel/MovieCarousel";
+
 const Movies = () => {
   return (
     <>
-      <Navbar />
-
-      <MovieCarousel />
+      <Slideshow />
+      {/* <MovieCarousel /> */}
     </>
   );
 };

@@ -3,7 +3,7 @@ import Movies from "./pages/Movies";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="mx-auto max-w-2xl min-h-screen bg-gray-200">
       <Movies />
     </div>
   );
