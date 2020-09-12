@@ -1,81 +1,117 @@
-import React from "react";
-import classes from "./MovieCarousel.module.css";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import classes from "./MovieCarousel.module.css";
+import "./slick.css";
+import "./slick-theme.css";
 
-class MovieCarousel extends React.Component {
-  render() {
-    const settings = {
-      className: "center",
-      centerMode: true,
-      infinite: true,
-      centerPadding: "48px",
-      slidesToShow: 1,
-      speed: 500,
-      arrows: false,
+const MovieCarousel = () => {
+  const [windowWidth, setWindowWith] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const resizeHandler = () => {
+      setWindowWith(window.innerWidth);
     };
-    return (
-      <div className="mx-auto my-1" style={{ width: "320px", height: "320px" }}>
-        <Slider {...settings}>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/1.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/2.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/3.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/4.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/5.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-          >
-            <img
-              src="images/6.jpg"
-              alt="dummy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </Slider>
-      </div>
-    );
-  }
-}
+
+    window.addEventListener("resize", resizeHandler);
+
+    console.log({
+      windowWidth,
+      padding: (windowWidth - 208) / 2,
+    });
+    return (_) => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  }, [windowWidth]);
+
+  let padding = (windowWidth - 208) / 2;
+  console.log(window.innerWidth);
+
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: `${padding}px`,
+    speed: 500,
+    arrows: false,
+    initialSlide: 0,
+    slidesToShow: 1,
+    // responsive: [
+    //   {
+    //     breakpoint: 480,
+    //     settings: {
+    //       slidesToShow: 1,
+    //       slidesToScroll: 1,
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 640,
+    //     settings: {
+    //       slidesToShow: 5,
+    //       slidesToScroll: 1,
+    //     },
+    //   },
+    // ],
+  };
+  return (
+    <div className={`mx-auto my-1 w-full ${classes.listContainer}`}>
+      <Slider {...settings}>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden flex justify-center ${classes.imgContainer}`}
+        >
+          <img
+            src="images/1.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
+        >
+          <img
+            src="images/2.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
+        >
+          <img
+            src="images/3.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
+        >
+          <img
+            src="images/4.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
+        >
+          <img
+            src="images/5.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
+        >
+          <img
+            src="images/6.jpg"
+            alt="dummy"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </Slider>
+    </div>
+  );
+};
 
 export default MovieCarousel;

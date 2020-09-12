@@ -1,5 +1,9 @@
+.listContainer {
+  /* width: 320px; */
+}
+
 .imgContainer {
-  width: 14rem;
+  /* width: 14rem !important; */
   height: 20rem;
   margin: 0 auto;
   transition: all 0.25s ease-in-out;
