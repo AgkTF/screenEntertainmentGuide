@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
+import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
+
+//TODO: Add prop-types
 
 const MovieCarousel = () => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
@@ -36,7 +39,7 @@ const MovieCarousel = () => {
   };
 
   return (
-    <div className="mt-4 w-full">
+    <div className={classes.Container}>
       <div className="mx-auto mb-6 font-bai font-semibold text-sm text-gray-700 flex items-center justify-around max-w-xs">
         <p className="border-b-2 border-gray-700 border-opacity-25">
           Now Playing
@@ -45,60 +48,38 @@ const MovieCarousel = () => {
         <p className="opacity-50">Upcoming</p>
       </div>
       <Slider {...settings}>
-        <div
-          className={`max-w-3xl bg-pink-300 rounded-lg overflow-hidden flex justify-center ${classes.imgContainer}`}
-        >
-          <img
-            src="images/1.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-        >
-          <img
-            src="images/2.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-        >
-          <img
-            src="images/3.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-        >
-          <img
-            src="images/4.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-        >
-          <img
-            src="images/5.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          className={`bg-pink-300 rounded-lg overflow-hidden ${classes.imgContainer}`}
-        >
-          <img
-            src="images/6.jpg"
-            alt="dummy"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <MovieSlide
+          posterUrl="images/1.jpg"
+          altText="First Man movie poster"
+          title="First Man"
+          genre="Biography/Drama/History"
+          imdbRating={7.3}
+          metascore={84}
+        />
+        <MovieSlide
+          posterUrl="images/2.jpg"
+          altText="Mission: Impossible - Rogue Nation movie poster"
+          title="Mission: Impossible - Rogue Nation"
+          genre="Action/Adventure/Thriller"
+          imdbRating={7.4}
+          metascore={75}
+        />
+        <MovieSlide
+          posterUrl="images/3.jpg"
+          altText="The Martian movie poster"
+          title="The Martian"
+          genre="Adventure/Drama/Sci-Fi"
+          imdbRating={8.0}
+          metascore={80}
+        />
+        <MovieSlide
+          posterUrl="images/4.jpg"
+          altText="Ford v Ferrari movie poster"
+          title="Ford v Ferrari"
+          genre=" Action/Biography/Drama"
+          imdbRating={8.1}
+          metascore={81}
+        />
       </Slider>
     </div>
   );

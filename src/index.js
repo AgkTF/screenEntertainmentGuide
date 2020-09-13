@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./tailwind.output.css";
 import "./slick.css";
+import "./slick-theme.css";
 import App from "./App";
 
 ReactDOM.render(

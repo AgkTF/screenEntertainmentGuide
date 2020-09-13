@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import Slider from "react-slick";
 import classes from "./Slideshow.module.css";
-import "./slick-theme.css";
 
 const Slideshow = () => {
   const settings = {
@@ -20,7 +19,7 @@ const Slideshow = () => {
     },
   };
   return (
-    <div>
+    <>
       <Navbar />
       <Slider {...settings} className={classes.Slider}>
         <div className={classes.imgCont}>
@@ -62,7 +61,7 @@ const Slideshow = () => {
           />
         </div>
       </Slider>
-    </div>
+    </>
   );
 };
 
