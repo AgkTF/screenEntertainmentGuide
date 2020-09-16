@@ -21,7 +21,7 @@ const MovieSlide = ({
         />
       </div>
 
-      <div className="mt-3 text-gray-700 font-bai text-center  opacity-0 transition-opacity duration-300">
+      <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">
         <p className="font-bold">{title}</p>
         <p className="text-xs">{genre}</p>
         <div className="mt-3 flex flex-col items-center">
