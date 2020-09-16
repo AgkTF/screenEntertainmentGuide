@@ -1,6 +1,6 @@
 import React from "react";
-import Movies from "./pages/Movies";
-import Movie from "./pages/Movie";
+// import Movies from "./pages/Movies";
+import Movie from "./pages/Movie/Movie";
 
 function App() {
   return (
