@@ -2,11 +2,26 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
+import { genreMapper } from "../../utils/genre-mapper";
 
 //TODO: Add prop-types
 
-const MovieCarousel = () => {
+const MovieCarousel = ({ movies }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
+  const [currentTitle, setCurrentTitle] = useState(null);
+
+  const afterSlideChangeHandler = () => {
+    let newCurrentTitle = document.querySelector(
+      "div.slick-slide.slick-active.slick-center.slick-current p.font-bold"
+    ).innerText;
+
+    setCurrentTitle(newCurrentTitle);
+  };
+
+  useEffect(() => {
+    afterSlideChangeHandler();
+    console.log(currentTitle);
+  }, [currentTitle]);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -36,6 +51,8 @@ const MovieCarousel = () => {
     arrows: false,
     initialSlide: 0,
     slidesToShow: slidesToShow,
+    focusOnSelect: true,
+    afterChange: () => afterSlideChangeHandler(),
   };
 
   return (
@@ -48,38 +65,19 @@ const MovieCarousel = () => {
         <p className="opacity-50">Upcoming</p>
       </div>
       <Slider {...settings}>
-        <MovieSlide
-          posterUrl="images/1.jpg"
-          altText="First Man movie poster"
-          title="First Man"
-          genre="Biography/Drama/History"
-          imdbRating={7.3}
-          metascore={84}
-        />
-        <MovieSlide
-          posterUrl="images/2.jpg"
-          altText="Mission: Impossible - Rogue Nation movie poster"
-          title="Mission: Impossible - Rogue Nation"
-          genre="Action/Adventure/Thriller"
-          imdbRating={7.4}
-          metascore={75}
-        />
-        <MovieSlide
-          posterUrl="images/3.jpg"
-          altText="The Martian movie poster"
-          title="The Martian"
-          genre="Adventure/Drama/Sci-Fi"
-          imdbRating={8.0}
-          metascore={80}
-        />
-        <MovieSlide
-          posterUrl="images/4.jpg"
-          altText="Ford v Ferrari movie poster"
-          title="Ford v Ferrari"
-          genre=" Action/Biography/Drama"
-          imdbRating={8.1}
-          metascore={81}
-        />
+        {movies.map((movie) => (
+          <MovieSlide
+            key={movie.id}
+            // posterUrl={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
+            posterUrl={`./images${movie.poster_path}`}
+            altText={`${movie.title} poster`}
+            title={`${movie.title}`}
+            genre={genreMapper(movie.genre_ids)}
+            overview={movie.overview}
+            // imdbRating={7.3}
+            // metascore={84}
+          />
+        ))}
       </Slider>
     </div>
   );

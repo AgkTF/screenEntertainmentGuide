@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar";
 import Slider from "react-slick";
 import classes from "./Slideshow.module.css";
 
-const Slideshow = () => {
+const Slideshow = ({ movies }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -22,44 +22,19 @@ const Slideshow = () => {
     <>
       <Navbar />
       <Slider {...settings} className={classes.Slider}>
-        <div className={classes.imgCont}>
-          <img
-            src="images/7.jpg"
-            alt="dummy"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className={classes.imgCont}>
-          <img
-            src="images/8.jpg"
-            alt="dummy"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className={classes.imgCont}>
-          <img
-            src="images/9.jpg"
-            alt="dummy"
-            className="h-full w-full object-cover"
-          />
-          <span className="absolute bottom-8 px-8 text-gray-200 font-bai text-xl font-bold bg-gray-500 bg-opacity-25">
-            TENET
-          </span>
-        </div>
-        <div className={classes.imgCont}>
-          <img
-            src="images/10.jpg"
-            alt="dummy"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className={classes.imgCont}>
-          <img
-            src="images/11.jpg"
-            alt="dummy"
-            className="h-full w-full object-cover"
-          />
-        </div>
+        {movies.map((movie) => (
+          <div className={classes.imgCont} key={movie.id}>
+            <img
+              // src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
+              src={`./images/${movie.backdrop_path}`}
+              alt={`${movie.title} backdrop`}
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute bottom-8 px-4 text-gray-200 font-bai text-lg sm:text-xl font-bold bg-gray-500 bg-opacity-50 rounded max-w-xs uppercase">
+              {`${movie.title}`}
+            </span>
+          </div>
+        ))}
       </Slider>
     </>
   );
