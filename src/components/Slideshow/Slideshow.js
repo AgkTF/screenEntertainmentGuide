@@ -26,7 +26,7 @@ const Slideshow = ({ movies }) => {
           <div className={classes.imgCont} key={movie.id}>
             <img
               // src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
-              src={`./images/${movie.backdrop_path}`}
+              src={`./images${movie.backdrop_path}`}
               alt={`${movie.title} backdrop`}
               className="h-full w-full object-cover"
             />

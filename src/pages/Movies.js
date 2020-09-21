@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Slideshow from "../components/Slideshow/Slideshow";
 import MovieCarousel from "../components/MovieCarousel/MovieCarousel";
 
-// const [movies, setMovies] = useState([]);
-
-const movies = [
+const nowPlayingMovies = [
   {
     popularity: 787.24,
     vote_count: 433,
@@ -127,10 +126,28 @@ const movies = [
 ];
 
 const Movies = () => {
+  // const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1 `
+  //     )
+  //     .then((response) => {
+  //       console.log(response);
+  //       setNowPlayingMovies(response.data.results);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  // let movieTitles = nowPlayingMovies.map((movie) => movie.title);
+
   return (
     <>
-      <Slideshow movies={movies} />
-      <MovieCarousel movies={movies} />
+      <Slideshow movies={nowPlayingMovies} />
+      <MovieCarousel movies={nowPlayingMovies} />
     </>
   );
 };
