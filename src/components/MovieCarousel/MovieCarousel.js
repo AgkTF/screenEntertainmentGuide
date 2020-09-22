@@ -10,25 +10,8 @@ import { genreMapper } from "../../utils/genre-mapper";
 const MovieCarousel = ({ movies }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
   const [currentTitle, setCurrentTitle] = useState("");
-  // const [omdbDetails, setOmdbDetails] = useState({});
 
   console.log({ currentTitle });
-
-  // const fetchOMBdDetails = useCallback((title, year = 2020) => {
-  //   axios
-  //     .get(
-  //       `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMBD_KEY}&t=${title}&y=${year}`
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setOmdbDetails((omdbDetails) => {
-  //         return { ...omdbDetails, [response.data.Title]: response.data };
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   const afterSlideChangeHandler = useCallback(() => {
     let newCurrentSlide = document.querySelector(
@@ -36,12 +19,8 @@ const MovieCarousel = ({ movies }) => {
     );
     let newCurrentTitle = newCurrentSlide.querySelector("p.font-bold")
       .innerText;
-    // console.log(newCurrentTitle);
 
     setCurrentTitle(newCurrentTitle);
-
-    // if (omdbDetails[newCurrentTitle] || !newCurrentTitle) return;
-    // fetchOMBdDetails(currentTitle);
   }, []);
 
   useEffect(() => {
@@ -66,18 +45,6 @@ const MovieCarousel = ({ movies }) => {
 
   let padding = windowWidth >= 700 ? 24 : (windowWidth - 208) / 2;
   let slidesToShow = windowWidth >= 700 ? 3 : 1;
-
-  // let imdbRating =
-  //   omdbDetails[currentTitle] && omdbDetails[currentTitle].Ratings[0]
-  //     ? omdbDetails[currentTitle].Ratings[0].Value.split("/")[0]
-  //     : "NO 🛑";
-
-  // let metascore =
-  //   omdbDetails[currentTitle] && omdbDetails[currentTitle].Ratings[1]
-  //     ? omdbDetails[currentTitle].Ratings[1].Value.split("/")[0]
-  //     : "NO 🛑";
-
-  // console.log({ imdbRating, metascore });
 
   const settings = {
     className: "center",
@@ -112,8 +79,6 @@ const MovieCarousel = ({ movies }) => {
             title={`${movie.title}`}
             genre={genreMapper(movie.genre_ids)}
             isCurrent={currentTitle === movie.title ? true : false}
-            // imdbRating={imdbRating}
-            // metascore={metascore}
           />
         ))}
       </Slider>

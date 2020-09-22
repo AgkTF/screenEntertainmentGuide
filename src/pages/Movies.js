@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slideshow from "../components/Slideshow/Slideshow";
 import MovieCarousel from "../components/MovieCarousel/MovieCarousel";
+import { Switch, Route } from "react-router-dom";
 
 const nowPlayingMovies = [
   {

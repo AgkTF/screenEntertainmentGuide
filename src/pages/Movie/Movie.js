@@ -1,13 +1,135 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import star from "../../images/star.svg";
+import axios from "axios";
 import classes from "./Movie.module.css";
 
-const Movie = () => {
+const Movie = ({ match }) => {
+  console.log(match);
+
+  //TODO: useReducer()
+  const [tmdbDetails, setTmdbDetails] = useState({});
+  const [omdbDetails, setOmdbDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchOMBdDetails = useCallback((imdb_id) => {
+    axios
+      .get(
+        `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMBD_KEY}&i=${imdb_id}&plot=full`
+      )
+      .then((response) => {
+        console.log({ imdb: response.data });
+        setOmdbDetails(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const tmdb_id = match.params.id;
+  let prodCompanies = !isLoading
+    ? tmdbDetails.production_companies.map((company) => company.name).join(", ")
+    : "💩";
+  let langs = !isLoading
+    ? tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
+    : "💩";
+
+  const fetchTMBdDetails = useCallback(
+    (id) => {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US`
+        )
+        .then((response) => {
+          console.log(response.data);
+          setTmdbDetails(response.data);
+          let imdb_id = response.data && response.data.imdb_id;
+          if (!imdb_id) return;
+          fetchOMBdDetails(imdb_id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    [fetchOMBdDetails]
+  );
+
+  useEffect(() => {
+    fetchTMBdDetails(tmdb_id);
+  }, [fetchTMBdDetails, tmdb_id]);
+
+  let metascoreRating = !isLoading
+    ? omdbDetails.Ratings.find((rating) => rating.Source === "Metacritic")
+    : "";
+  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "💩";
+
+  let awards;
+  if (isLoading) {
+    awards = "💩";
+  } else if (
+    !isLoading &&
+    (omdbDetails.Awards === "" || omdbDetails.Awards === "N/A")
+  ) {
+    awards = (
+      <span className="text-xs font-normal italic sm:text-sm">
+        "No Awards for this movie yet!"
+      </span>
+    );
+  } else {
+    let parts = omdbDetails.Awards.split(".");
+    awards =
+      parts.length > 0 ? (
+        <>
+          <span className="text-xs font-semibold sm:text-sm">{parts[0]}</span>
+          <span className="text-xs font-normal italic sm:text-sm">
+            {parts[1]}
+          </span>
+        </>
+      ) : (
+        <span className="text-xs font-semibold sm:text-sm">{`${parts[0]}.`}</span>
+      );
+  }
+
+  let directors;
+  if (!isLoading) {
+    directors = omdbDetails.Director.split(", ").map((director) => (
+      <span key={director} className="text-xs font-semibold sm:text-sm">
+        {director}
+      </span>
+    ));
+  } else {
+    directors = "💩";
+  }
+
+  let writers;
+  if (!isLoading) {
+    writers = omdbDetails.Writer.split(", ").map((writer) => {
+      let parts = writer.split(" (");
+      if (parts.length === 1) {
+        return (
+          <p key={parts[0]} className="text-xs font-semibold sm:text-sm">
+            {parts[0]}
+          </p>
+        );
+      }
+      return (
+        <p key={parts[0]} className="text-xs font-semibold sm:text-sm">
+          {parts[0]}
+          <span className="italic font-light">{`(${parts[1]}`}</span>
+        </p>
+      );
+    });
+  } else {
+    writers = "💩";
+  }
+
+  console.log(writers);
+
   return (
     <div className="font-bai text-gray-700">
       <div className="relative inset-x-0 top-0">
         <svg
-          className="w-6 h-6 absolute top-4 left-4 z-50 text-gray-600"
+          className="w-6 h-6 absolute top-4 left-4 z-50 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -22,8 +144,8 @@ const Movie = () => {
         </svg>
         <div className={classes.Backdrop}>
           <img
-            src="images/12.jpg"
-            alt="Movie backdrop"
+            src={`https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`}
+            alt={`${tmdbDetails.title} backdrop`}
             className="h-full w-full object-cover"
           />
         </div>
@@ -33,19 +155,28 @@ const Movie = () => {
         <section className={`relative flex items-end ${classes.PosterSec}`}>
           <div className="w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content">
             <img
-              src="images/3.jpg"
-              alt="Movie poster"
+              src={`https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`}
+              alt={`${tmdbDetails.title} poster`}
               className="h-full w-full object-cover"
             />
           </div>
 
           <div className="ml-4 sm:ml-6 sm:flex">
-            <div>
-              <p className="font-bold text-lg sm:text-xl">The Martian</p>
-              <p className="text-xs">Drama/Biography/Action</p>
-              <p className="text-xs">PG-13 / 2h 38min</p>
+            <div className="flex-grow flex-shrink-0">
+              <p className="font-bold text-lg sm:text-xl">
+                {tmdbDetails.title}
+              </p>
+              <p className="text-xs">
+                {!isLoading ? omdbDetails.Genre.replaceAll(", ", "/") : "💩"}
+              </p>
+              <p className="text-xs">
+                {!isLoading
+                  ? `${omdbDetails.Rated} / ${omdbDetails.Runtime}`
+                  : "💩"}
+                {/* PG-13 / 2h 38min */}
+              </p>
             </div>
-            <div className="w-full flex items-end sm:justify-end">
+            <div className="w-full flex items-end sm:justify-end sm:items-end">
               <div className="mt-3 flex flex-col justify-center items-center">
                 <div className="flex items-center justify-center">
                   <img
@@ -54,14 +185,14 @@ const Movie = () => {
                     className="w-3 h-3 sm:w-4 sm:h-4"
                   />
                   <span className="ml-1 text-xs font-semibold sm:text-sm">
-                    8.0
+                    {!isLoading && omdbDetails.imdbRating}
                   </span>
                 </div>
                 <p className="text-xs font-light">IMDb</p>
               </div>
               <div className="ml-8 text-center">
                 <span className="p-1 bg-green-500 text-xs text-white font-semibold">
-                  80
+                  {metascore}
                 </span>
                 <p className="text-xs font-light">Metascore</p>
               </div>
@@ -72,17 +203,12 @@ const Movie = () => {
         <section className="mt-6 sm:mt-8">
           <h2 className="text-sm font-bold sm:text-lg">Plot Summary</h2>
           <p className="mt-1 text-xs sm:text-sm">
-            During a manned mission to Mars, Astronaut Mark Watney is presumed
-            dead after a fierce storm and left behind by his crew. But Watney
-            has survived and finds himself stranded and alone on the hostile
-            planet. With only meager supplies, he must draw upon his ingenuity,
-            wit and spirit to subsist and find a way to signal to Earth that he
-            is alive.
+            {!isLoading ? omdbDetails.Plot : "💩"}
           </p>
         </section>
 
         <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">Cast & Crew</h2>
+          <h2 className="text-sm font-bold sm:text-lg">Main Cast & Crew</h2>
           <div className="mt-2 flex flex-no-wrap">
             <div className="flex flex-col w-16 mr-3 sm:mr-4">
               <img
@@ -148,49 +274,37 @@ const Movie = () => {
           <div className={`mt-3 sm:mt-4 ${classes.CrewDetails}`}>
             <div className="flex flex-col">
               <span className="text-xs">Director</span>
-              <span className="text-xs font-semibold sm:text-sm">
-                Ridley Scott
-              </span>
+              {directors}
             </div>
 
-            <div className="mt-2 flex flex-col">
+            <div className="mt-2 sm:mt-0 flex flex-col">
               <span className="text-xs">Writer</span>
-              <p className="text-xs font-semibold sm:text-sm">
-                Drew Goddard{" "}
-                <span className="italic font-light">(screenplay by)</span>
-              </p>
-              <p className="text-xs font-semibold sm:text-sm">
-                Andy Weir{" "}
-                <span className="italic font-light">
-                  {" "}
-                  (based on the novel by)
-                </span>
-              </p>
+              {writers}
             </div>
           </div>
         </section>
 
         <section className="mt-5">
           <h2 className="text-sm font-bold sm:text-lg">Details</h2>
-          <div className="mt-1 flex flex-wrap justify-between">
+          <div
+            className={`mt-1 flex flex-wrap justify-between ${classes.Details}`}
+          >
             <div className="flex flex-col">
               <span className="text-xs">Release Date</span>
               <span className="text-xs font-semibold sm:text-sm">
-                02 Oct 2015
+                {!isLoading ? omdbDetails.Released : "💩"}
               </span>
             </div>
 
             <div className="flex flex-col">
               <span className="text-xs">Language Spoken</span>
-              <span className="text-xs font-semibold sm:text-sm">
-                English, Mandarin
-              </span>
+              <span className="text-xs font-semibold sm:text-sm">{langs}</span>
             </div>
 
             <div className="flex flex-col">
               <span className="text-xs">Country of Origin</span>
               <span className="text-xs font-semibold sm:text-sm">
-                UK, USA, Hungary, Jordan
+                {!isLoading ? omdbDetails.Country : "💩"}
               </span>
             </div>
           </div>
@@ -204,14 +318,18 @@ const Movie = () => {
             <div className="flex flex-col">
               <span className="text-xs">Budget</span>
               <span className="text-xs font-semibold tracking-wider sm:text-sm">
-                $108,000,000
+                {!isLoading
+                  ? `$${tmdbDetails.budget.toLocaleString("en-US")}`
+                  : "💩"}
               </span>
             </div>
 
             <div className="flex flex-col">
               <span className="text-xs">Revenue</span>
               <span className="text-xs font-semibold tracking-wider sm:text-sm">
-                $630,161,890
+                {!isLoading
+                  ? `$${tmdbDetails.revenue.toLocaleString("en-US")}`
+                  : "💩"}
               </span>
             </div>
           </div>
@@ -220,14 +338,7 @@ const Movie = () => {
         <section className="mt-5 sm:mt-6">
           <h2 className="text-sm font-bold sm:text-lg">Awards</h2>
           <div className="mt-1 flex flex-wrap justify-between">
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold sm:text-sm">
-                Nominated For 7 Oscars
-              </span>
-              <span className="text-xs font-normal italic sm:text-sm">
-                Another 40 wins & 188 nominations
-              </span>
-            </div>
+            <div className="flex flex-col">{awards}</div>
           </div>
         </section>
 
@@ -237,8 +348,7 @@ const Movie = () => {
             <div className="flex flex-col">
               <span className="text-xs">Production Company</span>
               <span className="text-xs font-semibold sm:text-sm">
-                Scott Free Productions, Mid Atlantic Films, International
-                Traders, TSG Entertainment, Genre Films, 20th Century Fox
+                {prodCompanies}
               </span>
             </div>
           </div>
