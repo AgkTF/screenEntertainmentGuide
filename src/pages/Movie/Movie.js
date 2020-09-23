@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import star from "../../images/star.svg";
 import axios from "axios";
 import classes from "./Movie.module.css";
+import Cast from "../../components/Cast/Cast";
+import Similar from "../../components/Similar/Similar";
 
 const Movie = ({ match }) => {
   console.log(match);
@@ -123,8 +125,6 @@ const Movie = ({ match }) => {
     writers = "💩";
   }
 
-  console.log(writers);
-
   return (
     <div className="font-bai text-gray-700">
       <div className="relative inset-x-0 top-0">
@@ -208,67 +208,30 @@ const Movie = ({ match }) => {
         </section>
 
         <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">Main Cast & Crew</h2>
-          <div className="mt-2 flex flex-no-wrap">
-            <div className="flex flex-col w-16 mr-3 sm:mr-4">
-              <img
-                className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded"
-                src="images/13.jpg"
-                alt="actor"
-              />
-              <p
-                className="mt-1 flex flex-col justify-center items-center font-semibold text-xs"
-                style={{ lineHeight: "14px" }}
-              >
-                <span>Matt</span>
-                <span>Damon</span>
-              </p>
-            </div>
-
-            <div className="flex flex-col w-16 mr-3 sm:mr-4">
-              <img
-                className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded"
-                src="images/14.jpg"
-                alt="actor"
-              />
-              <p
-                className="mt-1 flex flex-col justify-center items-center font-semibold text-xs"
-                style={{ lineHeight: "14px" }}
-              >
-                <span>Jeff</span>
-                <span>Daniels</span>
-              </p>
-            </div>
-
-            <div className="flex flex-col w-16 mr-3 sm:mr-4">
-              <img
-                className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded"
-                src="images/15.jpg"
-                alt="actor"
-              />
-              <p
-                className="mt-1 flex flex-col justify-center items-center font-semibold text-xs"
-                style={{ lineHeight: "14px" }}
-              >
-                <span>Jessica</span>
-                <span>Chastain</span>
-              </p>
-            </div>
-
-            <div className="flex flex-col w-16 mr-3 sm:mr-4">
-              <img
-                className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded"
-                src="images/16.jpg"
-                alt="actor"
-              />
-              <p
-                className="mt-1 flex flex-col justify-center items-center font-semibold text-xs"
-                style={{ lineHeight: "14px" }}
-              >
-                <span>Kristen </span>
-                <span>Wiig</span>
-              </p>
-            </div>
+          <div className="flex justify-between items-center">
+            <h2 className="text-sm font-bold sm:text-lg">Cast & Crew</h2>
+            <p className="text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2">
+              See more{" "}
+              <span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </p>
+          </div>
+          <div className="mt-2 flex flex-no-wrap overflow-auto">
+            {!isLoading ? <Cast tmdb_id={tmdb_id} /> : "🍿"}
           </div>
 
           <div className={`mt-3 sm:mt-4 ${classes.CrewDetails}`}>
@@ -356,46 +319,8 @@ const Movie = ({ match }) => {
 
         <section className="mt-5 sm:mt-6">
           <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
-          <div className="mt-2 sm:mt-3 flex flex-no-wrap">
-            <div className="flex flex-col mr-4">
-              <div className="w-20 h-32 sm:w-24 sm:h-40 rounded-lg overflow-hidden">
-                <img
-                  className="w-full h-full object-cover"
-                  src="images/18.jpg"
-                  alt="poster"
-                />
-              </div>
-
-              <span className="mt-1 text-center font-semibold text-xs sm:text-sm">
-                Apollo 13
-              </span>
-            </div>
-
-            <div className="flex flex-col mr-4">
-              <div className="w-20 h-32 sm:w-24 sm:h-40 rounded-lg overflow-hidden">
-                <img
-                  className="w-full h-full object-cover"
-                  src="images/1.jpg"
-                  alt="poster"
-                />
-              </div>
-              <span className="mt-1 text-center font-semibold text-xs sm:text-sm">
-                First Man
-              </span>
-            </div>
-
-            <div className="flex flex-col mr-4">
-              <div className="w-20 h-32 sm:w-24 sm:h-40 rounded-lg overflow-hidden">
-                <img
-                  className="w-full h-full object-cover"
-                  src="images/19.jpg"
-                  alt="poster"
-                />
-              </div>
-              <span className="mt-1 text-center font-semibold text-xs sm:text-sm">
-                Gravity
-              </span>
-            </div>
+          <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
+            <Similar tmdb_id={tmdbDetails.id} />
           </div>
         </section>
       </main>

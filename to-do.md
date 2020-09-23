@@ -17,3 +17,5 @@
 ☐ The default country is US, but a feature should be added for the user to choose their country.
 
 ☐ User should expand both the poster and the backdrops.
+
+☐ Movie ratings as icons

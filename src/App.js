@@ -8,6 +8,7 @@ function App() {
     <div className="mx-auto max-w-2xl min-h-screen bg-gray-200 shadow-lg">
       <Switch>
         <Route path="/:id" component={Movie} />
+        {/* <Route path="/:id/full-cast" component={} /> */}
 
         <Route path="/" exact component={Movies} />
         {/* <Route path="/movies/now-playing" exact component={Movies} />
