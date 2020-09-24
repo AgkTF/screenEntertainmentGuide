@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Sections from "../../components/Sections/Sections";
 import star from "../../images/star.svg";
 import axios from "axios";
 import classes from "./Movie.module.css";
-import Cast from "../../components/Cast/Cast";
-import Similar from "../../components/Similar/Similar";
+import { Route } from "react-router-dom";
+import FullCast from "../../components/Full-Cast/FullCast";
 
-const Movie = ({ match }) => {
-  console.log(match);
+const Movie = ({ match, history }) => {
+  console.log("RENDERED 🚀");
 
   //TODO: useReducer()
   const [tmdbDetails, setTmdbDetails] = useState({});
   const [omdbDetails, setOmdbDetails] = useState({});
+  const [team, setTeam] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const tmdb_id = match.params.id;
 
   const fetchOMBdDetails = useCallback((imdb_id) => {
     axios
@@ -28,13 +32,20 @@ const Movie = ({ match }) => {
       });
   }, []);
 
-  const tmdb_id = match.params.id;
-  let prodCompanies = !isLoading
-    ? tmdbDetails.production_companies.map((company) => company.name).join(", ")
-    : "💩";
-  let langs = !isLoading
-    ? tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
-    : "💩";
+  const fetchCast = useCallback(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${tmdb_id}/credits?api_key=${process.env.REACT_APP_TMBD_KEY}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setTeam(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [tmdb_id]);
 
   const fetchTMBdDetails = useCallback(
     (id) => {
@@ -48,17 +59,25 @@ const Movie = ({ match }) => {
           let imdb_id = response.data && response.data.imdb_id;
           if (!imdb_id) return;
           fetchOMBdDetails(imdb_id);
+          // fetchCast();
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    [fetchOMBdDetails]
+    [fetchOMBdDetails, fetchCast]
   );
 
-  useEffect(() => {
-    fetchTMBdDetails(tmdb_id);
-  }, [fetchTMBdDetails, tmdb_id]);
+  // useEffect(() => {
+  //   fetchTMBdDetails(tmdb_id);
+  // }, [fetchTMBdDetails, tmdb_id]);
+
+  let prodCompanies = !isLoading
+    ? tmdbDetails.production_companies.map((company) => company.name).join(", ")
+    : "💩";
+  let langs = !isLoading
+    ? tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
+    : "💩";
 
   let metascoreRating = !isLoading
     ? omdbDetails.Ratings.find((rating) => rating.Source === "Metacritic")
@@ -115,9 +134,9 @@ const Movie = ({ match }) => {
         );
       }
       return (
-        <p key={parts[0]} className="text-xs font-semibold sm:text-sm">
+        <p key={parts} className="text-xs font-semibold sm:text-sm">
           {parts[0]}
-          <span className="italic font-light">{`(${parts[1]}`}</span>
+          <span className="italic font-light">{` (${parts[1]}`}</span>
         </p>
       );
     });
@@ -128,201 +147,112 @@ const Movie = ({ match }) => {
   return (
     <div className="font-bai text-gray-700">
       <div className="relative inset-x-0 top-0">
-        <svg
-          className="w-6 h-6 absolute top-4 left-4 z-50 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          className="absolute top-4 left-4 z-50 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
+          onClick={() => {
+            history.goBack();
+          }}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
         <div className={classes.Backdrop}>
           <img
-            src={`https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`}
+            // src={`https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`}
+            src="/images/24-1.jpg"
             alt={`${tmdbDetails.title} backdrop`}
             className="h-full w-full object-cover"
           />
         </div>
       </div>
 
-      <main className="mx-5 relative -mt-20 sm:-mt-48 sm:mx-8 lg:mx-12">
-        <section className={`relative flex items-end ${classes.PosterSec}`}>
-          <div className="w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content">
-            <img
-              src={`https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`}
-              alt={`${tmdbDetails.title} poster`}
-              className="h-full w-full object-cover"
-            />
-          </div>
+      <section
+        className={`mx-5 sm:mx-8 lg:mx-12 relative flex items-end -mt-24 sm:-mt-48 ${classes.PosterSec}`}
+      >
+        <div className="w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content">
+          <img
+            // src={`https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`}
+            src="/images/24.jpg"
+            alt={`${tmdbDetails.title} poster`}
+            className="h-full w-full object-cover"
+          />
+        </div>
 
-          <div className="ml-4 sm:ml-6 sm:flex">
-            <div className="flex-grow flex-shrink-0">
-              <p className="font-bold text-lg sm:text-xl">
-                {tmdbDetails.title}
-              </p>
-              <p className="text-xs">
-                {!isLoading ? omdbDetails.Genre.replaceAll(", ", "/") : "💩"}
-              </p>
-              <p className="text-xs">
-                {!isLoading
-                  ? `${omdbDetails.Rated} / ${omdbDetails.Runtime}`
-                  : "💩"}
-                {/* PG-13 / 2h 38min */}
-              </p>
-            </div>
-            <div className="w-full flex items-end sm:justify-end sm:items-end">
-              <div className="mt-3 flex flex-col justify-center items-center">
-                <div className="flex items-center justify-center">
-                  <img
-                    src={star}
-                    alt="rating star"
-                    className="w-3 h-3 sm:w-4 sm:h-4"
-                  />
-                  <span className="ml-1 text-xs font-semibold sm:text-sm">
-                    {!isLoading && omdbDetails.imdbRating}
-                  </span>
-                </div>
-                <p className="text-xs font-light">IMDb</p>
-              </div>
-              <div className="ml-8 text-center">
-                <span className="p-1 bg-green-500 text-xs text-white font-semibold">
-                  {metascore}
-                </span>
-                <p className="text-xs font-light">Metascore</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-6 sm:mt-8">
-          <h2 className="text-sm font-bold sm:text-lg">Plot Summary</h2>
-          <p className="mt-1 text-xs sm:text-sm">
-            {!isLoading ? omdbDetails.Plot : "💩"}
-          </p>
-        </section>
-
-        <section className="mt-5 sm:mt-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-sm font-bold sm:text-lg">Cast & Crew</h2>
-            <p className="text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2">
-              See more{" "}
-              <span>
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </span>
+        <div className="ml-4 sm:ml-6 sm:flex">
+          <div className="flex-grow flex-shrink-0">
+            <p className="font-bold text-lg sm:text-xl">{tmdbDetails.title}</p>
+            <p className="text-xs">
+              {!isLoading ? omdbDetails.Genre.replaceAll(", ", "/") : "💩"}
+            </p>
+            <p className="text-xs">
+              {!isLoading
+                ? `${omdbDetails.Rated} / ${omdbDetails.Runtime}`
+                : "💩"}
+              {/* PG-13 / 2h 38min */}
             </p>
           </div>
-          <div className="mt-2 flex flex-no-wrap overflow-auto">
-            {!isLoading ? <Cast tmdb_id={tmdb_id} /> : "🍿"}
-          </div>
-
-          <div className={`mt-3 sm:mt-4 ${classes.CrewDetails}`}>
-            <div className="flex flex-col">
-              <span className="text-xs">Director</span>
-              {directors}
+          <div className="w-full flex items-end sm:justify-end sm:items-end">
+            <div className="mt-3 flex flex-col justify-center items-center">
+              <div className="flex items-center justify-center">
+                <img
+                  src={star}
+                  alt="rating star"
+                  className="w-3 h-3 sm:w-4 sm:h-4"
+                />
+                <span className="ml-1 text-xs font-semibold sm:text-sm">
+                  {!isLoading && omdbDetails.imdbRating}
+                </span>
+              </div>
+              <p className="text-xs font-light">IMDb</p>
             </div>
-
-            <div className="mt-2 sm:mt-0 flex flex-col">
-              <span className="text-xs">Writer</span>
-              {writers}
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-5">
-          <h2 className="text-sm font-bold sm:text-lg">Details</h2>
-          <div
-            className={`mt-1 flex flex-wrap justify-between ${classes.Details}`}
-          >
-            <div className="flex flex-col">
-              <span className="text-xs">Release Date</span>
-              <span className="text-xs font-semibold sm:text-sm">
-                {!isLoading ? omdbDetails.Released : "💩"}
+            <div className="ml-8 text-center">
+              <span className="p-1 bg-green-500 text-xs text-white font-semibold">
+                {metascore}
               </span>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="text-xs">Language Spoken</span>
-              <span className="text-xs font-semibold sm:text-sm">{langs}</span>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="text-xs">Country of Origin</span>
-              <span className="text-xs font-semibold sm:text-sm">
-                {!isLoading ? omdbDetails.Country : "💩"}
-              </span>
+              <p className="text-xs font-light">Metascore</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">Box Office</h2>
-          <div
-            className={`mt-1 flex flex-wrap justify-between ${classes.BoxDetails}`}
-          >
-            <div className="flex flex-col">
-              <span className="text-xs">Budget</span>
-              <span className="text-xs font-semibold tracking-wider sm:text-sm">
-                {!isLoading
-                  ? `$${tmdbDetails.budget.toLocaleString("en-US")}`
-                  : "💩"}
-              </span>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="text-xs">Revenue</span>
-              <span className="text-xs font-semibold tracking-wider sm:text-sm">
-                {!isLoading
-                  ? `$${tmdbDetails.revenue.toLocaleString("en-US")}`
-                  : "💩"}
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">Awards</h2>
-          <div className="mt-1 flex flex-wrap justify-between">
-            <div className="flex flex-col">{awards}</div>
-          </div>
-        </section>
-
-        <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">Company Credits</h2>
-          <div className="mt-1 flex flex-wrap justify-between">
-            <div className="flex flex-col">
-              <span className="text-xs">Production Company</span>
-              <span className="text-xs font-semibold sm:text-sm">
-                {prodCompanies}
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-5 sm:mt-6">
-          <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
-          <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
-            <Similar tmdb_id={tmdbDetails.id} />
-          </div>
-        </section>
+      <main className="mx-5 relative sm:mx-8 lg:mx-12">
+        <Route
+          path="/:id/details"
+          render={() => (
+            <Sections
+              isLoading={isLoading}
+              plot={omdbDetails.Plot}
+              tmdb_id={tmdb_id}
+              directors={directors}
+              writers={writers}
+              released={omdbDetails.Released}
+              langs={langs}
+              country={omdbDetails.Country}
+              budget={tmdbDetails.budget}
+              revenue={tmdbDetails.revenue}
+              awards={awards}
+              prodCompanies={prodCompanies}
+              cast={team.cast}
+            />
+          )}
+        />
+        <Route
+          path="/:id/full-cast"
+          exact
+          render={() => <FullCast fullTeam={team} />}
+        />
       </main>
     </div>
   );

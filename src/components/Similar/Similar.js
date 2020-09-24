@@ -35,7 +35,7 @@ const Similar = ({ tmdb_id }) => {
           </div>
 
           <span className="mt-1 font-semibold text-xs sm:text-sm leading-tight">
-            <Link to={`${movie.id}`}>{movie.title}</Link>
+            <Link to={`/${movie.id}/details`}>{movie.title}</Link>
           </span>
         </div>
       ))

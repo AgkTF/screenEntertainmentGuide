@@ -31,7 +31,7 @@ const Slideshow = ({ movies }) => {
               alt={`${movie.title} backdrop`}
               className="h-full w-full object-cover"
             />
-            <Link to={`${movie.id}`}>
+            <Link to={`${movie.id}/details`}>
               <span className="absolute bottom-8 px-4 text-gray-200 font-bai text-lg sm:text-xl font-bold bg-gray-500 bg-opacity-50 rounded max-w-xs uppercase">
                 {`${movie.title}`}
               </span>

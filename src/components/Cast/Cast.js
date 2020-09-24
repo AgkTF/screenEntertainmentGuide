@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Cast = ({ tmdb_id }) => {
-  const [cast, setCast] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const Cast = ({ isLoading, cast }) => {
+  // const [cast, setCast] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${tmdb_id}/credits?api_key=${process.env.REACT_APP_TMBD_KEY}`
-      )
-      .then((response) => {
-        console.log(response.data.cast);
-        setCast(response.data.cast);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [tmdb_id]);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/${tmdb_id}/credits?api_key=${process.env.REACT_APP_TMBD_KEY}`
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data.cast);
+  //       setCast(response.data.cast);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [tmdb_id]);
 
   let rendered = !isLoading
     ? cast.slice(0, 6).map((actor) => (
