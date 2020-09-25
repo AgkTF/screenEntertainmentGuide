@@ -10,8 +10,8 @@ const PersonUnit = ({ id, name, character, profile_path, gender }) => {
         return "/male-wo.svg";
       }
     } else {
-      return "/images/17.jpg";
-      // return `https://image.tmdb.org/t/p/w185${profile_path}`;
+      // return "/images/17.jpg";
+      return `https://image.tmdb.org/t/p/w185${profile_path}`;
     }
   };
 

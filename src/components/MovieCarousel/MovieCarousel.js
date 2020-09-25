@@ -24,10 +24,6 @@ const MovieCarousel = ({ movies }) => {
   }, []);
 
   useEffect(() => {
-    afterSlideChangeHandler();
-  }, [afterSlideChangeHandler]);
-
-  useEffect(() => {
     const resizeHandler = () => {
       setWindowWith(window.innerWidth);
     };
@@ -73,7 +69,11 @@ const MovieCarousel = ({ movies }) => {
           <MovieSlide
             key={movie.id}
             id={movie.id}
-            // posterUrl={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
+            // posterUrl={
+            //   movie.poster_path
+            //     ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
+            //     : "/images/24.jpg"
+            // }
             posterUrl={`./images${movie.poster_path}`}
             altText={`${movie.title} poster`}
             title={`${movie.title}`}

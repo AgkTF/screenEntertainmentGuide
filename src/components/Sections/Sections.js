@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const Sections = ({
   isLoading,
   plot,
-  tmdb_id,
   directors,
   writers,
   released,
@@ -18,13 +17,14 @@ const Sections = ({
   awards,
   prodCompanies,
   cast,
+  similar,
 }) => {
   console.log();
   return (
     <>
       <section className="mt-6 sm:mt-8">
         <h2 className="text-sm font-bold sm:text-lg">Plot Summary</h2>
-        <p className="mt-1 text-xs sm:text-sm">{!isLoading ? plot : "💩"}</p>
+        <p className="mt-1 text-xs sm:text-sm">{plot}</p>
       </section>
       <section className="mt-5 sm:mt-6">
         <div className="flex justify-between items-center">
@@ -52,7 +52,7 @@ const Sections = ({
           </Link>
         </div>
         <div className="mt-4 flex flex-no-wrap overflow-auto">
-          {!isLoading ? <Cast isLoading={isLoading} cast={cast} /> : "🍿"}
+          <Cast cast={cast} />
         </div>
 
         <div className={`mt-3 sm:mt-4 ${classes.CrewDetails}`}>
@@ -74,9 +74,7 @@ const Sections = ({
         >
           <div className="flex flex-col">
             <span className="text-xs">Release Date</span>
-            <span className="text-xs font-semibold sm:text-sm">
-              {!isLoading ? released : "💩"}
-            </span>
+            <span className="text-xs font-semibold sm:text-sm">{released}</span>
           </div>
 
           <div className="flex flex-col">
@@ -86,9 +84,7 @@ const Sections = ({
 
           <div className="flex flex-col">
             <span className="text-xs">Country of Origin</span>
-            <span className="text-xs font-semibold sm:text-sm">
-              {!isLoading ? country : "💩"}
-            </span>
+            <span className="text-xs font-semibold sm:text-sm">{country}</span>
           </div>
         </div>
       </section>
@@ -100,14 +96,14 @@ const Sections = ({
           <div className="flex flex-col">
             <span className="text-xs">Budget</span>
             <span className="text-xs font-semibold tracking-wider sm:text-sm">
-              {!isLoading ? `$${budget.toLocaleString("en-US")}` : "💩"}
+              {`$${budget.toLocaleString("en-US")}`}
             </span>
           </div>
 
           <div className="flex flex-col">
             <span className="text-xs">Revenue</span>
             <span className="text-xs font-semibold tracking-wider sm:text-sm">
-              {!isLoading ? `$${revenue.toLocaleString("en-US")}` : "💩"}
+              {`$${revenue.toLocaleString("en-US")}`}
             </span>
           </div>
         </div>
@@ -132,7 +128,7 @@ const Sections = ({
       <section className="mt-5 sm:mt-6">
         <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
         <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
-          {/* <Similar tmdb_id={tmdb_id} /> */}
+          <Similar movies={similar} isLoading={isLoading} />
         </div>
       </section>
     </>

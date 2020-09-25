@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const Similar = ({ tmdb_id }) => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (!tmdb_id) return;
-
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${tmdb_id}/similar?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1`
-      )
-      .then((response) => {
-        console.log(response.data.results);
-        setMovies(response.data.results);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [tmdb_id]);
-
-  let rendered = !isLoading
+const Similar = ({ movies }) => {
+  let rendered = movies
     ? movies.slice(0, 6).map((movie) => (
         <div className="flex flex-col mr-4" key={movie.id}>
           <div className="w-20 h-32 sm:w-24 sm:h-40 rounded-lg overflow-hidden">
