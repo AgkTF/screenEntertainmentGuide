@@ -5,7 +5,6 @@ import classes from "./Sections.module.css";
 import { Link } from "react-router-dom";
 
 const Sections = ({
-  isLoading,
   plot,
   directors,
   writers,
@@ -128,7 +127,7 @@ const Sections = ({
       <section className="mt-5 sm:mt-6">
         <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
         <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
-          <Similar movies={similar} isLoading={isLoading} />
+          <Similar movies={similar} />
         </div>
       </section>
     </>

@@ -9,6 +9,7 @@ import FullCast from "../../components/Full-Cast/FullCast";
 const Movie = ({ match, history }) => {
   console.log("RENDERED 🚀");
   const tmdb_id = match.params.id;
+
   const [tmdbDetails, setTmdbDetails] = useState({});
   const [tmdbLoading, setTmdbLoading] = useState(true);
 
@@ -74,8 +75,6 @@ const Movie = ({ match, history }) => {
         {director}
       </span>
     ));
-  } else {
-    directors = "💩";
   }
 
   let writers;
@@ -96,8 +95,6 @@ const Movie = ({ match, history }) => {
         </p>
       );
     });
-  } else {
-    writers = "💩";
   }
 
   let awards;
@@ -150,7 +147,11 @@ const Movie = ({ match, history }) => {
         </button>
         <div className={classes.Backdrop}>
           <img
-            src={`https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`}
+            src={
+              !tmdbLoading
+                ? `https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`
+                : ""
+            }
             alt={`${tmdbDetails.title} backdrop`}
             className="h-full w-full object-cover"
           />
@@ -158,11 +159,15 @@ const Movie = ({ match, history }) => {
       </div>
 
       <section
-        className={`mx-5 sm:mx-8 lg:mx-12 relative flex items-end -mt-24 sm:-mt-48 ${classes.PosterSec}`}
+        className={`mx-5 sm:mx-8 lg:mx-12 relative flex items-end -mt-20 sm:-mt-48 ${classes.PosterSec}`}
       >
         <div className="w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content">
           <img
-            src={`https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`}
+            src={
+              !tmdbLoading
+                ? `https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`
+                : ""
+            }
             alt={`${tmdbDetails.title} poster`}
             className="h-full w-full object-cover"
           />
