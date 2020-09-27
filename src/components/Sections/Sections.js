@@ -29,7 +29,7 @@ const Sections = ({
         <div className="flex justify-between items-center">
           <h2 className="text-sm font-bold sm:text-lg">Cast & Crew</h2>
           <Link to="full-cast">
-            <p className="text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2">
+            <p className="text-xs sm:text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2 hover:bg-gray-500 hover:text-gray-200">
               See more{" "}
               <span>
                 <svg
@@ -60,7 +60,7 @@ const Sections = ({
             {directors}
           </div>
 
-          <div className="mt-2 sm:mt-0 flex flex-col">
+          <div className="sm:mt-0 flex flex-col">
             <span className="text-xs">Writer</span>
             {writers}
           </div>
@@ -68,9 +68,7 @@ const Sections = ({
       </section>
       <section className="mt-5">
         <h2 className="text-sm font-bold sm:text-lg">Details</h2>
-        <div
-          className={`mt-1 flex flex-wrap justify-between ${classes.Details}`}
-        >
+        <div className={`mt-1 ${classes.Details}`}>
           <div className="flex flex-col">
             <span className="text-xs">Release Date</span>
             <span className="text-xs font-semibold sm:text-sm">{released}</span>
@@ -89,20 +87,20 @@ const Sections = ({
       </section>
       <section className="mt-5 sm:mt-6">
         <h2 className="text-sm font-bold sm:text-lg">Box Office</h2>
-        <div
-          className={`mt-1 flex flex-wrap justify-between ${classes.BoxDetails}`}
-        >
+        <div className={`mt-1 ${classes.BoxDetails}`}>
           <div className="flex flex-col">
             <span className="text-xs">Budget</span>
             <span className="text-xs font-semibold tracking-wider sm:text-sm">
-              {`$${budget.toLocaleString("en-US")}`}
+              <span className="text-green-600">$</span>
+              {budget.toLocaleString("en-US")}
             </span>
           </div>
 
           <div className="flex flex-col">
             <span className="text-xs">Revenue</span>
             <span className="text-xs font-semibold tracking-wider sm:text-sm">
-              {`$${revenue.toLocaleString("en-US")}`}
+              <span className="text-green-600">$</span>
+              {revenue.toLocaleString("en-US")}
             </span>
           </div>
         </div>
@@ -125,7 +123,28 @@ const Sections = ({
         </div>
       </section>
       <section className="mt-5 sm:mt-6">
-        <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
+          <p className="text-xs sm:text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2 hover:bg-gray-500 hover:text-gray-200">
+            See more{" "}
+            <span>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </span>
+          </p>
+        </div>
         <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
           <Similar movies={similar} />
         </div>

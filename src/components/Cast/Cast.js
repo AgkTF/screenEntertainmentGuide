@@ -18,7 +18,7 @@ const Cast = ({ cast }) => {
           >
             <Link to={`/${actor.id}`}>{actor.name}</Link>
           </p>
-          <p className="mt-1 font-light italic text-xs text-center">
+          <p className="mt-1 font-light text-xs text-center">
             <span>{actor.character}</span>
           </p>
         </div>

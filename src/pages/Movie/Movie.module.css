@@ -9,7 +9,7 @@
 
   .PosterSec {
     display: grid;
-    grid-template-columns: 0.5fr auto;
+    grid-template-columns: 0.4fr auto;
   }
 
   .CrewDetails,

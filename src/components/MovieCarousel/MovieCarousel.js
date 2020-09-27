@@ -39,7 +39,7 @@ const MovieCarousel = ({ movies }) => {
     };
   }, [windowWidth]);
 
-  let padding = windowWidth >= 700 ? 24 : (windowWidth - 208) / 2;
+  let padding = windowWidth >= 700 ? 64 : (windowWidth - 208) / 2;
   let slidesToShow = windowWidth >= 700 ? 3 : 1;
 
   const settings = {

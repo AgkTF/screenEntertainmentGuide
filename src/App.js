@@ -144,7 +144,7 @@ function App() {
   ];
 
   return (
-    <div className="mx-auto max-w-2xl min-h-screen bg-gray-200 shadow-lg">
+    <div className="mx-auto max-w-3xl min-h-screen bg-gray-200 shadow-lg">
       <Switch>
         <Route path="/:id" component={Movie} />
 

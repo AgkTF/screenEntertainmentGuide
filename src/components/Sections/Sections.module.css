@@ -2,6 +2,22 @@
   height: 18rem;
 }
 
+.Details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.Details div:nth-child(3) {
+  margin-top: 2px;
+}
+
+.CrewDetails,
+.BoxDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 @media screen and (min-width: 640px) {
   .Backdrop {
     height: 25rem;
@@ -16,12 +32,14 @@
   .BoxDetails {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
-    gap: 8px;
   }
 
   .Details {
     display: grid;
-    grid-template-columns: 0.75fr 1fr 0.5fr;
-    gap: 8px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .Details div:nth-child(3) {
+    margin-top: 0;
   }
 }
