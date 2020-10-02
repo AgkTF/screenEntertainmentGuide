@@ -1,0 +1,10 @@
+.PosterExpand {
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+.PosterContainer:hover .PosterExpand {
+  opacity: 1;
+}

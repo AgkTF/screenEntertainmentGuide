@@ -2,6 +2,16 @@
   height: 18rem;
 }
 
+/* .PosterExpand {
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  bottom: -24px;
+}
+
+.PosterContainer:hover .PosterExpand {
+  bottom: 0;
+} */
+
 @media screen and (min-width: 640px) {
   .Backdrop {
     height: 25rem;

@@ -7,6 +7,7 @@ import Sections from "../../components/Sections/Sections";
 import FullCast from "../../components/Full-Cast/FullCast";
 import { response } from "../../utils/response";
 import { timeExpander } from "../../utils/timeExpander";
+import Poster from "../../components/Poster/Poster";
 
 const omdb = {
   Title: "The Martian",
@@ -161,7 +162,7 @@ const Movie = ({ match, history }) => {
     <div className="font-bai text-gray-700">
       <div className="relative inset-x-0 top-0">
         <button
-          className="absolute top-4 left-4 z-50 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
+          className="absolute top-4 left-4 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
           onClick={() => {
             history.goBack();
           }}
@@ -197,18 +198,11 @@ const Movie = ({ match, history }) => {
       <section
         className={`mx-5 sm:mx-8 md:mx-12 relative flex items-end -mt-20 sm:-mt-48 ${classes.PosterSec}`}
       >
-        <div className="w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content">
-          <img
-            src={
-              !tmdbLoading
-                ? `https://image.tmdb.org/t/p/w342${tmdbDetails.poster_path}`
-                : ""
-            }
-            alt={`${tmdbDetails.title} poster`}
-            className="h-full w-full object-cover"
-          />
-        </div>
-
+        <Poster
+          poster_path={tmdbDetails.poster_path}
+          title={tmdbDetails.title}
+          tmdbLoading={tmdbLoading}
+        />
         <div className="ml-4 sm:ml-6 sm:flex">
           <div className="flex-grow flex-shrink-0">
             <p className="font-bold text-lg sm:text-xl">{tmdbDetails.title}</p>

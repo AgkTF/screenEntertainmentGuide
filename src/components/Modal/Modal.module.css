@@ -1,0 +1,32 @@
+.Current {
+  width: 16rem;
+  height: 25rem;
+}
+
+.Content {
+  max-width: 768px;
+  margin: auto;
+  padding-top: 1rem;
+  /* background: rgba(237, 242, 247, 0.9); */
+}
+
+.Content:focus {
+  outline: none;
+}
+
+.InnerSlider {
+  width: 16rem;
+  margin: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .Current {
+    width: 23rem;
+    height: 36rem;
+  }
+
+  .InnerSlider {
+    width: 23rem;
+    margin: auto;
+  }
+}

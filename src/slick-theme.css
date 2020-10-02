@@ -91,9 +91,10 @@
 
 .slick-dots {
   position: absolute;
-  bottom: 12px;
+  /* bottom: 12px; */
+  bottom: -7rem;
 
-  display: flex;
+  display: flex !important;
   justify-content: center;
 
   width: 100%;
@@ -104,6 +105,12 @@
 
   text-align: center;
 }
+@media screen and (min-width: 768px) {
+  .slick-dots {
+    bottom: -9rem;
+  }
+}
+
 .slick-dots li {
   position: relative;
 
