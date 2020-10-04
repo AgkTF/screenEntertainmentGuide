@@ -163,9 +163,8 @@ const Person = ({ match, history }) => {
         <section className="relative mt-1">
           <Roles
             known_for={personDetails.known_for_department}
-            cast={personDetails.combined_credits.cast}
-            crew={personDetails.combined_credits.crew}
-            // combined_credits={personDetails.combined_credits}
+            cast={!detailsLoading ? personDetails.combined_credits.cast : []}
+            crew={!detailsLoading ? personDetails.combined_credits.crew : []}
           />
         </section>
       </section>

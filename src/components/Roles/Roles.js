@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Roles = ({ known_for, combined_credits = { cast: [], crew: [] } }) => {
+const Roles = ({ known_for, cast, crew }) => {
   console.log("ROLES 🐾");
-  console.log(combined_credits);
 
   const [filters, setFilters] = useState({
     mediaType: "movie",
-    department: known_for,
+    department: "",
   });
 
   const mediaChangeHandler = (e) => {
@@ -77,17 +76,14 @@ const Roles = ({ known_for, combined_credits = { cast: [], crew: [] } }) => {
     return [...uniqueDeps];
   };
 
-  const sortedCastMovies = mediaTypeExtractor(combined_credits.cast, "movie");
-  const sortedCastTv = mediaTypeExtractor(combined_credits.cast, "tv");
+  const sortedCastMovies = mediaTypeExtractor(cast, "movie");
+  const sortedCastTv = mediaTypeExtractor(cast, "tv");
 
-  const sortedCrewMovies = mediaTypeExtractor(combined_credits.crew, "movie");
-  const sortedCrewTv = mediaTypeExtractor(combined_credits.crew, "tv");
+  const sortedCrewMovies = mediaTypeExtractor(crew, "movie");
+  const sortedCrewTv = mediaTypeExtractor(crew, "tv");
 
   const uniqueMovieDeps = uniqueDepsExtractor(sortedCrewMovies);
   const uniqueTvDeps = uniqueDepsExtractor(sortedCrewTv);
-
-  // console.log(uniqueMovieDeps);
-  // console.log(uniqueTvDeps);
 
   let movieActingRoles = sortedCastMovies.map((work) => {
     let year = work.release_date ? work.release_date.split("-")[0] : "-";
@@ -147,80 +143,67 @@ const Roles = ({ known_for, combined_credits = { cast: [], crew: [] } }) => {
   }
   // console.log(allFatherCrewTvArray);
 
-  const createDataToRender = useCallback(
-    (mediaType, dep) => {
-      let dataToRender;
-      if (mediaType === "movie" && dep === "Acting") {
-        dataToRender = movieActingRoles;
-      } else if (mediaType === "tv" && dep === "Acting") {
-        dataToRender = tvActingRoles;
-      } else if (mediaType === "movie" && dep !== "Acting") {
-        let index = uniqueMovieDeps.indexOf(dep);
-        if (index === -1) {
-          return <p>Nothing there</p>;
-        }
-        console.log(index);
-
-        let sortedAllFatherMovies = sortArrayByYear(allFatherCrewMovieArray);
-
-        dataToRender = sortedAllFatherMovies[index].map((work) => (
-          <div key={work.id} className="mt-1 flex">
-            <span className="text-xs font-light mr-2">
-              {work.release_date ? work.release_date.split("-")[0] : ""}
-            </span>
-            <p className="text-xs">
-              <Link to={`/${work.id}/details`}>
-                <span className="font-semibold">
-                  {work.title ? work.title : ""}
-                </span>
-              </Link>
-              <span className="font-hairline"> as </span>
-              <span className="font-normal">{work.job}</span>
-            </p>
-          </div>
-        ));
-      } else if (mediaType === "tv" && dep !== "Acting") {
-        let index = uniqueTvDeps.indexOf(dep);
-        if (index === -1) {
-          return <p>Nothing there</p>;
-        }
-        console.log(index);
-
-        let sortedAllFatherTv = sortArrayByYear(allFatherCrewTvArray);
-
-        dataToRender = sortedAllFatherTv[index].map((work) => (
-          <div key={work.id} className="mt-1 flex">
-            <span className="text-xs font-light mr-2">
-              {work.release_date ? work.release_date.split("-")[0] : ""}
-            </span>
-            <p className="text-xs">
-              <Link to={`/${work.id}/details`}>
-                <span className="font-semibold">
-                  {work.title ? work.title : ""}
-                </span>
-              </Link>
-              <span className="font-hairline"> as </span>
-              <span className="font-normal">{work.job}</span>
-            </p>
-          </div>
-        ));
+  const createDataToRender = (mediaType, dep) => {
+    let dataToRender;
+    if (mediaType === "movie" && dep === "Acting") {
+      dataToRender = movieActingRoles;
+    } else if (mediaType === "tv" && dep === "Acting") {
+      dataToRender = tvActingRoles;
+    } else if (mediaType === "movie" && dep !== "Acting") {
+      console.log(uniqueMovieDeps);
+      let index = uniqueMovieDeps.indexOf(dep);
+      if (index === -1) {
+        return <p>Nothing here</p>;
       }
+      console.log(index);
 
-      return dataToRender;
-    },
-    [
-      allFatherCrewMovieArray,
-      allFatherCrewTvArray,
-      movieActingRoles,
-      tvActingRoles,
-      uniqueMovieDeps,
-      uniqueTvDeps,
-    ]
-  );
+      let sortedAllFatherMovies = sortArrayByYear(allFatherCrewMovieArray);
 
-  // useEffect(() => {
-  //   createDataToRender(filters.mediaType, filters.department);
-  // }, [createDataToRender, filters.mediaType, filters.department]);
+      dataToRender = sortedAllFatherMovies[index].map((work) => (
+        <div key={work.id} className="mt-1 flex">
+          <span className="text-xs font-light mr-2">
+            {work.release_date ? work.release_date.split("-")[0] : ""}
+          </span>
+          <p className="text-xs">
+            <Link to={`/${work.id}/details`}>
+              <span className="font-semibold">
+                {work.title ? work.title : ""}
+              </span>
+            </Link>
+            <span className="font-hairline"> as </span>
+            <span className="font-normal">{work.job}</span>
+          </p>
+        </div>
+      ));
+    } else if (mediaType === "tv" && dep !== "Acting") {
+      let index = uniqueTvDeps.indexOf(dep);
+      if (index === -1) {
+        return <p>Nothing here</p>;
+      }
+      console.log(index);
+
+      let sortedAllFatherTv = sortArrayByYear(allFatherCrewTvArray);
+
+      dataToRender = sortedAllFatherTv[index].map((work) => (
+        <div key={work.id} className="mt-1 flex">
+          <span className="text-xs font-light mr-2">
+            {work.first_air_date ? work.first_air_date.split("-")[0] : ""}
+          </span>
+          <p className="text-xs">
+            <Link to={`/${work.id}/details`}>
+              <span className="font-semibold">
+                {work.name ? work.name : ""}
+              </span>
+            </Link>
+            <span className="font-hairline"> as </span>
+            <span className="font-normal">{work.job}</span>
+          </p>
+        </div>
+      ));
+    }
+
+    return dataToRender;
+  };
 
   return (
     <>
@@ -254,9 +237,14 @@ const Roles = ({ known_for, combined_credits = { cast: [], crew: [] } }) => {
       </div>
 
       <section className="mt-3">
-        <h3 className="font-semibold text-sm">{filters.department}</h3>
+        <h3 className="font-semibold text-sm">
+          {!filters.department ? known_for : filters.department}
+        </h3>
         <div className="mt-2">
-          {createDataToRender(filters.mediaType, filters.department)}
+          {createDataToRender(
+            filters.mediaType,
+            !filters.department ? known_for : filters.department
+          )}
         </div>
       </section>
     </>

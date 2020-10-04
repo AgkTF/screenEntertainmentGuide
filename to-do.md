@@ -18,10 +18,12 @@
 
 ☐ The default country is US, but a feature should be added for the user to choose their country.
 
-☐ Movie ratings as icons
-
 ☐ Footer
 
 ☐ Children with the same key in Fullcast component
 
 ☐ Show little movie preview on hover in person page
+
+☐ solution to unreachable images
+
+☐ Movie ratings as icons
