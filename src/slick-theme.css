@@ -178,3 +178,13 @@
   background: gray;
   border: 2px solid white;
 }
+
+.slick-thumb {
+  bottom: -3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .slick-thumb {
+    bottom: -6rem;
+  }
+}

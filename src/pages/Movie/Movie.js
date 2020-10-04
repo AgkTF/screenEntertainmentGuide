@@ -5,58 +5,59 @@ import axios from "axios";
 import { Route } from "react-router-dom";
 import Sections from "../../components/Sections/Sections";
 import FullCast from "../../components/Full-Cast/FullCast";
-import { response } from "../../utils/response";
+// import { response } from "../../utils/response";
 import { timeExpander } from "../../utils/timeExpander";
 import Poster from "../../components/Poster/Poster";
+import Backdrop from "../../components/Backdrop/Backdrop";
 
-const omdb = {
-  Title: "The Martian",
-  Year: "2015",
-  Rated: "PG-13",
-  Released: "02 Oct 2015",
-  Runtime: "144 min",
-  Genre: "Adventure, Drama, Sci-Fi",
-  Director: "Ridley Scott",
-  Writer: "Drew Goddard (screenplay by), Andy Weir (based on the novel by)",
-  Actors: "Matt Damon, Jessica Chastain, Kristen Wiig, Jeff Daniels",
-  Plot:
-    "An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.",
-  Language: "English, Mandarin",
-  Country: "UK, USA, Hungary, Jordan",
-  Awards: "Nominated for 7 Oscars. Another 40 wins & 188 nominations.",
-  Poster:
-    "https://m.media-amazon.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_SX300.jpg",
-  Ratings: [
-    { Source: "Internet Movie Database", Value: "8.0/10" },
-    { Source: "Rotten Tomatoes", Value: "91%" },
-    { Source: "Metacritic", Value: "80/100" },
-  ],
-  Metascore: "80",
-  imdbRating: "8.0",
-  imdbVotes: "738,085",
-  imdbID: "tt3659388",
-  Type: "movie",
-  DVD: "12 Jan 2016",
-  BoxOffice: "$202,313,768",
-  Production: "20th Century Fox",
-  Website: "N/A",
-  Response: "True",
-};
+// const omdb = {
+//   Title: "The Martian",
+//   Year: "2015",
+//   Rated: "PG-13",
+//   Released: "02 Oct 2015",
+//   Runtime: "144 min",
+//   Genre: "Adventure, Drama, Sci-Fi",
+//   Director: "Ridley Scott",
+//   Writer: "Drew Goddard (screenplay by), Andy Weir (based on the novel by)",
+//   Actors: "Matt Damon, Jessica Chastain, Kristen Wiig, Jeff Daniels",
+//   Plot:
+//     "An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.",
+//   Language: "English, Mandarin",
+//   Country: "UK, USA, Hungary, Jordan",
+//   Awards: "Nominated for 7 Oscars. Another 40 wins & 188 nominations.",
+//   Poster:
+//     "https://m.media-amazon.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_SX300.jpg",
+//   Ratings: [
+//     { Source: "Internet Movie Database", Value: "8.0/10" },
+//     { Source: "Rotten Tomatoes", Value: "91%" },
+//     { Source: "Metacritic", Value: "80/100" },
+//   ],
+//   Metascore: "80",
+//   imdbRating: "8.0",
+//   imdbVotes: "738,085",
+//   imdbID: "tt3659388",
+//   Type: "movie",
+//   DVD: "12 Jan 2016",
+//   BoxOffice: "$202,313,768",
+//   Production: "20th Century Fox",
+//   Website: "N/A",
+//   Response: "True",
+// };
 
 const Movie = ({ match, history }) => {
   console.log("RENDERED 🚀");
   const tmdb_id = match.params.id;
 
-  const [tmdbDetails, setTmdbDetails] = useState(response);
-  const [tmdbLoading, setTmdbLoading] = useState(false);
+  const [tmdbDetails, setTmdbDetails] = useState({});
+  const [tmdbLoading, setTmdbLoading] = useState(true);
 
-  const [omdbDetails, setOmdbDetails] = useState(omdb);
-  const [omdbLoading, setOmdbLoading] = useState(false);
+  const [omdbDetails, setOmdbDetails] = useState({});
+  const [omdbLoading, setOmdbLoading] = useState(true);
 
   const fetchTMBdDetails = useCallback((id) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&append_to_response=credits%2Csimilar`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&append_to_response=credits%2Csimilar%2Cimages`
       )
       .then((response) => {
         console.log(response.data);
@@ -85,13 +86,13 @@ const Movie = ({ match, history }) => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   fetchTMBdDetails(tmdb_id);
-  // }, [tmdb_id, fetchTMBdDetails]);
+  useEffect(() => {
+    fetchTMBdDetails(tmdb_id);
+  }, [tmdb_id, fetchTMBdDetails]);
 
-  // useEffect(() => {
-  //   fetchOMBdDetails(tmdbDetails.imdb_id);
-  // }, [fetchOMBdDetails, tmdbDetails.imdb_id]);
+  useEffect(() => {
+    fetchOMBdDetails(tmdbDetails.imdb_id);
+  }, [fetchOMBdDetails, tmdbDetails.imdb_id]);
 
   let prodCompanies = !tmdbLoading
     ? tmdbDetails.production_companies.map((company) => company.name).join(", ")
@@ -182,17 +183,13 @@ const Movie = ({ match, history }) => {
             />
           </svg>
         </button>
-        <div className={classes.Backdrop}>
-          <img
-            src={
-              !tmdbLoading
-                ? `https://image.tmdb.org/t/p/w780${tmdbDetails.backdrop_path}`
-                : ""
-            }
-            alt={`${tmdbDetails.title} backdrop`}
-            className="h-full w-full object-cover"
-          />
-        </div>
+
+        <Backdrop
+          backdrop_path={tmdbDetails.backdrop_path}
+          title={tmdbDetails.title}
+          images={!tmdbLoading ? tmdbDetails.images.backdrops : []}
+          tmdbLoading={tmdbLoading}
+        />
       </div>
 
       <section
@@ -201,6 +198,7 @@ const Movie = ({ match, history }) => {
         <Poster
           poster_path={tmdbDetails.poster_path}
           title={tmdbDetails.title}
+          images={!tmdbLoading ? tmdbDetails.images.posters : []}
           tmdbLoading={tmdbLoading}
         />
         <div className="ml-4 sm:ml-6 sm:flex">

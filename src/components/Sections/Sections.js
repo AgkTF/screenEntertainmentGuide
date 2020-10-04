@@ -51,7 +51,7 @@ const Sections = ({
           </Link>
         </div>
         <div className="mt-4 flex flex-no-wrap overflow-auto">
-          {/* <Cast cast={cast} /> */}
+          <Cast cast={cast} />
         </div>
 
         <div className={`mt-3 sm:mt-4 ${classes.CrewDetails}`}>
@@ -146,7 +146,7 @@ const Sections = ({
           </p>
         </div>
         <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
-          {/* <Similar movies={similar} /> */}
+          <Similar movies={similar} />
         </div>
       </section>
     </>

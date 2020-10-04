@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Movies from "./pages/Movies";
 import Movie from "./pages/Movie/Movie";
+import Person from "./pages/Person/Person";
 import { Switch, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -146,6 +147,7 @@ function App() {
   return (
     <div className="mx-auto max-w-3xl min-h-screen bg-gray-200 shadow-lg">
       <Switch>
+        <Route path="/person/:id" exact component={Person} />
         <Route path="/:id" component={Movie} />
 
         <Route

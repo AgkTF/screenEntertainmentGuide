@@ -5,9 +5,9 @@ const PersonUnit = ({ id, name, character, profile_path, gender }) => {
   const srcSelector = (profile_path, gender) => {
     if (!profile_path) {
       if (gender === 1) {
-        return "/female-wo.svg";
+        return "/female-wo-1.svg";
       } else {
-        return "/male-wo.svg";
+        return "/male-wo-1.svg";
       }
     } else {
       // return "/images/17.jpg";

@@ -1,0 +1,9 @@
+.Backdrop {
+  height: 18rem;
+}
+
+@media screen and (min-width: 640px) {
+  .Backdrop {
+    height: 25rem;
+  }
+}

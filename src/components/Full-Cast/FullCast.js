@@ -404,6 +404,7 @@ const FullCast = ({ fullTeam }) => {
   //   ],
   // };
 
+  // Get the unique department
   const uniqueDeps = new Set(fullTeam.crew.map((person) => person.department));
   const uniqueDepsArray = [...uniqueDeps];
 

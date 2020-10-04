@@ -1,0 +1,8 @@
+.Less {
+  max-height: 144px;
+  overflow: hidden;
+}
+
+.More {
+  height: auto;
+}

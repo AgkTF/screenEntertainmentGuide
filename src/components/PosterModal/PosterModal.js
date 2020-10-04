@@ -1,30 +1,30 @@
 import React from "react";
-import classes from "./Modal.module.css";
+import classes from "./PosterModal.module.css";
 import ReactModal from "react-modal";
 import Slider from "react-slick";
 
 ReactModal.setAppElement("#root");
-const urls = [
-  "/images/1.jpg",
-  "/images/2.jpg",
-  "/images/3.jpg",
-  "/images/4.jpg",
-  "/images/5.jpg",
-  "/images/6.jpg",
-];
-const Modal = ({ isOpen, toggleHandler }) => {
+// const urls = [
+//   "/images/1.jpg",
+//   "/images/2.jpg",
+//   "/images/3.jpg",
+//   "/images/4.jpg",
+//   "/images/5.jpg",
+//   "/images/6.jpg",
+// ];
+const PosterModal = ({ isOpen, toggleHandler, posters }) => {
   const settings = {
     customPaging: (i) => (
       <div className="w-16 h-24 sm:w-20 sm:h-32 rounded overflow-hidden">
         <img
-          src={urls[i]}
+          src={`https://image.tmdb.org/t/p/w780${posters[i].file_path}`}
           alt="poster"
           className="w-full h-full object-cover"
         />
       </div>
     ),
     dots: true,
-    dotsClass: "slick-dots slick-thumb",
+    dotsClass: "slick-dots",
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -40,13 +40,14 @@ const Modal = ({ isOpen, toggleHandler }) => {
       shouldCloseOnOverlayClick={true}
       onRequestClose={toggleHandler}
       className={classes.Content}
+      overlayClassName={classes.Overlay}
+      bodyOpenClassName={classes.Body}
     >
-      {/* <p>This is the modal</p> */}
       <Slider {...settings}>
-        {urls.map((url) => (
-          <div key={url} className={classes.Current}>
+        {posters.map((poster) => (
+          <div key={poster.file_path} className={classes.Current}>
             <img
-              src={url}
+              src={`https://image.tmdb.org/t/p/w500${poster.file_path}`}
               alt="poster"
               className="w-full h-full object-cover"
             />
@@ -57,4 +58,4 @@ const Modal = ({ isOpen, toggleHandler }) => {
   );
 };
 
-export default Modal;
+export default PosterModal;

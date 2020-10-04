@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Modal from "../Modal/Modal";
+import PosterModal from "../PosterModal/PosterModal";
 import classes from "./Poster.module.css";
 
-const Poster = ({ poster_path, title, tmdbLoading }) => {
+const Poster = ({ poster_path, title, tmdbLoading, images }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const openModalHandler = () => {
@@ -43,7 +43,11 @@ const Poster = ({ poster_path, title, tmdbLoading }) => {
         </span>
       </button>
 
-      <Modal isOpen={openModal} toggleHandler={openModalHandler} />
+      <PosterModal
+        isOpen={openModal}
+        toggleHandler={openModalHandler}
+        posters={images}
+      />
     </div>
   );
 };
