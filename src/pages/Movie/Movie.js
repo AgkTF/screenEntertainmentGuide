@@ -9,6 +9,7 @@ import FullCast from "../../components/Full-Cast/FullCast";
 import { timeExpander } from "../../utils/timeExpander";
 import Poster from "../../components/Poster/Poster";
 import Backdrop from "../../components/Backdrop/Backdrop";
+import { Link } from "react-router-dom";
 
 // const omdb = {
 //   Title: "The Martian",

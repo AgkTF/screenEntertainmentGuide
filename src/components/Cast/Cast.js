@@ -16,7 +16,7 @@ const Cast = ({ cast }) => {
             className="mt-2 font-semibold text-xs sm:text-sm text-center"
             style={{ lineHeight: "14px" }}
           >
-            <Link to={`/${actor.id}`}>{actor.name}</Link>
+            <Link to={`/person/${actor.id}`}>{actor.name}</Link>
           </p>
           <p className="mt-1 font-light text-xs text-center">
             <span>{actor.character}</span>

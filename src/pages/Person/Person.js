@@ -2,81 +2,37 @@ import React, { useState, useEffect } from "react";
 import classes from "./Person.module.css";
 import { Link } from "react-router-dom";
 import { data } from "../../utils/person-data";
+import Roles from "../../components/Roles/Roles";
+import axios from "axios";
 
 const Person = ({ match, history }) => {
   console.log("Person RENDERED 🤵");
   const person_id = match.params.id;
 
-  const [personDetails, setPersonDetails] = useState(data);
+  const [personDetails, setPersonDetails] = useState({});
+  const [detailsLoading, setDetailsLoading] = useState(true);
+
   const [moreBio, setMoreBio] = useState(false);
 
   const moreBioHandler = () => {
     setMoreBio((prevState) => !prevState);
   };
 
-  const uniqueDeps = new Set(
-    data.combined_credits.crew.map((work) => work.department)
-  );
-  const uniqueDepsArray = [...uniqueDeps];
-  let combined = [];
-  for (let i = 0; i < uniqueDepsArray.length; i++) {
-    let single = data.combined_credits.crew.filter(
-      (work) => work.department === uniqueDepsArray[i]
-    );
-    combined.push(single);
-  }
-  console.log(combined);
-
-  let crewRoles = uniqueDepsArray.map((department, index) => (
-    <section key={department} className="mt-3">
-      <h3 className="font-semibold text-sm">{department}</h3>
-      <div className="mt-1">
-        {combined[index].map((work) => (
-          <div key={work.id} className="mt-1 flex">
-            <span className="text-xs font-light mr-2">
-              {work.release_date !== undefined
-                ? work.release_date.split("-")[0]
-                : work.first_air_date.split("-")[0]}
-            </span>
-            <p className="text-xs">
-              <Link to={`/${work.id}/details`}>
-                <span className="font-semibold">
-                  {work.title ? work.title : work.name}
-                </span>
-              </Link>
-              <span className="font-hairline"> as </span>
-              <span className="font-normal">{work.job}</span>
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
-  ));
-
-  let actingRoles = personDetails.combined_credits.cast.map((work) => {
-    let year;
-    if (!work.release_date && !work.first_air_date) {
-      year = "-";
-    } else if (work.release_date) {
-      year = work.release_date.split("-")[0];
-    } else if (work.first_air_date) {
-      year = work.first_air_date.split("-")[0];
-    }
-
-    let title = work.title ? work.title : work.name;
-    return (
-      <div key={work.id} className="mt-1 flex">
-        <span className="text-xs font-light mr-2">{year}</span>
-        <p className="text-xs">
-          <Link to={`/${work.id}/details`}>
-            <span className="font-semibold">{title}</span>
-          </Link>
-          {work.character ? <span className="font-hairline"> as </span> : ""}
-          <span className="font-normal">{work.character}</span>
-        </p>
-      </div>
-    );
-  });
+  //TODO: check the language parameter for any problems
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&append_to_response=combined_credits`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setPersonDetails(response.data);
+        setDetailsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [person_id]);
 
   return (
     <div className="mx-4 pt-4 font-bai text-gray-700">
@@ -108,10 +64,14 @@ const Person = ({ match, history }) => {
         <div className="mr-5 w-32 h-48 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2">
           <img
             className="w-full h-full object-cover"
-            src="/images/13.jpg"
-            alt="poster"
-            // src={`https://image.tmdb.org/t/p/w185${personDetails.profile_path}`}
-            // alt={`${personDetails.name} profile pic`}
+            // src="/images/13.jpg"
+            // alt="poster"
+            src={
+              personDetails.profile_path
+                ? `https://image.tmdb.org/t/p/w185${personDetails.profile_path}`
+                : ""
+            }
+            alt={`${personDetails.name} profile pic`}
           />
         </div>
         <div>
@@ -149,10 +109,11 @@ const Person = ({ match, history }) => {
             </span>
           </div>
 
-          {/* //TODO: null mapper */}
           <div className="mt-1 flex flex-col">
             <span className="text-xs">Deathday</span>
-            <span className="-mt-1 text-xs font-semibold">Still alive</span>
+            <span className="-mt-1 text-xs font-semibold">
+              {!personDetails.deathday ? "Still alive" : personDetails.deathday}
+            </span>
           </div>
         </div>
       </section>
@@ -177,28 +138,36 @@ const Person = ({ match, history }) => {
       <section className="mt-4">
         <h1 className="font-bold text-base">Known for</h1>
         <div className="mt-1 flex flex-no-wrap overflow-auto">
-          {personDetails.combined_credits.cast.slice(0, 6).map((work) => (
-            <div className="mr-5 flex flex-col items-center" key={work.id}>
-              <div className="w-20 h-32 rounded overflow-hidden">
-                <img
-                  src={`https://image.tmdb.org/t/p/w185${work.poster_path}`}
-                  alt={`${work.title} Movie poster`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="font-semibold text-xs leading-tight text-center">
-                <Link to={`/${work.id}/details`}>{work.title}</Link>
-              </p>
-            </div>
-          ))}
+          {!detailsLoading
+            ? personDetails.combined_credits.cast.slice(0, 6).map((work) => (
+                <div className="mr-5 flex flex-col items-center" key={work.id}>
+                  <div className="w-20 h-32 rounded overflow-hidden">
+                    <img
+                      src={
+                        work.poster_path
+                          ? `https://image.tmdb.org/t/p/w185${work.poster_path}`
+                          : ""
+                      }
+                      alt={`${work.title} Movie poster`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="font-semibold text-xs leading-tight text-center">
+                    <Link to={`/${work.id}/details`}>{work.title}</Link>
+                  </p>
+                </div>
+              ))
+            : "❓"}
         </div>
 
-        <section className="mt-1">
-          <h3 className="font-semibold text-sm">Acting</h3>
-          {actingRoles}
+        <section className="relative mt-1">
+          <Roles
+            known_for={personDetails.known_for_department}
+            cast={personDetails.combined_credits.cast}
+            crew={personDetails.combined_credits.crew}
+            // combined_credits={personDetails.combined_credits}
+          />
         </section>
-
-        <section>{crewRoles}</section>
       </section>
     </div>
   );

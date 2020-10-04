@@ -23,3 +23,5 @@
 ☐ Footer
 
 ☐ Children with the same key in Fullcast component
+
+☐ Show little movie preview on hover in person page
