@@ -90,9 +90,9 @@ const Roles = ({ known_for, cast, crew }) => {
     let title = work.title;
 
     return (
-      <div key={work.id} className="mt-1 flex">
-        <span className="text-xs font-light mr-2">{year}</span>
-        <p className="text-xs">
+      <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
+        <span className="font-light mr-2">{year}</span>
+        <p>
           <Link to={`/${work.id}/details`}>
             <span className="font-semibold">{title}</span>
           </Link>
@@ -111,9 +111,9 @@ const Roles = ({ known_for, cast, crew }) => {
     })`;
 
     return (
-      <div key={work.id} className="mt-1 flex">
-        <span className="text-xs font-light mr-2">{year}</span>
-        <p className="text-xs">
+      <div key={work.credit_id} className="mt-1 flex text-xs sm:text-sm">
+        <span className="font-light mr-2">{year}</span>
+        <p>
           <Link to={`/${work.id}/details`}>
             <span className="font-semibold">{title}</span>
           </Link>
@@ -160,11 +160,11 @@ const Roles = ({ known_for, cast, crew }) => {
       let sortedAllFatherMovies = sortArrayByYear(allFatherCrewMovieArray);
 
       dataToRender = sortedAllFatherMovies[index].map((work) => (
-        <div key={work.id} className="mt-1 flex">
-          <span className="text-xs font-light mr-2">
+        <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
+          <span className="font-light mr-2">
             {work.release_date ? work.release_date.split("-")[0] : ""}
           </span>
-          <p className="text-xs">
+          <p>
             <Link to={`/${work.id}/details`}>
               <span className="font-semibold">
                 {work.title ? work.title : ""}
@@ -185,11 +185,11 @@ const Roles = ({ known_for, cast, crew }) => {
       let sortedAllFatherTv = sortArrayByYear(allFatherCrewTvArray);
 
       dataToRender = sortedAllFatherTv[index].map((work) => (
-        <div key={work.id} className="mt-1 flex">
-          <span className="text-xs font-light mr-2">
+        <div key={work.credit_id} className="mt-1 flex text-xs sm:text-sm">
+          <span className="font-light mr-2 flex-shrink-0">
             {work.first_air_date ? work.first_air_date.split("-")[0] : ""}
           </span>
-          <p className="text-xs">
+          <p>
             <Link to={`/${work.id}/details`}>
               <span className="font-semibold">
                 {work.name ? work.name : ""}
@@ -205,47 +205,46 @@ const Roles = ({ known_for, cast, crew }) => {
     return dataToRender;
   };
 
+  let rolesToRender = createDataToRender(
+    filters.mediaType,
+    !filters.department ? known_for : filters.department
+  );
+
   return (
     <>
-      <div className="absolute top-1 right-0 flex justify-between items-center">
-        <div className="text-xs">
-          <select
-            value={filters.mediaType}
-            onChange={mediaChangeHandler}
-            className="rounded "
-          >
-            <option value="movie">Movies</option>
-            <option value="tv">TV Shows</option>
-          </select>
-
-          <select
-            value={filters.department}
-            onChange={depChangeHandler}
-            className="ml-4 rounded "
-          >
-            <option value="" disabled>
-              Department
-            </option>
-            <option value="Acting">Acting</option>
-            {uniqueMovieDeps.map((dep) => (
-              <option key={dep} value={dep}>
-                {dep}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
       <section className="mt-3">
-        <h3 className="font-semibold text-sm">
-          {!filters.department ? known_for : filters.department}
-        </h3>
-        <div className="mt-2">
-          {createDataToRender(
-            filters.mediaType,
-            !filters.department ? known_for : filters.department
-          )}
+        <div className="flex justify-between">
+          <h3 className="font-semibold text-sm sm:text-base">
+            {!filters.department ? known_for : filters.department}
+          </h3>
+          <div className="text-xs sm:text-sm">
+            <select
+              value={filters.mediaType}
+              onChange={mediaChangeHandler}
+              className="px-1 rounded bg-gray-500 text-gray-200"
+            >
+              <option value="movie">Movies</option>
+              <option value="tv">TV Shows</option>
+            </select>
+
+            <select
+              value={filters.department}
+              onChange={depChangeHandler}
+              className="ml-4 px-1 rounded bg-gray-500 text-gray-200"
+            >
+              <option value="" disabled>
+                Department
+              </option>
+              <option value="Acting">Acting</option>
+              {uniqueMovieDeps.map((dep) => (
+                <option key={dep} value={dep}>
+                  {dep}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <div className="mt-2">{rolesToRender}</div>
       </section>
     </>
   );

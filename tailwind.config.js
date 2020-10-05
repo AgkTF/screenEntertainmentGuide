@@ -1,6 +1,13 @@
 module.exports = {
   purge: [],
   theme: {
+    screens: {
+      xs: "414px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
     extend: {
       spacing: {
         "1/2": "50%",
@@ -29,6 +36,7 @@ module.exports = {
         "9/12": "75%",
         "10/12": "83.333333%",
         "11/12": "91.666667%",
+        72: "18rem",
       },
       fontFamily: {
         bai: "Bai Jamjuree",
@@ -71,9 +79,6 @@ module.exports = {
         "-48": "12rem",
         "-56": "14rem",
         "-64": "16rem",
-      },
-      screens: {
-        xs: "414px",
       },
     },
   },
