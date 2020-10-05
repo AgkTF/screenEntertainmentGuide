@@ -12,11 +12,13 @@ const Backdrop = ({ backdrop_path, title, tmdbLoading, images }) => {
   return (
     <div className={classes.Backdrop}>
       <img
-        src={
-          !tmdbLoading ? `https://image.tmdb.org/t/p/w780${backdrop_path}` : ""
-        }
+        src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
         alt={`${title} backdrop`}
         className="h-full w-full object-cover"
+        // onError={(e) => {
+        //   e.target.onerror = null;
+        //   e.target.src = "../../images/failed-to-load.jpg";
+        // }}
       />
       <button
         className="absolute right-4 bottom-2 text-sm font-semibold text-gray-200 underline z-30 tracking-wide"

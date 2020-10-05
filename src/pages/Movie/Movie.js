@@ -10,6 +10,7 @@ import { timeExpander } from "../../utils/timeExpander";
 import Poster from "../../components/Poster/Poster";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import { Link } from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
 
 // const omdb = {
 //   Title: "The Martian",
@@ -65,8 +66,15 @@ const Movie = ({ match, history }) => {
         setTmdbDetails(response.data);
         setTmdbLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
       });
   }, []);
 
@@ -82,8 +90,15 @@ const Movie = ({ match, history }) => {
         setOmdbDetails(response.data);
         setOmdbLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
       });
   }, []);
 
@@ -95,50 +110,63 @@ const Movie = ({ match, history }) => {
     fetchOMBdDetails(tmdbDetails.imdb_id);
   }, [fetchOMBdDetails, tmdbDetails.imdb_id]);
 
-  let prodCompanies = !tmdbLoading
-    ? tmdbDetails.production_companies.map((company) => company.name).join(", ")
-    : "💩";
-  let langs = !tmdbLoading
-    ? tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
-    : "💩";
+  let prodCompanies = !tmdbLoading ? (
+    tmdbDetails.production_companies.map((company) => company.name).join(", ")
+  ) : (
+    <Spinner />
+  );
+
+  let langs = !tmdbLoading ? (
+    tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
+  ) : (
+    <Spinner />
+  );
 
   let metascoreRating = !omdbLoading
     ? omdbDetails.Ratings.find((rating) => rating.Source === "Metacritic")
     : "";
-  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "💩";
+  let metascore = metascoreRating ? (
+    metascoreRating.Value.split("/")[0]
+  ) : (
+    <Spinner />
+  );
 
   let directors;
-  if (!omdbLoading) {
-    directors = omdbDetails.Director.split(", ").map((director) => (
-      <span key={director} className="text-xs font-semibold sm:text-sm">
-        {director}
-      </span>
-    ));
+  if (!tmdbLoading) {
+    directors = tmdbDetails.credits.crew
+      .filter(
+        (person) =>
+          person.department === "Directing" && person.job === "Director"
+      )
+      .map((found) => (
+        <span key={found.id} className="text-xs font-semibold sm:text-sm">
+          <Link to={`/person/${found.id}`}>{found.name}</Link>
+        </span>
+      ));
+  } else {
+    directors = <Spinner />;
   }
 
   let writers;
-  if (!omdbLoading) {
-    writers = omdbDetails.Writer.split(", ").map((writer) => {
-      let parts = writer.split(" (");
-      if (parts.length === 1) {
+  if (!tmdbLoading) {
+    writers = tmdbDetails.credits.crew
+      .filter((person) => person.department === "Writing")
+      .map((found) => {
+        let job = found.job === "Writer" ? "" : ` (${found.job})`;
         return (
-          <p key={parts[0]} className="text-xs font-semibold sm:text-sm">
-            {parts[0]}
-          </p>
+          <Link to={`/person/${found.id}`} key={found.id}>
+            <p className="text-xs font-semibold sm:text-sm">
+              {found.name}
+              <span className="italic font-light">{job}</span>
+            </p>
+          </Link>
         );
-      }
-      return (
-        <p key={parts} className="text-xs font-semibold sm:text-sm">
-          {parts[0]}
-          <span className="italic font-light">{` (${parts[1]}`}</span>
-        </p>
-      );
-    });
+      });
   }
 
   let awards;
   if (omdbLoading) {
-    awards = "💩";
+    awards = <Spinner />;
   } else if (!omdbLoading && !omdbDetails.Awards) {
     awards = (
       <span className="text-xs font-normal italic sm:text-sm">
@@ -206,12 +234,18 @@ const Movie = ({ match, history }) => {
           <div className="flex-grow flex-shrink-0">
             <p className="font-bold text-lg sm:text-xl">{tmdbDetails.title}</p>
             <p className="text-xs">
-              {!omdbLoading ? omdbDetails.Genre.replaceAll(", ", "/") : "💩"}
+              {!omdbLoading ? (
+                omdbDetails.Genre.replaceAll(", ", "/")
+              ) : (
+                <Spinner />
+              )}
             </p>
             <p className="text-xs">
-              {!omdbLoading
-                ? `${omdbDetails.Rated} / ${timeExpander(tmdbDetails.runtime)}`
-                : "💩"}
+              {!omdbLoading ? (
+                `${omdbDetails.Rated} / ${timeExpander(tmdbDetails.runtime)}`
+              ) : (
+                <Spinner />
+              )}
             </p>
           </div>
           <div className="w-full flex items-end sm:justify-end sm:items-end">
@@ -223,7 +257,7 @@ const Movie = ({ match, history }) => {
                   className="w-3 h-3 sm:w-4 sm:h-4"
                 />
                 <span className="ml-1 text-xs font-semibold sm:text-sm">
-                  {!omdbLoading ? omdbDetails.imdbRating : "💩"}
+                  {!omdbLoading ? omdbDetails.imdbRating : <Spinner />}
                 </span>
               </div>
               <p className="text-xs font-light">IMDb</p>
@@ -244,13 +278,21 @@ const Movie = ({ match, history }) => {
           render={() => (
             <>
               {tmdbLoading && omdbLoading ? (
-                <h1>COME ON</h1>
+                <div className="mx-auto my-20 text-center">
+                  <Spinner size="2x" />
+                </div>
               ) : (
                 <Sections
                   plot={omdbDetails.Plot}
                   directors={directors}
                   writers={writers}
-                  released={omdbDetails.Released}
+                  released={new Date(
+                    tmdbDetails.release_date
+                  ).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
                   langs={langs}
                   country={omdbDetails.Country}
                   budget={tmdbDetails.budget}

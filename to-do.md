@@ -27,3 +27,5 @@
 ☐ solution to unreachable images
 
 ☐ Movie ratings as icons
+
+☐ Click on photo goes to another page
