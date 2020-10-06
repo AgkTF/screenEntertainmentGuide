@@ -82,13 +82,12 @@ const Roles = ({ known_for, cast, crew }) => {
   const sortedCrewMovies = mediaTypeExtractor(crew, "movie");
   const sortedCrewTv = mediaTypeExtractor(crew, "tv");
 
-  const uniqueMovieDeps = uniqueDepsExtractor(sortedCrewMovies);
-  const uniqueTvDeps = uniqueDepsExtractor(sortedCrewTv);
+  let uniqueMovieDeps = uniqueDepsExtractor(sortedCrewMovies);
+  let uniqueTvDeps = uniqueDepsExtractor(sortedCrewTv);
 
   let movieActingRoles = sortedCastMovies.map((work) => {
     let year = work.release_date ? work.release_date.split("-")[0] : "-";
     let title = work.title;
-
     return (
       <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
         <span className="font-light mr-2">{year}</span>
@@ -109,7 +108,6 @@ const Roles = ({ known_for, cast, crew }) => {
     let episodes = ` (${work.episode_count} ${
       work.episode_count > 1 ? `episodes` : `episode`
     })`;
-
     return (
       <div key={work.credit_id} className="mt-1 flex text-xs sm:text-sm">
         <span className="font-light mr-2">{year}</span>
@@ -125,6 +123,14 @@ const Roles = ({ known_for, cast, crew }) => {
     );
   });
 
+  if (movieActingRoles.length > 0) {
+    uniqueMovieDeps = [...uniqueMovieDeps, "Acting"];
+  }
+
+  if (tvActingRoles.length > 0) {
+    uniqueTvDeps = [...uniqueTvDeps, "Acting"];
+  }
+
   let allFatherCrewMovieArray = [];
   for (let i = 0; i < uniqueMovieDeps.length; i++) {
     let single = sortedCrewMovies.filter(
@@ -132,7 +138,6 @@ const Roles = ({ known_for, cast, crew }) => {
     );
     allFatherCrewMovieArray.push(single);
   }
-  // console.log(allFatherCrewMovieArray);
 
   let allFatherCrewTvArray = [];
   for (let i = 0; i < uniqueTvDeps.length; i++) {
@@ -141,7 +146,6 @@ const Roles = ({ known_for, cast, crew }) => {
     );
     allFatherCrewTvArray.push(single);
   }
-  // console.log(allFatherCrewTvArray);
 
   const createDataToRender = (mediaType, dep) => {
     let dataToRender;
@@ -150,12 +154,10 @@ const Roles = ({ known_for, cast, crew }) => {
     } else if (mediaType === "tv" && dep === "Acting") {
       dataToRender = tvActingRoles;
     } else if (mediaType === "movie" && dep !== "Acting") {
-      console.log(uniqueMovieDeps);
       let index = uniqueMovieDeps.indexOf(dep);
       if (index === -1) {
         return <p>Nothing here</p>;
       }
-      console.log(index);
 
       let sortedAllFatherMovies = sortArrayByYear(allFatherCrewMovieArray);
 
@@ -180,8 +182,6 @@ const Roles = ({ known_for, cast, crew }) => {
       if (index === -1) {
         return <p>Nothing here</p>;
       }
-      console.log(index);
-
       let sortedAllFatherTv = sortArrayByYear(allFatherCrewTvArray);
 
       dataToRender = sortedAllFatherTv[index].map((work) => (
@@ -210,6 +210,9 @@ const Roles = ({ known_for, cast, crew }) => {
     !filters.department ? known_for : filters.department
   );
 
+  let optionDeps =
+    filters.mediaType === "movie" ? uniqueMovieDeps : uniqueTvDeps;
+
   return (
     <>
       <section className="mt-3">
@@ -235,8 +238,7 @@ const Roles = ({ known_for, cast, crew }) => {
               <option value="" disabled>
                 Department
               </option>
-              <option value="Acting">Acting</option>
-              {uniqueMovieDeps.map((dep) => (
+              {optionDeps.map((dep) => (
                 <option key={dep} value={dep}>
                   {dep}
                 </option>

@@ -1,20 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { srcSelector } from "../../utils/utils";
 
 const PersonUnit = ({ id, name, character, profile_path, gender }) => {
-  const srcSelector = (profile_path, gender) => {
-    if (!profile_path) {
-      if (gender === 1) {
-        return "/female-wo-1.svg";
-      } else {
-        return "/male-wo-1.svg";
-      }
-    } else {
-      // return "/images/17.jpg";
-      return `https://image.tmdb.org/t/p/w185${profile_path}`;
-    }
-  };
-
   return (
     <div className="mb-4 flex justify-start">
       <div className="w-20 h-24 sm:w-24 sm:h-32 flex-shrink-0 shadow-md">

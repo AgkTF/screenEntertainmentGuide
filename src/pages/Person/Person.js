@@ -5,6 +5,7 @@ import { data } from "../../utils/person-data";
 import Roles from "../../components/Roles/Roles";
 import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner";
+import { srcSelector } from "../../utils/utils";
 
 const Person = ({ match, history }) => {
   console.log("Person RENDERED 🤵");
@@ -36,7 +37,6 @@ const Person = ({ match, history }) => {
   }, [person_id]);
 
   let genderToRender;
-
   switch (personDetails.gender) {
     case 0:
       genderToRender = "N/A";
@@ -84,13 +84,7 @@ const Person = ({ match, history }) => {
         <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2">
           <img
             className="w-full h-full object-cover"
-            // src="/images/13.jpg"
-            // alt="poster"
-            src={
-              personDetails.profile_path
-                ? `https://image.tmdb.org/t/p/w185${personDetails.profile_path}`
-                : ""
-            }
+            src={srcSelector(personDetails.profile_path, personDetails.gender)}
             alt={`${personDetails.name} profile pic`}
           />
         </div>
@@ -108,7 +102,9 @@ const Person = ({ match, history }) => {
           <div className="mt-1 flex flex-col">
             <span className="text-xs xs:text-sm">Place of birth</span>
             <span className="-mt-1 text-xs xs:text-sm font-semibold leading-tight">
-              {personDetails.place_of_birth}
+              {!personDetails.place_of_birth
+                ? "-"
+                : personDetails.place_of_birth}
             </span>
           </div>
 
@@ -119,25 +115,40 @@ const Person = ({ match, history }) => {
             </span>
           </div>
 
-          {/* //TODO: date difference */}
+          {/* Not an accurate age but I think couple of days won't make a big difference here */}
           <div className="mt-1 flex flex-col">
             <span className="text-xs xs:text-sm">Birthday</span>
             <span className="-mt-1 text-xs xs:text-sm font-semibold">
-              {new Date(personDetails.birthday).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}{" "}
-              <span className="font-normal">(50 years old)</span>
+              {!personDetails.birthday
+                ? "-"
+                : new Date(personDetails.birthday).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}{" "}
+              {personDetails.birthday && (
+                <span className="font-normal">{`(${Math.trunc(
+                  (new Date() - new Date(personDetails.birthday)) /
+                    1000 /
+                    60 /
+                    60 /
+                    24 /
+                    365
+                )} years old)`}</span>
+              )}
             </span>
           </div>
 
-          <div className="mt-1 flex flex-col">
-            <span className="text-xs xs:text-sm">Deathday</span>
-            <span className="-mt-1 text-xs xs:text-sm font-semibold">
-              {!personDetails.deathday ? "Still alive" : personDetails.deathday}
-            </span>
-          </div>
+          {!personDetails.deathday ? (
+            <p></p>
+          ) : (
+            <div className="mt-1 flex flex-col">
+              <span className="text-xs xs:text-sm">Deathday</span>
+              <span className="-mt-1 text-xs xs:text-sm font-semibold">
+                {personDetails.deathday}
+              </span>
+            </div>
+          )}
         </div>
       </section>
 
@@ -148,14 +159,22 @@ const Person = ({ match, history }) => {
             moreBio ? `${classes.More}` : `${classes.Less}`
           }`}
         >
-          {personDetails.biography}
+          {personDetails.biography ? (
+            personDetails.biography
+          ) : (
+            <span className="font-medium text-sm">
+              There is no bio for {personDetails.name}
+            </span>
+          )}
         </p>
-        <button
-          className="absolute right-4 font-semibold text-xs sm:text-sm underline"
-          onClick={moreBioHandler}
-        >
-          {moreBio ? "See less" : "See full bio"}
-        </button>
+        {personDetails.biography && (
+          <button
+            className="absolute right-4 font-semibold text-xs sm:text-sm underline"
+            onClick={moreBioHandler}
+          >
+            {moreBio ? "See less" : "See full bio"}
+          </button>
+        )}
       </section>
 
       <section className="mt-4 sm:mt-8">

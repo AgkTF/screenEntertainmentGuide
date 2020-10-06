@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Slider from "react-slick";
 import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
-import { genreMapper } from "../../utils/genre-mapper";
+import { genreMapper } from "../../utils/utils";
 import PropTypes from "prop-types";
 
 const MovieCarousel = ({ movies }) => {

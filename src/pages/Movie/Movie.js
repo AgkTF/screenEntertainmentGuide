@@ -6,7 +6,7 @@ import { Route } from "react-router-dom";
 import Sections from "../../components/Sections/Sections";
 import FullCast from "../../components/Full-Cast/FullCast";
 // import { response } from "../../utils/response";
-import { timeExpander } from "../../utils/timeExpander";
+import { timeExpander } from "../../utils/utils";
 import Poster from "../../components/Poster/Poster";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import { Link } from "react-router-dom";
