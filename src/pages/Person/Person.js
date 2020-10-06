@@ -10,8 +10,8 @@ const Person = ({ match, history }) => {
   console.log("Person RENDERED 🤵");
   const person_id = match.params.id;
 
-  const [personDetails, setPersonDetails] = useState(data);
-  const [detailsLoading, setDetailsLoading] = useState(false);
+  const [personDetails, setPersonDetails] = useState({});
+  const [detailsLoading, setDetailsLoading] = useState(true);
 
   const [moreBio, setMoreBio] = useState(false);
 
@@ -20,20 +20,39 @@ const Person = ({ match, history }) => {
   };
 
   //TODO: check the language parameter for any problems
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&append_to_response=combined_credits`
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setPersonDetails(response.data);
-  //       setDetailsLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [person_id]);
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&append_to_response=combined_credits`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setPersonDetails(response.data);
+        setDetailsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [person_id]);
+
+  let genderToRender;
+
+  switch (personDetails.gender) {
+    case 0:
+      genderToRender = "N/A";
+      break;
+
+    case 1:
+      genderToRender = "Female";
+      break;
+
+    case 2:
+      genderToRender = "Male";
+      break;
+
+    default:
+      genderToRender = "N/A";
+  }
 
   return (
     <div className="mx-4 xs:mx-6 sm:mx-10 pt-4 font-bai text-gray-700">
@@ -65,14 +84,14 @@ const Person = ({ match, history }) => {
         <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2">
           <img
             className="w-full h-full object-cover"
-            src="/images/13.jpg"
-            alt="poster"
-            // src={
-            //   personDetails.profile_path
-            //     ? `https://image.tmdb.org/t/p/w185${personDetails.profile_path}`
-            //     : ""
-            // }
-            // alt={`${personDetails.name} profile pic`}
+            // src="/images/13.jpg"
+            // alt="poster"
+            src={
+              personDetails.profile_path
+                ? `https://image.tmdb.org/t/p/w185${personDetails.profile_path}`
+                : ""
+            }
+            alt={`${personDetails.name} profile pic`}
           />
         </div>
         <div>
@@ -93,10 +112,11 @@ const Person = ({ match, history }) => {
             </span>
           </div>
 
-          {/* //TODO: gender mapper */}
           <div className="mt-1 flex flex-col">
             <span className="text-xs xs:text-sm">Gender</span>
-            <span className="-mt-1 text-xs xs:text-sm font-semibold">Male</span>
+            <span className="-mt-1 text-xs xs:text-sm font-semibold">
+              {genderToRender}
+            </span>
           </div>
 
           {/* //TODO: date difference */}

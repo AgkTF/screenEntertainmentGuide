@@ -3,15 +3,21 @@ import Slider from "react-slick";
 import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
 import { genreMapper } from "../../utils/genre-mapper";
-// import axios from "axios";
-
-//TODO: Add prop-types
+import PropTypes from "prop-types";
 
 const MovieCarousel = ({ movies }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
   const [currentTitle, setCurrentTitle] = useState("");
-
   console.log({ currentTitle });
+
+  const debounce = (callback, delay) => {
+    let timeout;
+
+    return function () {
+      clearTimeout(timeout);
+      timeout = setTimeout(callback, delay);
+    };
+  };
 
   const afterSlideChangeHandler = useCallback(() => {
     let newCurrentSlide = document.querySelector(
@@ -28,7 +34,7 @@ const MovieCarousel = ({ movies }) => {
       setWindowWith(window.innerWidth);
     };
 
-    window.addEventListener("resize", resizeHandler);
+    window.addEventListener("resize", debounce(resizeHandler, 1000));
     console.log({
       windowWidth,
       padding: (windowWidth - 208) / 2,
@@ -39,18 +45,17 @@ const MovieCarousel = ({ movies }) => {
     };
   }, [windowWidth]);
 
-  let padding = windowWidth >= 700 ? 64 : (windowWidth - 208) / 2;
-  let slidesToShow = windowWidth >= 700 ? 3 : 1;
+  let padding = windowWidth >= 768 ? 285 : (windowWidth - 208) / 2;
 
   const settings = {
-    className: "center",
+    className: `${classes.Centered}`,
     centerMode: true,
     infinite: false,
     centerPadding: `${padding}px`,
     speed: 500,
     arrows: false,
     initialSlide: 0,
-    slidesToShow: slidesToShow,
+    slidesToShow: 1,
     focusOnSelect: true,
     afterChange: () => afterSlideChangeHandler(),
   };
@@ -84,6 +89,10 @@ const MovieCarousel = ({ movies }) => {
       </Slider>
     </div>
   );
+};
+
+MovieCarousel.propTypes = {
+  movies: PropTypes.array.isRequired,
 };
 
 export default MovieCarousel;

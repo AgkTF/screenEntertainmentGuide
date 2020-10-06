@@ -125,11 +125,7 @@ const Movie = ({ match, history }) => {
   let metascoreRating = !omdbLoading
     ? omdbDetails.Ratings.find((rating) => rating.Source === "Metacritic")
     : "";
-  let metascore = metascoreRating ? (
-    metascoreRating.Value.split("/")[0]
-  ) : (
-    <Spinner />
-  );
+  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
 
   let directors;
   if (!tmdbLoading) {
