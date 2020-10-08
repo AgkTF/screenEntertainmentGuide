@@ -15,6 +15,7 @@ const Slideshow = ({ movies }) => {
     autoplaySpeed: 2500,
     pauseOnHover: true,
     arrows: false,
+    lazyLoad: true,
     customPaging: function () {
       return <div className={classes.dot}></div>;
     },
@@ -26,8 +27,8 @@ const Slideshow = ({ movies }) => {
         {movies.map((movie) => (
           <div className={classes.imgCont} key={movie.id}>
             <img
-              // src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
-              src={`./images${movie.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
+              // src={`/images${movie.backdrop_path}`}
               alt={`${movie.title} backdrop`}
               className="h-full w-full object-cover"
             />

@@ -3,9 +3,10 @@ import Slider from "react-slick";
 import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
 import { genreMapper } from "../../utils/utils";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const MovieCarousel = ({ movies }) => {
+const MovieCarousel = ({ movies, fn }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
   const [currentTitle, setCurrentTitle] = useState("");
   console.log({ currentTitle });
@@ -62,24 +63,37 @@ const MovieCarousel = ({ movies }) => {
 
   return (
     <div className={classes.Container}>
-      <div className="mx-auto mb-6 font-bai font-semibold text-sm text-gray-700 flex items-center justify-around max-w-xs">
-        <p className="border-b-2 border-gray-700 border-opacity-25">
-          Now Playing
-        </p>
-        <p className="opacity-50">Trending</p>
-        <p className="opacity-50">Upcoming</p>
+      <div className="mx-auto mb-6 font-bai font-medium text-sm text-gray-500 flex items-center justify-around max-w-xs">
+        <div onClick={() => fn("now_playing")}>
+          {/* <div> */}
+          <NavLink to="/movies/now-playing" activeClassName="active-link">
+            Now Playing
+          </NavLink>
+        </div>
+        <div onClick={() => fn("popular")}>
+          {/* <div> */}
+          <NavLink to="/movies/trending" activeClassName="active-link">
+            Trending
+          </NavLink>
+        </div>
+        <div onClick={() => fn("upcoming")}>
+          <NavLink to="/movies/upcoming" activeClassName="active-link">
+            Upcoming
+          </NavLink>
+        </div>
       </div>
+
       <Slider {...settings}>
         {movies.map((movie) => (
           <MovieSlide
             key={movie.id}
             id={movie.id}
-            // posterUrl={
-            //   movie.poster_path
-            //     ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
-            //     : "/images/24.jpg"
-            // }
-            posterUrl={`./images${movie.poster_path}`}
+            posterUrl={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
+                : "/images/24.jpg"
+            }
+            // posterUrl={`/images${movie.poster_path}`}
             altText={`${movie.title} poster`}
             title={`${movie.title}`}
             genre={genreMapper(movie.genre_ids)}

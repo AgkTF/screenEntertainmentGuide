@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="137" height="47.5" viewBox="0 0 137 47.5">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.964" y1="0.651" x2="-0.211" y2="0.957" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.017" stop-color="#fff" stop-opacity="0.043"/>
+      <stop offset="0.559" stop-color="#fff" stop-opacity="0.992"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_89" data-name="Group 89" transform="translate(16 -145)">
+    <g id="Group_88" data-name="Group 88" transform="translate(15 78)">
+      <text id="Screen_Entertainment_Guide" data-name="Screen
+Entertainment
+Guide" transform="translate(27 80)" fill="#fff" font-size="12" font-family="Raleway"><tspan x="0" y="0">Screen</tspan><tspan x="0" y="14">Entertainment</tspan><tspan x="0" y="28">Guide</tspan></text>
+      <g id="Group_82" data-name="Group 82" transform="translate(-356 168)">
+        <circle id="Ellipse_26" data-name="Ellipse 26" cx="21" cy="21" r="21" transform="translate(325 -100)" fill="#fff"/>
+        <text id="SE" transform="translate(327 -96)" fill="#4a5568" font-size="28" font-family="Gilroy-ExtraBold, Gilroy" font-weight="800" letter-spacing="0.05em"><tspan x="1.76" y="27">SE</tspan></text>
+        <circle id="Ellipse_27" data-name="Ellipse 27" cx="6.75" cy="6.75" r="6.75" transform="translate(354 -71.9)" fill="#fff"/>
+        <text id="G" transform="translate(361 -58.5)" fill="#4a5568" font-size="18" font-family="Gilroy-ExtraBold, Gilroy" font-weight="800" letter-spacing="0.05em"><tspan x="-7.047" y="0">G</tspan></text>
+        <path id="Path_85" data-name="Path 85" d="M-.169,5.9,8.36.576V7.42H0Z" transform="translate(364.341 -72.936)" fill="url(#linear-gradient)"/>
+        <circle id="Ellipse_28" data-name="Ellipse 28" cx="1.25" cy="1.25" r="1.25" transform="translate(363.15 -71.3) rotate(45)" fill="#fff"/>
+        <circle id="Ellipse_29" data-name="Ellipse 29" cx="1.25" cy="1.25" r="1.25" transform="translate(357.768 -70.5) rotate(45)" fill="#fff"/>
+        <circle id="Ellipse_30" data-name="Ellipse 30" cx="1.25" cy="1.25" r="1.25" transform="translate(356.15 -65.3) rotate(45)" fill="#fff"/>
+        <circle id="Ellipse_31" data-name="Ellipse 31" cx="1.25" cy="1.25" r="1.25" transform="translate(365.15 -63.2) rotate(45)" fill="#fff"/>
+        <circle id="Ellipse_32" data-name="Ellipse 32" cx="1.25" cy="1.25" r="1.25" transform="translate(359.968 -61.5) rotate(45)" fill="#fff"/>
+      </g>
+      <line id="Line_4" data-name="Line 4" y2="42" transform="translate(20.5 67.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

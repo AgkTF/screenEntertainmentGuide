@@ -8,9 +8,9 @@
 
 ✅ User should expand both the poster and the backdrops.
 
-☐ Shadow and size of posters off-center
-
 ☐ In Movie page, the shadow of poster
+
+☐ show a placeholder image for the lazy-loaded images
 
 ☐ The search page
 
@@ -30,6 +30,8 @@
 
 ☐ see more button of more like this section
 
+☐ Make the roles into a subtle table
+
 ☐ Movie ratings as icons
 
-☐ Make the roles into a subtle table
+☐ Shadow and size of posters off-center
