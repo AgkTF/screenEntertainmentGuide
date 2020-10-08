@@ -270,7 +270,7 @@ const Movie = ({ match, history }) => {
 
       <main className="mx-5 relative sm:mx-8 md:mx-12">
         <Route
-          path="/:id/details"
+          path="/movie/:id/details"
           render={() => (
             <>
               {tmdbLoading && omdbLoading ? (
@@ -304,7 +304,7 @@ const Movie = ({ match, history }) => {
         />
 
         <Route
-          path="/:id/full-cast"
+          path="/movie/:id/full-cast"
           exact
           render={() => <FullCast fullTeam={tmdbDetails.credits} />}
         />

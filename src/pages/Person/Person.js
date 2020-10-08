@@ -198,7 +198,7 @@ const Person = ({ match, history }) => {
                   />
                 </div>
                 <p className="sm:mt-1 font-semibold text-xs sm:text-sm leading-tight text-center">
-                  <Link to={`/${work.id}/details`}>{work.title}</Link>
+                  <Link to={`/movie/${work.id}/details`}>{work.title}</Link>
                 </p>
               </div>
             ))

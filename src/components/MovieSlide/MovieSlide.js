@@ -55,7 +55,7 @@ const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
       </div>
 
       <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">
-        <Link to={`/${id}/details`}>
+        <Link to={`/movie/${id}/details`}>
           <p className="font-bold">{title}</p>
         </Link>
         <p className="text-xs">{genre}</p>
@@ -78,7 +78,7 @@ const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
             </div>
           </div>
 
-          <Link to={`/${id}/details`}>
+          <Link to={`/movie/${id}/details`}>
             <button className="mt-3 px-3 py-1 text-sm font-semibold rounded-full border-2 border-opacity-50 border-gray-700 cursor-pointer">
               See more
             </button>

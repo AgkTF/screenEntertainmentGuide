@@ -17,7 +17,7 @@ const Similar = ({ movies }) => {
           </div>
 
           <span className="mt-2 font-semibold text-xs sm:text-sm leading-tight  text-center">
-            <Link to={`/${movie.id}/details`}>{movie.title}</Link>
+            <Link to={`/movie/${movie.id}/details`}>{movie.title}</Link>
           </span>
         </div>
       ))
