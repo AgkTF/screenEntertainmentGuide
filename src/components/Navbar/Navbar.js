@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../images/seg-logo.svg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -7,6 +8,7 @@ const Navbar = () => {
       className="
       bg-gray-700
       bg-opacity-50
+      h-10
       sm:h-12
       flex
       justify-around
@@ -31,11 +33,13 @@ const Navbar = () => {
         </svg>
       </div>
       <div>
-        <img
-          src={logo}
-          alt="seg-logo"
-          className="w-3/4 sm:w-full h-full object-contain"
-        />
+        <Link to="/">
+          <img
+            src={logo}
+            alt="seg-logo"
+            className="w-3/4 sm:w-full h-full object-contain"
+          />
+        </Link>
       </div>
     </div>
   );

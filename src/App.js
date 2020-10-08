@@ -4,6 +4,7 @@ import Movie from "./pages/Movie/Movie";
 import Person from "./pages/Person/Person";
 import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   console.log("APP Rendered 🎬");
@@ -57,29 +58,34 @@ function App() {
 
   return (
     <div className="mx-auto max-w-3xl min-h-screen bg-gray-200 shadow-lg">
-      <Switch>
-        <Route path="/person/:id" exact component={Person} />
-        <Route
-          path="/movies/now-playing"
-          exact
-          render={() => <Movies movies={nowPlayingMovies} fn={clickHandler} />}
-          // render={() => <Movies movies={nowPlayingMovies} />}
-        />
-        <Route
-          path="/movies/trending"
-          exact
-          render={() => <Movies movies={trendingMovies} fn={clickHandler} />}
-          // render={() => <Movies movies={trendingMovies} />}
-        />
-        <Route
-          path="/movies/upcoming"
-          exact
-          render={() => <Movies movies={upcomingMovies} fn={clickHandler} />}
-        />
-        <Route path="/movie/:id" component={Movie} />
-        <Redirect exact from="/" to="/movies/now-playing" />
-        <Redirect from="*" to="/" />
-      </Switch>
+      <Navbar />
+      <div className="relative -top-10 sm:-top-12">
+        <Switch>
+          <Route path="/person/:id" exact component={Person} />
+          <Route
+            path="/movies/now-playing"
+            exact
+            render={() => (
+              <Movies movies={nowPlayingMovies} fn={clickHandler} />
+            )}
+            // render={() => <Movies movies={nowPlayingMovies} />}
+          />
+          <Route
+            path="/movies/trending"
+            exact
+            render={() => <Movies movies={trendingMovies} fn={clickHandler} />}
+            // render={() => <Movies movies={trendingMovies} />}
+          />
+          <Route
+            path="/movies/upcoming"
+            exact
+            render={() => <Movies movies={upcomingMovies} fn={clickHandler} />}
+          />
+          <Route path="/movie/:id" component={Movie} />
+          <Redirect exact from="/" to="/movies/now-playing" />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </div>
     </div>
   );
 }

@@ -150,7 +150,7 @@ const Movie = ({ match, history }) => {
       .map((found) => {
         let job = found.job === "Writer" ? "" : ` (${found.job})`;
         return (
-          <Link to={`/person/${found.id}`} key={found.id}>
+          <Link to={`/person/${found.id}`} key={found.credit_id}>
             <p className="text-xs font-semibold sm:text-sm">
               {found.name}
               <span className="italic font-light">{job}</span>
@@ -187,28 +187,6 @@ const Movie = ({ match, history }) => {
   return (
     <div className="font-bai text-gray-700">
       <div className="relative inset-x-0 top-0">
-        <button
-          className="absolute top-4 left-4 text-gray-300 bg-gray-600 bg-opacity-75 rounded"
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
         <Backdrop
           backdrop_path={tmdbDetails.backdrop_path}
           title={tmdbDetails.title}

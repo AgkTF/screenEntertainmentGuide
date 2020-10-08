@@ -56,32 +56,8 @@ const Person = ({ match, history }) => {
 
   return (
     <div className="mx-4 xs:mx-6 sm:mx-10 pt-4 font-bai text-gray-700">
-      <div className="relative inset-x-0 top-0">
-        <button
-          className="relative text-gray-300 bg-gray-600 bg-opacity-75 rounded"
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-      </div>
-
       <section className="mt-3 flex">
-        <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2">
+        <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2 flex-shrink-0">
           <img
             className="w-full h-full object-cover"
             src={srcSelector(personDetails.profile_path, personDetails.gender)}
