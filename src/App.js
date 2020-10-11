@@ -39,27 +39,27 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    if (
-      (category === "now_playing" && nowPlayingMovies.length > 0) ||
-      (category === "popular" && trendingMovies.length > 0) ||
-      (category === "upcoming" && upcomingMovies.length > 0)
-    )
-      return;
+  // useEffect(() => {
+  //   if (
+  //     (category === "now_playing" && nowPlayingMovies.length > 0) ||
+  //     (category === "popular" && trendingMovies.length > 0) ||
+  //     (category === "upcoming" && upcomingMovies.length > 0)
+  //   )
+  //     return;
 
-    fetchCategory(category);
-  }, [
-    fetchCategory,
-    category,
-    nowPlayingMovies.length,
-    trendingMovies.length,
-    upcomingMovies.length,
-  ]);
+  //   fetchCategory(category);
+  // }, [
+  //   fetchCategory,
+  //   category,
+  //   nowPlayingMovies.length,
+  //   trendingMovies.length,
+  //   upcomingMovies.length,
+  // ]);
 
   return (
     <div className="mx-auto max-w-3xl min-h-screen bg-gray-200 shadow-lg">
       <Navbar />
-      <div className="relative -top-10 sm:-top-12">
+      {/* <div className="relative -top-10 sm:-top-12">
         <Switch>
           <Route path="/person/:id" exact component={Person} />
           <Route
@@ -85,7 +85,7 @@ function App() {
           <Redirect exact from="/" to="/movies/now-playing" />
           <Redirect from="*" to="/" />
         </Switch>
-      </div>
+      </div> */}
     </div>
   );
 }
