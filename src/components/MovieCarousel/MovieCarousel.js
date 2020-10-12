@@ -59,6 +59,7 @@ const MovieCarousel = ({ movies, fn }) => {
     slidesToShow: 1,
     focusOnSelect: true,
     afterChange: () => afterSlideChangeHandler(),
+    // lazyLoad: true,
   };
 
   return (

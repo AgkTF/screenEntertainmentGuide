@@ -1,8 +1,11 @@
 .imgContainer {
+  background: url("/images/oscar-min-sm.svg") #cbd5e0 center no-repeat;
   height: 20rem;
+  width: 100%;
   margin: 0 auto;
   transition: all 0.25s ease-in-out;
   transform: scale(0.85);
+  border-radius: 0.5rem;
 }
 
 .prefix {
