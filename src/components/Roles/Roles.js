@@ -92,7 +92,7 @@ const Roles = ({ known_for, cast, crew }) => {
       <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
         <span className="font-light mr-2">{year}</span>
         <p>
-          <Link to={`/${work.id}/details`}>
+          <Link to={`/movie/${work.id}/details`}>
             <span className="font-semibold">{title}</span>
           </Link>
           {work.character ? <span className="font-hairline"> as </span> : ""}
@@ -167,7 +167,7 @@ const Roles = ({ known_for, cast, crew }) => {
             {work.release_date ? work.release_date.split("-")[0] : ""}
           </span>
           <p>
-            <Link to={`/${work.id}/details`}>
+            <Link to={`/movie/${work.id}/details`}>
               <span className="font-semibold">
                 {work.title ? work.title : ""}
               </span>

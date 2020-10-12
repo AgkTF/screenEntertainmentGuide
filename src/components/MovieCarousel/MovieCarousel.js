@@ -71,7 +71,7 @@ const MovieCarousel = ({ movies, fn }) => {
           </NavLink>
         </div>
 
-        <div onClick={() => fn("popular")}>
+        <div onClick={() => fn("trending")}>
           <NavLink to="/movies/trending" activeClassName="active-link">
             Trending
           </NavLink>

@@ -21,15 +21,22 @@ function App() {
   };
 
   const fetchCategory = useCallback((category) => {
+    let url;
+    if (category === "now_playing") {
+      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1`;
+    } else if (category === "trending") {
+      url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_TMBD_KEY}`;
+    } else if (category === "upcoming") {
+      url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1`;
+    }
+
     axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1 `
-      )
+      .get(url)
       .then((response) => {
         console.log(response);
         if (category === "now_playing") {
           setNowPlayingMovies(response.data.results);
-        } else if (category === "popular") {
+        } else if (category === "trending") {
           setTrendingMovies(response.data.results);
         } else if (category === "upcoming") {
           setUpcomingMovies(response.data.results);
@@ -43,7 +50,7 @@ function App() {
   useEffect(() => {
     if (
       (category === "now_playing" && nowPlayingMovies.length > 0) ||
-      (category === "popular" && trendingMovies.length > 0) ||
+      (category === "trending" && trendingMovies.length > 0) ||
       (category === "upcoming" && upcomingMovies.length > 0)
     )
       return;
@@ -61,7 +68,6 @@ function App() {
     <div className="relative mx-auto max-w-3xl min-h-screen bg-gray-100 shadow-lg">
       <Navbar />
 
-      {/* <div className="relative top-10 sm:top-12"> */}
       <div>
         <Switch>
           <Route path="/person/:id" exact component={Person} />

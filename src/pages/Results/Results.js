@@ -68,7 +68,7 @@ const Results = () => {
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
               <Image
                 url={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                alt={`"${movie.title}" poster`}
+                altText={`"${movie.title}" poster`}
               />
             </div>
             <div className="ml-3 text-sm">
@@ -153,8 +153,8 @@ const Results = () => {
   };
 
   return (
-    <div className="mx-5 font-bai text-gray-700">
-      <h2 className="mt-4 font-bold sm:text-xl">
+    <div className="pt-12 sm:pt-16 mx-5 font-bai text-gray-700">
+      <h2 className="mt-4 font-bold xs:text-xl">
         Displaying {resultsCount} results for{" "}
         <span className="italic">"{query}"</span>
       </h2>

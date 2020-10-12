@@ -14,11 +14,11 @@
 
 ☐ Select the correct category for the movie requests
 
-☐ show a placeholder image for the lazy-loaded images
+✅ show a placeholder image for the lazy-loaded images
 
 ✅ Children with the same key in `Fullcast` component
 
-☐ Finish the navbar
+✅ Finish the navbar ❗️ to be continued
 
 ☐ The default country is US, but a feature should be added for the user to choose their country.
 
@@ -26,7 +26,7 @@
 
 ☐ Show little movie preview on hover in person page
 
-☐ solution to unreachable images
+✅ solution to unreachable images
 
 ☐ the `Link` component wraps around the image as well as the text.
 
