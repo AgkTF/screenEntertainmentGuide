@@ -6,7 +6,7 @@ const Movies = ({ movies, fn }) => {
   return (
     <>
       <Slideshow movies={movies} />
-      <MovieCarousel movies={movies} fn={fn} />
+      {/* <MovieCarousel movies={movies} fn={fn} /> */}
     </>
   );
 };

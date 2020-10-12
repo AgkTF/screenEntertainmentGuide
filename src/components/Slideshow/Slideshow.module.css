@@ -3,9 +3,10 @@
 } */
 
 .imgCont {
-  background: hotpink;
-  /* border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px; */
+  background: url("/images/oscar-min-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background: #c6f6d5; */
   overflow: hidden;
   height: 20rem;
   width: 100%;

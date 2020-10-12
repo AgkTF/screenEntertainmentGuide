@@ -4,6 +4,8 @@ import star from "./star.svg";
 import classes from "./MovieSlide.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LazyLoad from "react-lazyload";
+import Spinner from "../Spinner/Spinner";
 
 const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
   // const [omdbDetails, setOmdbDetails] = useState({});
@@ -47,11 +49,13 @@ const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
   return (
     <div className="max-w-3xl flex flex-col justify-center">
       <div className={classes.imgContainer}>
-        <img
-          src={posterUrl}
-          alt={altText}
-          className="w-full h-full object-cover rounded-lg"
-        />
+        <LazyLoad height={320} placeholder={<Spinner />} once>
+          <img
+            src={posterUrl}
+            alt={altText}
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </LazyLoad>
       </div>
 
       <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">

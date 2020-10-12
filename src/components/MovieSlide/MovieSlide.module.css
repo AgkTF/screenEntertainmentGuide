@@ -4,3 +4,7 @@
   transition: all 0.25s ease-in-out;
   transform: scale(0.85);
 }
+
+.prefix {
+  height: 100%;
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../Navbar/Navbar";
 import Slider from "react-slick";
 import classes from "./Slideshow.module.css";
 import { Link } from "react-router-dom";
