@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import LazyLoad from "react-lazyload";
 import Spinner from "../Spinner/Spinner";
+import Image from "../Image/Image";
 
 const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
   // const [omdbDetails, setOmdbDetails] = useState({});
@@ -49,12 +50,7 @@ const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
   return (
     <div className="max-w-3xl flex flex-col justify-center">
       <div className={classes.imgContainer}>
-        <img
-          src={posterUrl}
-          alt={altText}
-          className="w-full h-full object-cover rounded-lg"
-          loading="lazy"
-        />
+        <Image url={posterUrl} altText={altText} />
       </div>
 
       <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">

@@ -5,6 +5,7 @@ import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner";
 import classes from "./Results.module.css";
 import { genreMapper } from "../../utils/utils";
+import Image from "../../components/Image/Image";
 
 const Results = () => {
   const location = useLocation();
@@ -65,10 +66,9 @@ const Results = () => {
             key={movie.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <img
-                src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-full object-cover"
+              <Image
+                url={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                alt={`"${movie.title}" poster`}
               />
             </div>
             <div className="ml-3 text-sm">
@@ -90,10 +90,9 @@ const Results = () => {
             key={show.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <img
-                src={`https://image.tmdb.org/t/p/w92${show.poster_path}`}
-                alt={show.name}
-                className="w-full h-full object-cover"
+              <Image
+                url={`https://image.tmdb.org/t/p/w92${show.poster_path}`}
+                altText={show.name}
               />
             </div>
             <div className="ml-3 text-sm">
@@ -116,10 +115,9 @@ const Results = () => {
             key={person.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <img
-                src={`https://image.tmdb.org/t/p/w92${person.profile_path}`}
-                alt={person.name}
-                className="w-full h-full object-cover"
+              <Image
+                url={`https://image.tmdb.org/t/p/w92${person.profile_path}`}
+                altText={person.name}
               />
             </div>
             <div className="ml-3 text-sm">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PosterModal from "../PosterModal/PosterModal";
 import classes from "./Poster.module.css";
+import Image from "../Image/Image";
 
 const Poster = ({ poster_path, title, tmdbLoading, images }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -13,12 +14,11 @@ const Poster = ({ poster_path, title, tmdbLoading, images }) => {
     <div
       className={`w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content ${classes.PosterContainer}`}
     >
-      <img
-        src={
+      <Image
+        url={
           !tmdbLoading ? `https://image.tmdb.org/t/p/w342${poster_path}` : ""
         }
-        alt={`${title} poster`}
-        className="h-full w-full object-cover"
+        altText={`"${title}" poster`}
       />
       <button
         className={`text-sm sm:text-base bg-gray-600 bg-opacity-50 text-gray-200 text-center font-semibold flex justify-center items-center w-full ${classes.PosterExpand}`}

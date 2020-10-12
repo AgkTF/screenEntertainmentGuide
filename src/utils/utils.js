@@ -134,11 +134,12 @@ const utils = {
     return found.join("/");
   },
 
+  //FIXME: find better solution for gender === 0
   srcSelector: (profile_path, gender) => {
     if (!profile_path) {
       if (gender === 1) {
         return "/female-wo-1.svg";
-      } else if (gender === 2) {
+      } else if (gender === 2 || gender === 0) {
         return "/male-wo-1.svg";
       }
     } else {

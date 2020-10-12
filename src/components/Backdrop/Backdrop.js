@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BackdropModal from "../BackdropModal/BackdropModal";
 import classes from "./Backdrop.module.css";
+import Image from "../Image/Image";
 
 const Backdrop = ({ backdrop_path, title, tmdbLoading, images }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -11,15 +12,11 @@ const Backdrop = ({ backdrop_path, title, tmdbLoading, images }) => {
 
   return (
     <div className={classes.Backdrop}>
-      <img
-        src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
-        alt={`${title} backdrop`}
-        className="h-full w-full object-cover"
-        // onError={(e) => {
-        //   e.target.onerror = null;
-        //   e.target.src = "../../images/failed-to-load.jpg";
-        // }}
+      <Image
+        url={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
+        altText={`"${title}" movie backdrop`}
       />
+
       <button
         className="absolute right-4 bottom-2 text-sm font-semibold text-gray-200 underline z-30 tracking-wide"
         onClick={openModalHandler}

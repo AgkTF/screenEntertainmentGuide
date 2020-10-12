@@ -92,10 +92,10 @@ const MovieCarousel = ({ movies, fn }) => {
             posterUrl={
               movie.poster_path
                 ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
-                : "/images/24.jpg"
+                : ""
             }
             // posterUrl={`/images${movie.poster_path}`}
-            altText={`${movie.title} poster`}
+            altText={`"${movie.title}" poster`}
             title={`${movie.title}`}
             genre={genreMapper(movie.genre_ids)}
             isCurrent={currentTitle === movie.title ? true : false}

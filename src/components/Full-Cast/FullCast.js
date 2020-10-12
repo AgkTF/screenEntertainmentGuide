@@ -39,7 +39,6 @@ const FullCast = ({ fullTeam }) => {
         <h2 className="font-bold text-base sm:text-lg">Cast</h2>
         <div className="mt-4 flex flex-col">
           {fullTeam.cast.map((person) => (
-            //TODO: Add check if the photo is not available to replace it with a placeholder image based on gender
             <PersonUnit
               key={person.id}
               id={person.id}

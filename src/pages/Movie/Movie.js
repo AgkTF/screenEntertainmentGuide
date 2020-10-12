@@ -59,7 +59,7 @@ const Movie = ({ match, history }) => {
   const fetchTMBdDetails = useCallback((id) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&append_to_response=credits%2Csimilar%2Cimages`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en%2Cnull&append_to_response=credits%2Csimilar%2Cimages`
       )
       .then((response) => {
         console.log(response.data);

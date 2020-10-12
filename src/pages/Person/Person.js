@@ -6,6 +6,7 @@ import Roles from "../../components/Roles/Roles";
 import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner";
 import { srcSelector } from "../../utils/utils";
+import Image from "../../components/Image/Image";
 
 const Person = ({ match, history }) => {
   console.log("Person RENDERED 🤵");
@@ -58,10 +59,9 @@ const Person = ({ match, history }) => {
     <div className="mx-4 xs:mx-6 sm:mx-10 pt-4 font-bai text-gray-700">
       <section className="mt-3 flex">
         <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2 flex-shrink-0">
-          <img
-            className="w-full h-full object-cover"
-            src={srcSelector(personDetails.profile_path, personDetails.gender)}
-            alt={`${personDetails.name} profile pic`}
+          <Image
+            url={srcSelector(personDetails.profile_path, personDetails.gender)}
+            altText={`${personDetails.name} profile pic`}
           />
         </div>
         <div>
@@ -163,14 +163,13 @@ const Person = ({ match, history }) => {
                 key={work.id}
               >
                 <div className="w-20 sm:w-24 h-32 sm:h-40 rounded overflow-hidden">
-                  <img
-                    src={
+                  <Image
+                    url={
                       work.poster_path
                         ? `https://image.tmdb.org/t/p/w185${work.poster_path}`
                         : ""
                     }
-                    alt={`${work.title} Movie poster`}
-                    className="w-full h-full object-cover"
+                    altText={`${work.title} Movie poster`}
                   />
                 </div>
                 <p className="sm:mt-1 font-semibold text-xs sm:text-sm leading-tight text-center">
