@@ -8,6 +8,9 @@
 
 ✅ User should expand both the poster and the backdrops.
 
+☐ In writers, sometimes the same person is a writer and storyboard (check We Bare Bears: The Movie
+)
+
 ☐ In Movie page, the shadow of poster
 
 ☐ show a placeholder image for the lazy-loaded images
