@@ -8,8 +8,8 @@ const Navbar = () => {
 
   return (
     <div
-      className="py-2 flex flex-col bg-gray-700
-      bg-opacity-50 z-50 relative"
+      className="py-2 flex flex-col bg-red-700
+      bg-opacity-25 z-50 relative"
     >
       <div
         className="

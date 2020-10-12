@@ -65,17 +65,17 @@ const MovieCarousel = ({ movies, fn }) => {
     <div className={classes.Container}>
       <div className="mx-auto mb-6 font-bai font-medium text-sm text-gray-500 flex items-center justify-around max-w-xs">
         <div onClick={() => fn("now_playing")}>
-          {/* <div> */}
           <NavLink to="/movies/now-playing" activeClassName="active-link">
             Now Playing
           </NavLink>
         </div>
+
         <div onClick={() => fn("popular")}>
-          {/* <div> */}
           <NavLink to="/movies/trending" activeClassName="active-link">
             Trending
           </NavLink>
         </div>
+
         <div onClick={() => fn("upcoming")}>
           <NavLink to="/movies/upcoming" activeClassName="active-link">
             Upcoming

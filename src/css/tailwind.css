@@ -1,13 +1,4 @@
-@import url(https://db.onlinewebfonts.com/c/482de819aa9631d27141f3d998cace18?family=Ethnocentric);
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap");
-
-@font-face {
-  font-family: "Ethnocentric";
-  src: local("Ethnocentric"),
-    url("//db.onlinewebfonts.com/t/482de819aa9631d27141f3d998cace18.woff2")
-      format("woff2");
-  font-display: swap;
-}
 
 @font-face {
   font-family: "Bai Jamjuree", sans-serif;

@@ -41,7 +41,6 @@ module.exports = {
       },
       fontFamily: {
         bai: "Bai Jamjuree",
-        ethno: "Ethnocentric",
       },
       inset: {
         px: "1px",

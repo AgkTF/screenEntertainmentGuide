@@ -61,7 +61,8 @@ function App() {
     <div className="mx-auto max-w-3xl min-h-screen bg-gray-100 shadow-lg">
       <Navbar />
 
-      <div className="relative -top-10 sm:-top-12">
+      {/* <div className="relative top-10 sm:top-12"> */}
+      <div>
         <Switch>
           <Route path="/person/:id" exact component={Person} />
           <Route
