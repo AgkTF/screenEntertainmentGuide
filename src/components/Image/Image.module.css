@@ -1,15 +1,21 @@
 .Image:after {
-  content: attr(alt);
-  font-size: 14px;
-  color: #edf2f7;
+  content: "";
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #a0aec0;
+  background: url("/images/roll-min.svg") #edf2f7;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
+}
+
+.Image {
+  background: url("/images/roll-min.svg") #edf2f7;
+  background-position: center;
+  background-repeat: no-repeat;
 }

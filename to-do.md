@@ -12,6 +12,8 @@
 
 ☐ Adjust the app for TV shows
 
+☐ Select the correct category for the movie requests
+
 ☐ show a placeholder image for the lazy-loaded images
 
 ✅ Children with the same key in `Fullcast` component
