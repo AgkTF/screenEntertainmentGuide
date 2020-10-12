@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./PosterModal.module.css";
 import ReactModal from "react-modal";
-import Slider from "react-slick";
+import Gallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 ReactModal.setAppElement("#root");
 // const urls = [
@@ -13,25 +14,15 @@ ReactModal.setAppElement("#root");
 //   "/images/6.jpg",
 // ];
 const PosterModal = ({ isOpen, toggleHandler, posters }) => {
-  const settings = {
-    customPaging: (i) => (
-      <div className="w-16 h-24 sm:w-20 sm:h-32 rounded overflow-hidden">
-        <img
-          src={`https://image.tmdb.org/t/p/w780${posters[i].file_path}`}
-          alt="poster"
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ),
-    dots: true,
-    dotsClass: "slick-dots",
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    className: `${classes.InnerSlider}`,
-  };
+  const images = posters.map((poster) => {
+    return {
+      original: `https://image.tmdb.org/t/p/w780${poster.file_path}`,
+      originalAlt: "poster",
+      thumbnail: `https://image.tmdb.org/t/p/w300${poster.file_path}`,
+      thumbnailAlt: "thumbnail",
+    };
+  });
+
   return (
     <ReactModal
       ariaHideApp={true}
@@ -43,17 +34,7 @@ const PosterModal = ({ isOpen, toggleHandler, posters }) => {
       overlayClassName={classes.Overlay}
       bodyOpenClassName={classes.Body}
     >
-      <Slider {...settings}>
-        {posters.map((poster) => (
-          <div key={poster.file_path} className={classes.Current}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${poster.file_path}`}
-              alt="poster"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </Slider>
+      <Gallery items={images} lazyLoad showPlayButton={false} showIndex />
     </ReactModal>
   );
 };

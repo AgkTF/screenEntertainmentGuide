@@ -58,7 +58,7 @@ function App() {
   ]);
 
   return (
-    <div className="mx-auto max-w-3xl min-h-screen bg-gray-100 shadow-lg">
+    <div className="relative mx-auto max-w-3xl min-h-screen bg-gray-100 shadow-lg">
       <Navbar />
 
       {/* <div className="relative top-10 sm:top-12"> */}

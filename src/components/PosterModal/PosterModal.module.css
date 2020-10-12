@@ -10,7 +10,7 @@
   right: 0px;
   bottom: 0px;
   background-color: rgba(237, 242, 247, 0.9);
-  z-index: 40;
+  z-index: 100;
 }
 
 .Body {
@@ -18,11 +18,12 @@
 }
 
 .Content {
-  max-width: 768px;
+  width: 80%;
+  max-width: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -67%, 0);
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .Content:focus {
@@ -35,6 +36,9 @@
 }
 
 @media screen and (min-width: 768px) {
+  .Content {
+    width: 40%;
+  }
   .Current {
     width: 23rem;
     height: 36rem;

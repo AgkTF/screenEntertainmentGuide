@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./BackdropModal.module.css";
 import ReactModal from "react-modal";
-import Slider from "react-slick";
+import Gallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 ReactModal.setAppElement("#root");
 // const urls = [
@@ -13,25 +14,14 @@ ReactModal.setAppElement("#root");
 //   "/images/12.jpg",
 // ];
 const BackdropModal = ({ isOpen, toggleHandler, backdrops }) => {
-  const settings = {
-    customPaging: (i) => (
-      <div className="w-20 h-12 sm:w-40 sm:h-20 rounded overflow-hidden">
-        <img
-          src={`https://image.tmdb.org/t/p/w780${backdrops[i].file_path}`}
-          alt="poster"
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ),
-    dots: true,
-    dotsClass: "slick-dots slick-thumb",
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    className: `${classes.InnerSlider}`,
-  };
+  const images = backdrops.map((backdrop) => {
+    return {
+      original: `https://image.tmdb.org/t/p/w500${backdrop.file_path}`,
+      originalAlt: "backdrop",
+      thumbnail: `https://image.tmdb.org/t/p/w92${backdrop.file_path}`,
+      thumbnailAlt: "thumbnail",
+    };
+  });
   return (
     <ReactModal
       ariaHideApp={true}
@@ -43,17 +33,7 @@ const BackdropModal = ({ isOpen, toggleHandler, backdrops }) => {
       overlayClassName={classes.Overlay}
       bodyOpenClassName={classes.Body}
     >
-      <Slider {...settings}>
-        {backdrops.map((backdrop) => (
-          <div key={backdrop.file_path} className={classes.Current}>
-            <img
-              src={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
-              alt="backdrop"
-              className="w-full h-full object-contain sm:object-cover"
-            />
-          </div>
-        ))}
-      </Slider>
+      <Gallery items={images} lazyLoad showPlayButton={false} showIndex />
     </ReactModal>
   );
 };

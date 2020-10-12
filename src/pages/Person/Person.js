@@ -56,7 +56,7 @@ const Person = ({ match, history }) => {
   }
 
   return (
-    <div className="mx-4 xs:mx-6 sm:mx-10 pt-4 font-bai text-gray-700">
+    <div className="mx-4 xs:mx-6 sm:mx-10 pt-16 font-bai text-gray-700">
       <section className="mt-3 flex">
         <div className="mr-5 xs:mr-10 sm:mr-14 w-32 xs:w-40 h-48 xs:h-64 rounded-lg shadow-lg overflow-hidden border-gray-500 border-2 flex-shrink-0">
           <Image
