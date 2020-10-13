@@ -20,11 +20,9 @@ const Results = () => {
     if (!encodedQuery) return;
 
     axios
-      .get(
-        `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&query=${encodedQuery}&page=1&include_adult=false`
-      )
+      .get(`http://localhost:8080/search/${encodedQuery}`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.results);
         setResults(response.data.results);
       })
       .catch((error) => {
@@ -149,6 +147,7 @@ const Results = () => {
         ));
 
       default:
+        return <Spinner />;
     }
   };
 

@@ -23,12 +23,10 @@ const Person = ({ match, history }) => {
   //TODO: check the language parameter for any problems
   useEffect(() => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&append_to_response=combined_credits`
-      )
+      .get(`http://localhost:8080/person/${person_id}`)
       .then((response) => {
-        console.log(response.data);
-        setPersonDetails(response.data);
+        console.log(response.data.person);
+        setPersonDetails(response.data.person);
         setDetailsLoading(false);
       })
       .catch((err) => {

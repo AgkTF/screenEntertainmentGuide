@@ -89,7 +89,7 @@ const Roles = ({ known_for, cast, crew }) => {
     let year = work.release_date ? work.release_date.split("-")[0] : "-";
     let title = work.title;
     return (
-      <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
+      <div key={work.credit_id} className="mt-1 flex text-xs sm:text-sm">
         <span className="font-light mr-2">{year}</span>
         <p>
           <Link to={`/movie/${work.id}/details`}>
@@ -162,7 +162,7 @@ const Roles = ({ known_for, cast, crew }) => {
       let sortedAllFatherMovies = sortArrayByYear(allFatherCrewMovieArray);
 
       dataToRender = sortedAllFatherMovies[index].map((work) => (
-        <div key={work.id} className="mt-1 flex text-xs sm:text-sm">
+        <div key={work.credit_id} className="mt-1 flex text-xs sm:text-sm">
           <span className="font-light mr-2">
             {work.release_date ? work.release_date.split("-")[0] : ""}
           </span>
