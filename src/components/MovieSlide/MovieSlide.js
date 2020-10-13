@@ -4,48 +4,54 @@ import star from "./star.svg";
 import classes from "./MovieSlide.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LazyLoad from "react-lazyload";
 import Spinner from "../Spinner/Spinner";
 import Image from "../Image/Image";
 
-const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
-  // const [omdbDetails, setOmdbDetails] = useState({});
+const MovieSlide = ({
+  posterUrl,
+  altText,
+  title,
+  genre,
+  id,
+  isCurrent,
+  year,
+}) => {
+  //   const [omdbDetails, setOmdbDetails] = useState({});
 
-  // const fetchOMBdDetails = useCallback((title, year = 2020) => {
-  //   axios
-  //     .get(
-  //       `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMBD_KEY}&t=${title}&y=${year}`
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setOmdbDetails({ [title]: response.data });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  //   const fetchOMBdDetails = useCallback((title, year) => {
+  //     axios
+  //       .get(`http://localhost:8080/omovie/${title}/${year}`)
+  //       .then((response) => {
+  //         console.log(response.data.movieDetails);
+  //         setOmdbDetails({ [title]: response.data.movieDetails });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }, []);
 
-  // useEffect(() => {
-  //   if (isCurrent && !omdbDetails[title]) {
-  //     fetchOMBdDetails(title);
-  //   } else {
-  //     return;
-  //   }
-  // }, [isCurrent, title, omdbDetails, fetchOMBdDetails]);
+  //   useEffect(() => {
+  //     if (isCurrent && !omdbDetails[title]) {
+  //       fetchOMBdDetails(title, year);
+  //     } else {
+  //       return;
+  //     }
+  //   }, [isCurrent, title, omdbDetails, fetchOMBdDetails, year]);
 
-  // let imdbRating =
-  //   omdbDetails[title] && omdbDetails[title].imdbRating
-  //     ? omdbDetails[title].imdbRating
-  //     : "💩";
+  //   let imdbRating =
+  //     omdbDetails[title] && omdbDetails[title].imdbRating ? (
+  //       omdbDetails[title].imdbRating
+  //     ) : (
+  //       <Spinner />
+  //     );
 
-  // let metascoreRating =
-  //   omdbDetails[title] &&
-  //   omdbDetails[title].Ratings.find((rating) => rating.Source === "Metacritic");
+  //   let metascoreRating = omdbDetails[title]
+  //     ? omdbDetails[title].Ratings.find(
+  //         (rating) => rating.Source === "Metacritic"
+  //       )
+  //     : "";
 
-  // let metascore =
-  //   omdbDetails[title] && metascoreRating
-  //     ? metascoreRating.Value.split("/")[0]
-  //     : "💩";
+  //   let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
 
   return (
     <div className="max-w-3xl flex flex-col justify-center">
@@ -89,11 +95,13 @@ const MovieSlide = ({ posterUrl, altText, title, genre, id, isCurrent }) => {
 };
 
 MovieSlide.propTypes = {
-  posterUrl: PropTypes.string,
-  altText: PropTypes.string,
-  title: PropTypes.string,
-  genre: PropTypes.string,
-  isCurrent: PropTypes.bool,
+  posterUrl: PropTypes.string.isRequired,
+  altText: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  isCurrent: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
 };
 
 export default MovieSlide;

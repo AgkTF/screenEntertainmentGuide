@@ -93,11 +93,11 @@ const MovieCarousel = ({ movies, fn }) => {
                 ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
                 : ""
             }
-            // posterUrl={`/images${movie.poster_path}`}
             altText={`"${movie.title}" poster`}
             title={`${movie.title}`}
             genre={genreMapper(movie.genre_ids)}
             isCurrent={currentTitle === movie.title ? true : false}
+            year={+movie.release_date.split("-")[0]}
           />
         ))}
       </Slider>

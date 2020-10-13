@@ -23,12 +23,10 @@ const Movie = ({ match, history }) => {
 
   const fetchTMBdDetails = useCallback((id) => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en%2Cnull&append_to_response=credits%2Csimilar%2Cimages`
-      )
+      .get(`http://localhost:8080/tmovie/${id}`)
       .then((response) => {
-        console.log(response.data);
-        setTmdbDetails(response.data);
+        console.log(response.data.movieDetails);
+        setTmdbDetails(response.data.movieDetails);
         setTmdbLoading(false);
       })
       .catch((error) => {
@@ -47,12 +45,10 @@ const Movie = ({ match, history }) => {
     if (!imdb_id) return;
 
     axios
-      .get(
-        `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMBD_KEY}&i=${imdb_id}&plot=full`
-      )
+      .get(`http://localhost:8080/omovie/${imdb_id}`)
       .then((response) => {
-        console.log({ imdb: response.data });
-        setOmdbDetails(response.data);
+        console.log({ imdb: response.data.movieDetails });
+        setOmdbDetails(response.data.movieDetails);
         setOmdbLoading(false);
       })
       .catch((error) => {
