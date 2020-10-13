@@ -23,11 +23,11 @@ function App() {
   const fetchCategory = useCallback((category) => {
     let url;
     if (category === "now_playing") {
-      url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1`;
+      url = "http://localhost:8080/movies/now-playing";
     } else if (category === "trending") {
-      url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_TMBD_KEY}`;
+      url = "http://localhost:8080/movies/trending";
     } else if (category === "upcoming") {
-      url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMBD_KEY}&language=en-US&page=1`;
+      url = "http://localhost:8080/movies/upcoming";
     }
 
     axios
@@ -35,15 +35,22 @@ function App() {
       .then((response) => {
         console.log(response);
         if (category === "now_playing") {
-          setNowPlayingMovies(response.data.results);
+          setNowPlayingMovies(response.data.movies);
         } else if (category === "trending") {
-          setTrendingMovies(response.data.results);
+          setTrendingMovies(response.data.movies);
         } else if (category === "upcoming") {
-          setUpcomingMovies(response.data.results);
+          setUpcomingMovies(response.data.movies);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
       });
   }, []);
 
@@ -77,13 +84,11 @@ function App() {
             render={() => (
               <Movies movies={nowPlayingMovies} fn={clickHandler} />
             )}
-            // render={() => <Movies movies={nowPlayingMovies} />}
           />
           <Route
             path="/movies/trending"
             exact
             render={() => <Movies movies={trendingMovies} fn={clickHandler} />}
-            // render={() => <Movies movies={trendingMovies} />}
           />
           <Route
             path="/movies/upcoming"

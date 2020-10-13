@@ -10,9 +10,13 @@
 
 ✅ The search page
 
+☐ Add error boundary
+
 ☐ Adjust the app for TV shows
 
-☐ Select the correct category for the movie requests
+✅ Select the correct category for the movie requests
+
+☐ Similar movies sometimes aren't there, we need to handle this case
 
 ✅ show a placeholder image for the lazy-loaded images
 

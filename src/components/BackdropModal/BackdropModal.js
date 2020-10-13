@@ -5,14 +5,7 @@ import Gallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 ReactModal.setAppElement("#root");
-// const urls = [
-//   "/images/7.jpg",
-//   "/images/8.jpg",
-//   "/images/9.jpg",
-//   "/images/10.jpg",
-//   "/images/11.jpg",
-//   "/images/12.jpg",
-// ];
+
 const BackdropModal = ({ isOpen, toggleHandler, backdrops }) => {
   const images = backdrops.map((backdrop) => {
     return {

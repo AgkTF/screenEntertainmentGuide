@@ -5,14 +5,7 @@ import Gallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 ReactModal.setAppElement("#root");
-// const urls = [
-//   "/images/1.jpg",
-//   "/images/2.jpg",
-//   "/images/3.jpg",
-//   "/images/4.jpg",
-//   "/images/5.jpg",
-//   "/images/6.jpg",
-// ];
+
 const PosterModal = ({ isOpen, toggleHandler, posters }) => {
   const images = posters.map((poster) => {
     return {
