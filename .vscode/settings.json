@@ -21,6 +21,8 @@
     "Omdb",
     "imdb",
     "metascore",
-    "tmdb"
+    "omovie",
+    "tmdb",
+    "tmovie"
   ]
 }

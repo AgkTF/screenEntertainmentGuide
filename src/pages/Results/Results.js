@@ -1,45 +1,64 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import * as queryString from "query-string";
-import axios from "axios";
+import axios from "../../axios";
 import Spinner from "../../components/Spinner/Spinner";
 import classes from "./Results.module.css";
 import { genreMapper } from "../../utils/utils";
 import Image from "../../components/Image/Image";
+import ReactPaginate from "react-paginate";
 
+//TODO: add a spinner when the data is being loaded
 const Results = () => {
   const location = useLocation();
   const query = queryString.parse(location.search).q;
   const encodedQuery = encodeURIComponent(queryString.parse(location.search).q);
   console.log("🚀", encodedQuery);
 
-  const [results, setResults] = useState([]);
   const [current, setCurrent] = useState("movies");
+  const [{ results, totalPages, loading }, setCombinedState] = useState({
+    results: [],
+    totalPages: 0,
+    loading: true,
+  });
 
-  const fetchResults = useCallback(() => {
-    if (!encodedQuery) return;
+  const fetchResults = useCallback(
+    (newPage = 1) => {
+      if (!encodedQuery) return;
 
-    axios
-      .get(`http://localhost:8080/search/${encodedQuery}`)
-      .then((response) => {
-        console.log(response.data.results);
-        setResults(response.data.results);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-      });
-  }, [encodedQuery]);
+      axios
+        .get(`/search/${encodedQuery}?page=${newPage}`)
+        .then((response) => {
+          console.log(response.data);
+          setCombinedState((prevState) => {
+            return {
+              ...prevState,
+              results: response.data.results,
+              totalPages: response.data.total_pages,
+              loading: false,
+            };
+          });
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+        });
+    },
+    [encodedQuery]
+  );
 
-  useEffect(() => {
-    fetchResults();
-  }, [fetchResults]);
+  useEffect(
+    (newPage) => {
+      fetchResults(newPage);
+    },
+    [fetchResults]
+  );
 
   let resultsCount = results ? results.length : <Spinner />;
 
@@ -164,6 +183,7 @@ const Results = () => {
               current === "movies" ? "" : "text-gray-500"
             }`}
             onClick={() => setCurrent("movies")}
+            disabled={!movies.length ? true : false}
           >
             Movies
             <span
@@ -178,6 +198,7 @@ const Results = () => {
               current === "tv" ? "" : "text-gray-500"
             }`}
             onClick={() => setCurrent("tv")}
+            disabled={!tv.length ? true : false}
           >
             TV shows
             <span
@@ -192,6 +213,7 @@ const Results = () => {
               current === "people" ? "" : "text-gray-500"
             }`}
             onClick={() => setCurrent("people")}
+            disabled={!people.length ? true : false}
           >
             People
             <span
@@ -203,9 +225,71 @@ const Results = () => {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-y-4 xs:grid-cols-2 xs:gap-4">
-        {createData(current)}
-      </div>
+      {loading ? (
+        <div className="mt-8 text-green-600 flex items-center justify-center">
+          <Spinner size="2x" />
+        </div>
+      ) : (
+        <div className="mt-5 grid gap-y-4 xs:grid-cols-2 xs:gap-4">
+          {createData(current)}
+        </div>
+      )}
+
+      <ReactPaginate
+        previousLabel={
+          <p className="flex flex-row-reverse items-center justify-center">
+            <span>Previous</span>
+            <span>
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </p>
+        }
+        previousClassName="bg-gray-300 pr-2 rounded shadow-lg"
+        previousLinkClassName="font-semibold text-gray-700"
+        nextLabel={
+          <p className="flex items-center justify-center">
+            <span className="ml-2">Next</span>
+            <span>
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </p>
+        }
+        nextClassName="bg-gray-300 px-1 rounded shadow-lg"
+        nextLinkClassName="font-semibold text-gray-700"
+        disabledClassName="text-gray-500 cursor-not-allowed"
+        breakLabel={"..."}
+        breakClassName="text-white tracking-widest"
+        pageCount={totalPages}
+        pageClassName={`px-1 h-5 text-center text-gray-500 bg-gray-300 rounded shadow-lg ${classes.page}`}
+        activeClassName="text-gray-600"
+        activeLinkClassName="font-bold text-blue-600"
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        containerClassName="my-8 mx-auto max-w-md font-semibold text-sm text-gray-600 bg-gray-500 rounded-lg flex h-8 items-center justify-around"
+        onPageChange={(data) => fetchResults(data.selected + 1)}
+      />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./Person.module.css";
 import { Link } from "react-router-dom";
 import Roles from "../../components/Roles/Roles";
-import axios from "axios";
+import axios from "../../axios";
 import Spinner from "../../components/Spinner/Spinner";
 import { srcSelector } from "../../utils/utils";
 import Image from "../../components/Image/Image";
@@ -23,7 +23,7 @@ const Person = ({ match, history }) => {
   //TODO: check the language parameter for any problems
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/person/${person_id}`)
+      .get(`/person/${person_id}`)
       .then((response) => {
         console.log(response.data.person);
         setPersonDetails(response.data.person);

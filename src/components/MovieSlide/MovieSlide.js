@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import star from "./star.svg";
 import classes from "./MovieSlide.module.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios";
 import Spinner from "../Spinner/Spinner";
 import Image from "../Image/Image";
 
@@ -20,7 +20,7 @@ const MovieSlide = ({
 
   //   const fetchOMBdDetails = useCallback((title, year) => {
   //     axios
-  //       .get(`http://localhost:8080/omovie/${title}/${year}`)
+  //       .get(`/omovie/${title}/${year}`)
   //       .then((response) => {
   //         console.log(response.data.movieDetails);
   //         setOmdbDetails({ [title]: response.data.movieDetails });

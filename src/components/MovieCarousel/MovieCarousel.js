@@ -42,7 +42,7 @@ const MovieCarousel = ({ movies, fn }) => {
     });
 
     return (_) => {
-      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("resize", debounce);
     };
   }, [windowWidth]);
 

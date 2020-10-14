@@ -12,7 +12,13 @@
 
 ☐ Add error boundary
 
+☐ clean up the console logs
+
 ☐ Adjust the app for TV shows
+
+✅ Pagination in search results
+
+☐ cannot click on footer icons
 
 ✅ Select the correct category for the movie requests
 
@@ -26,7 +32,7 @@
 
 ☐ The default country is US, but a feature should be added for the user to choose their country.
 
-☐ Footer
+✅ Footer
 
 ☐ Show little movie preview on hover in person page
 
@@ -35,9 +41,6 @@
 ☐ the `Link` component wraps around the image as well as the text.
 
 ☐ In Movie page, the shadow of poster
-
-☐ In writers, sometimes the same person is a writer and storyboard (check We Bare Bears: The Movie
-)
 
 ☐ see more button of more like this section
 

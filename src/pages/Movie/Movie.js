@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import classes from "./Movie.module.css";
 import star from "../../images/star.svg";
-import axios from "axios";
+import axios from "../../axios";
 import { Route } from "react-router-dom";
 import Sections from "../../components/Sections/Sections";
 import FullCast from "../../components/Full-Cast/FullCast";
@@ -23,7 +23,7 @@ const Movie = ({ match, history }) => {
 
   const fetchTMBdDetails = useCallback((id) => {
     axios
-      .get(`http://localhost:8080/tmovie/${id}`)
+      .get(`/tmovie/${id}`)
       .then((response) => {
         console.log(response.data.movieDetails);
         setTmdbDetails(response.data.movieDetails);
@@ -45,7 +45,7 @@ const Movie = ({ match, history }) => {
     if (!imdb_id) return;
 
     axios
-      .get(`http://localhost:8080/omovie/${imdb_id}`)
+      .get(`/omovie/${imdb_id}`)
       .then((response) => {
         console.log({ imdb: response.data.movieDetails });
         setOmdbDetails(response.data.movieDetails);
