@@ -1,0 +1,11 @@
+.count {
+  padding: 2px 4px;
+}
+
+.page {
+  min-width: 20px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}

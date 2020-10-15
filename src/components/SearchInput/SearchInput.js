@@ -8,7 +8,6 @@ const SearchInput = ({ shown }) => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    // history.push(`/search?q=${encodeURIComponent(query)}`);
     if (!query) {
       console.log("Input cannot be empty");
     } else {

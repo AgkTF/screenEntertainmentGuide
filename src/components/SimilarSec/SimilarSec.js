@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import classes from "./Similar.module.css";
+import classes from "./SimilarSec.module.css";
 import Image from "../Image/Image";
 
-const Similar = ({ movies }) => {
-  let rendered = movies
-    ? movies.slice(0, 5).map((movie) => (
+const SimilarSec = ({ movies }) => {
+  console.log({ similar: movies });
+
+  let rendered =
+    movies.length > 0 ? (
+      movies.slice(0, 5).map((movie) => (
         <div className="flex flex-col mr-6" key={movie.id}>
           <div
             className={`w-20 h-32 rounded-lg overflow-hidden shadow-md ${classes.poster}`}
@@ -21,9 +24,13 @@ const Similar = ({ movies }) => {
           </span>
         </div>
       ))
-    : "💩";
+    ) : (
+      <p className="my-2 mx-auto font-medium text-sm text-gray-600">
+        Nothing to show here. Sorry!
+      </p>
+    );
 
   return rendered;
 };
 
-export default Similar;
+export default SimilarSec;

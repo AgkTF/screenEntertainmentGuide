@@ -144,7 +144,7 @@ const Results = () => {
               <p className="text-xs font-medium">
                 {person.known_for_department}
               </p>
-              <div className="mt-1 text-xs truncate ">
+              <div className="mt-1 text-xs truncate">
                 {person.known_for.splice(0, 3).map((work, i) =>
                   work.title ? (
                     <span key={work.id} className="hover:text-blue-700">

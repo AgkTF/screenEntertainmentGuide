@@ -16,6 +16,7 @@ const Navbar = () => {
       h-10
       sm:h-12
       flex
+      items-center
       justify-around
       relative 
       "
@@ -36,6 +37,7 @@ const Navbar = () => {
             />
           </svg>
         </button>
+
         <div>
           <Link to="/">
             <img
@@ -45,7 +47,14 @@ const Navbar = () => {
             />
           </Link>
         </div>
+
+        <div>
+          <span className="px-2 font-bai font-semibold text-xs text-gray-200 bg-gray-600 rounded-full">
+            Movies
+          </span>
+        </div>
       </div>
+
       <div>
         <SearchInput shown={inputShown} />
       </div>

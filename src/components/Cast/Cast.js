@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { srcSelector } from "../../utils/utils";
 import Image from "../Image/Image";
 
 const Cast = ({ cast }) => {
@@ -8,7 +9,7 @@ const Cast = ({ cast }) => {
         <div key={actor.id} className="flex flex-col mr-3 sm:mr-4">
           <div className="w-20 h-24 sm:w-24 sm:h-32">
             <Image
-              url={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+              url={srcSelector(actor.profile_path, actor.gender)}
               altText={`${actor.name} Profile Pic`}
             />
           </div>

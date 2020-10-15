@@ -10,24 +10,34 @@ import Poster from "../../components/Poster/Poster";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import { Link } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
+import Similar from "../Similar/Similar";
 
 const Movie = ({ match, history }) => {
   console.log("RENDERED 🚀");
   const tmdb_id = match.params.id;
 
-  const [tmdbDetails, setTmdbDetails] = useState({});
-  const [tmdbLoading, setTmdbLoading] = useState(true);
+  const [{ tmdbDetails, tmdbLoading }, setTmdbDetails] = useState({
+    tmdbDetails: {},
+    tmdbLoading: true,
+  });
 
-  const [omdbDetails, setOmdbDetails] = useState({});
-  const [omdbLoading, setOmdbLoading] = useState(true);
+  const [{ omdbDetails, omdbLoading }, setOmdbDetails] = useState({
+    omdbDetails: {},
+    omdbLoading: true,
+  });
 
   const fetchTMBdDetails = useCallback((id) => {
     axios
       .get(`/tmovie/${id}`)
       .then((response) => {
         console.log(response.data.movieDetails);
-        setTmdbDetails(response.data.movieDetails);
-        setTmdbLoading(false);
+        setTmdbDetails((prevState) => {
+          return {
+            ...prevState,
+            tmdbDetails: response.data.movieDetails,
+            tmdbLoading: false,
+          };
+        });
       })
       .catch((error) => {
         if (error.response) {
@@ -48,8 +58,13 @@ const Movie = ({ match, history }) => {
       .get(`/omovie/${imdb_id}`)
       .then((response) => {
         console.log({ imdb: response.data.movieDetails });
-        setOmdbDetails(response.data.movieDetails);
-        setOmdbLoading(false);
+        setOmdbDetails((prevState) => {
+          return {
+            ...prevState,
+            omdbDetails: response.data.movieDetails,
+            omdbLoading: false,
+          };
+        });
       })
       .catch((error) => {
         if (error.response) {
@@ -124,10 +139,10 @@ const Movie = ({ match, history }) => {
   let awards;
   if (omdbLoading) {
     awards = <Spinner />;
-  } else if (!omdbLoading && !omdbDetails.Awards) {
+  } else if (!omdbLoading && omdbDetails.Awards === "N/A") {
     awards = (
-      <span className="text-xs font-normal italic sm:text-sm">
-        "No Awards for this movie yet!"
+      <span className="text-gray-600 text-xs font-normal sm:text-sm">
+        No Awards for this movie yet!
       </span>
     );
   } else {
@@ -166,7 +181,7 @@ const Movie = ({ match, history }) => {
           tmdbLoading={tmdbLoading}
         />
         <div className="ml-4 sm:ml-6 sm:flex">
-          <div className="flex-grow flex-shrink-0">
+          <div className="flex-grow-0 flex-shrink-0 whitespace-no-wrap">
             <p className="font-bold text-lg sm:text-xl">{tmdbDetails.title}</p>
             <p className="text-xs">
               {!omdbLoading ? (
@@ -247,6 +262,8 @@ const Movie = ({ match, history }) => {
           exact
           render={() => <FullCast fullTeam={tmdbDetails.credits} />}
         />
+
+        <Route path="/movie/:id/similar" exact component={Similar} />
       </main>
     </div>
   );

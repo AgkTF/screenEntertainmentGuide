@@ -1,6 +1,6 @@
 import React from "react";
 import Cast from "../Cast/Cast";
-import Similar from "../Similar/Similar";
+import SimilarSec from "../SimilarSec/SimilarSec";
 import classes from "./Sections.module.css";
 import { Link } from "react-router-dom";
 
@@ -125,28 +125,31 @@ const Sections = ({
       <section className="mt-5 sm:mt-6">
         <div className="flex justify-between items-center">
           <h2 className="text-sm font-bold sm:text-lg">More Like This</h2>
-          <p className="text-xs sm:text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2 hover:bg-gray-500 hover:text-gray-200">
-            See more{" "}
-            <span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </span>
-          </p>
+
+          <Link to="similar">
+            <button className="text-xs sm:text-sm flex justify-between items-center bg-gray-500 bg-opacity-25 rounded-md pr-1 pl-2 hover:bg-gray-500 hover:text-gray-200">
+              See more{" "}
+              <span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </button>
+          </Link>
         </div>
         <div className="mt-2 sm:mt-3 flex flex-no-wrap overflow-auto">
-          <Similar movies={similar} />
+          <SimilarSec movies={similar} />
         </div>
       </section>
     </>

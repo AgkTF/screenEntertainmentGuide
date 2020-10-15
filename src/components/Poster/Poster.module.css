@@ -5,6 +5,10 @@
   bottom: 0;
 }
 
+.PosterContainer {
+  min-width: 8rem;
+}
+
 .PosterContainer:hover .PosterExpand {
   opacity: 1;
 }

@@ -13,7 +13,6 @@ const MovieCarousel = ({ movies, fn }) => {
 
   const debounce = (callback, delay) => {
     let timeout;
-
     return function () {
       clearTimeout(timeout);
       timeout = setTimeout(callback, delay);
@@ -36,10 +35,6 @@ const MovieCarousel = ({ movies, fn }) => {
     };
 
     window.addEventListener("resize", debounce(resizeHandler, 1000));
-    console.log({
-      windowWidth,
-      padding: (windowWidth - 208) / 2,
-    });
 
     return (_) => {
       window.removeEventListener("resize", debounce);

@@ -143,7 +143,6 @@ const utils = {
         return "/male-wo-1.svg";
       }
     } else {
-      // return "/images/17.jpg";
       return `https://image.tmdb.org/t/p/w185${profile_path}`;
     }
   },

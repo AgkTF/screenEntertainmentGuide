@@ -13,7 +13,9 @@ const Backdrop = ({ backdrop_path, title, tmdbLoading, images }) => {
   return (
     <div className={classes.Backdrop}>
       <Image
-        url={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
+        url={
+          backdrop_path ? `https://image.tmdb.org/t/p/w780${backdrop_path}` : ""
+        }
         altText={`"${title}" movie backdrop`}
       />
 

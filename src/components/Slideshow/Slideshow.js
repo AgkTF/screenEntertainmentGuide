@@ -33,7 +33,7 @@ const Slideshow = ({ movies }) => {
                 altText={`"${movie.title}" backdrop`}
               />
               <Link to={`/movie/${movie.id}/details`}>
-                <span className="absolute bottom-8 px-4 text-gray-200 font-bai text-lg sm:text-xl font-bold bg-gray-500 bg-opacity-50 rounded max-w-xs uppercase">
+                <span className="absolute bottom-8 px-4 text-gray-200 font-bai text-lg sm:text-xl font-bold bg-gray-600 bg-opacity-50 rounded max-w-xs uppercase">
                   {`${movie.title}`}
                 </span>
               </Link>
@@ -43,6 +43,8 @@ const Slideshow = ({ movies }) => {
           <Spinner />
         )}
       </Slider>
+
+      {/* {movies} */}
     </>
   );
 };

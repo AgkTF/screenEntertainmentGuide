@@ -84,7 +84,7 @@ const MovieSlide = ({
           </div>
 
           <Link to={`/movie/${id}/details`}>
-            <button className="mt-3 px-3 py-1 text-sm font-semibold rounded-full border-2 border-opacity-50 border-gray-700 cursor-pointer">
+            <button className="mt-3 px-3 text-sm font-semibold rounded-full border-2 border-opacity-50 border-gray-700 cursor-pointer">
               See more
             </button>
           </Link>
