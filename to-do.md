@@ -28,7 +28,7 @@
 
 ☐ Add error boundary
 
-☐ Clean up the app for production
+☐ Clean up the app for production. Don't forget tailwind with purgeCss
 
 ☐ clean up the console logs
 
@@ -44,7 +44,7 @@
 
 ☐ In Movie page, the shadow of poster
 
-☐ see more button of more like this section
+✅ see more button of more like this section
 
 ☐ Make the roles into a subtle table
 

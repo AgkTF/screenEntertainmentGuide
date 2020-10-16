@@ -20,7 +20,7 @@ const Backdrop = ({ backdrop_path, title, tmdbLoading, images }) => {
       />
 
       <button
-        className="absolute right-4 bottom-2 text-sm font-semibold text-gray-200 underline z-30 tracking-wide"
+        className="px-2 absolute right-4 bottom-2 text-sm font-semibold text-gray-300 underline z-30 tracking-wide bg-gray-800 bg-opacity-50 rounded-md hover:text-white"
         onClick={openModalHandler}
       >
         other photos

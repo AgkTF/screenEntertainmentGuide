@@ -16,42 +16,42 @@ const MovieSlide = ({
   isCurrent,
   year,
 }) => {
-  //   const [omdbDetails, setOmdbDetails] = useState({});
+  const [omdbDetails, setOmdbDetails] = useState({});
 
-  //   const fetchOMBdDetails = useCallback((title, year) => {
-  //     axios
-  //       .get(`/omovie/${title}/${year}`)
-  //       .then((response) => {
-  //         console.log(response.data.movieDetails);
-  //         setOmdbDetails({ [title]: response.data.movieDetails });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }, []);
+  const fetchOMBdDetails = useCallback((title, year) => {
+    axios
+      .get(`/omovie/${title}/${year}`)
+      .then((response) => {
+        console.log(response.data.movieDetails);
+        setOmdbDetails({ [title]: response.data.movieDetails });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  //   useEffect(() => {
-  //     if (isCurrent && !omdbDetails[title]) {
-  //       fetchOMBdDetails(title, year);
-  //     } else {
-  //       return;
-  //     }
-  //   }, [isCurrent, title, omdbDetails, fetchOMBdDetails, year]);
+  useEffect(() => {
+    if (isCurrent && !omdbDetails[title]) {
+      fetchOMBdDetails(title, year);
+    } else {
+      return;
+    }
+  }, [isCurrent, title, omdbDetails, fetchOMBdDetails, year]);
 
-  //   let imdbRating =
-  //     omdbDetails[title] && omdbDetails[title].imdbRating ? (
-  //       omdbDetails[title].imdbRating
-  //     ) : (
-  //       <Spinner />
-  //     );
+  let imdbRating =
+    omdbDetails[title] && omdbDetails[title].imdbRating ? (
+      omdbDetails[title].imdbRating
+    ) : (
+      <Spinner />
+    );
 
-  //   let metascoreRating = omdbDetails[title]
-  //     ? omdbDetails[title].Ratings.find(
-  //         (rating) => rating.Source === "Metacritic"
-  //       )
-  //     : "";
+  let metascoreRating = omdbDetails[title]
+    ? omdbDetails[title].Ratings.find(
+        (rating) => rating.Source === "Metacritic"
+      )
+    : "";
 
-  //   let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
+  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
 
   return (
     <div className="max-w-3xl flex flex-col justify-center">
@@ -69,15 +69,15 @@ const MovieSlide = ({
             <div>
               <div className="flex items-center justify-center">
                 <img src={star} alt="rating star" className="w-3 h-3" />
-                {/* <span className="ml-1 font-semibold">{imdbRating}</span> */}
-                <span className="ml-1 font-semibold">6.6</span>
+                <span className="ml-1 font-semibold">{imdbRating}</span>
+                {/* <span className="ml-1 font-semibold">6.6</span> */}
               </div>
               <p className="text-xs font-light">IMDb</p>
             </div>
             <div>
               <span className="p-1 bg-green-500 text-sm text-white font-semibold">
-                {/* {metascore} */}
-                79
+                {metascore}
+                {/* 79 */}
               </span>
               <p className="mt-1 text-xs font-light">Metascore</p>
             </div>
