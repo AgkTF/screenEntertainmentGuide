@@ -64,7 +64,7 @@ const ResultsGrid = ({ url }) => {
         </div>
         <div className="ml-3 text-sm">
           <h3 className="font-semibold leading-tight">
-            <Link to={`/entry/${entry.id}/details`}>{entry.title}</Link>
+            <Link to={`/movie/${entry.id}/details`}>{entry.title}</Link>
             <span className="ml-1 font-normal text-gray-500 text-xs ">
               ({entry.release_date.split("-")[0]})
             </span>
