@@ -1,12 +1,7 @@
-/* .Slider {
-  top: -3rem;
-} */
-
 .imgCont {
-  background: url("/images/oscar-min-sm.svg");
+  background: url("../../images/roll-min.svg") #edf2f7;
   background-position: center;
   background-repeat: no-repeat;
-  /* background: #c6f6d5; */
   overflow: hidden;
   height: 20rem;
   width: 100%;
@@ -25,10 +20,6 @@
 }
 
 @media screen and (min-width: 640px) {
-  /* .Slider {
-    top: -3rem;
-  } */
-
   .imgCont {
     height: 30rem;
   }

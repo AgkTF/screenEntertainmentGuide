@@ -2,7 +2,6 @@ import React from "react";
 import Slider from "react-slick";
 import classes from "./Slideshow.module.css";
 import { Link } from "react-router-dom";
-import Spinner from "../Spinner/Spinner";
 import Image from "../Image/Image";
 
 const Slideshow = ({ movies }) => {
@@ -23,9 +22,9 @@ const Slideshow = ({ movies }) => {
   };
   return (
     <>
-      <Slider {...settings} className={classes.Slider}>
-        {movies ? (
-          movies.map((movie) => (
+      {movies.length ? (
+        <Slider {...settings} className={classes.Slider}>
+          {movies.map((movie) => (
             <div className={classes.imgCont} key={movie.id}>
               <Image
                 url={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
@@ -38,13 +37,11 @@ const Slideshow = ({ movies }) => {
                 </span>
               </Link>
             </div>
-          ))
-        ) : (
-          <Spinner />
-        )}
-      </Slider>
-
-      {/* {movies} */}
+          ))}
+        </Slider>
+      ) : (
+        <div className={classes.imgCont}></div>
+      )}
     </>
   );
 };

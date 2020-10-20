@@ -4,20 +4,13 @@ import MovieSlide from "../MovieSlide/MovieSlide";
 import classes from "./MovieCarousel.module.css";
 import { genreMapper } from "../../utils/utils";
 import { NavLink } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 import PropTypes from "prop-types";
 
 const MovieCarousel = ({ movies, fn }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
   const [currentTitle, setCurrentTitle] = useState("");
   console.log({ currentTitle });
-
-  const debounce = (callback, delay) => {
-    let timeout;
-    return function () {
-      clearTimeout(timeout);
-      timeout = setTimeout(callback, delay);
-    };
-  };
 
   const afterSlideChangeHandler = useCallback(() => {
     let newCurrentSlide = document.querySelector(
@@ -29,17 +22,16 @@ const MovieCarousel = ({ movies, fn }) => {
     setCurrentTitle(newCurrentTitle);
   }, []);
 
+  const resizeHandler = useCallback(() => {
+    setWindowWith(window.innerWidth);
+  }, []);
+
   useEffect(() => {
-    const resizeHandler = () => {
-      setWindowWith(window.innerWidth);
-    };
-
-    window.addEventListener("resize", debounce(resizeHandler, 1000));
-
+    window.addEventListener("resize", resizeHandler);
     return (_) => {
-      window.removeEventListener("resize", debounce);
+      window.removeEventListener("resize", resizeHandler);
     };
-  }, [windowWidth]);
+  }, [movies, resizeHandler, windowWidth]);
 
   let padding = windowWidth >= 768 ? 285 : (windowWidth - 208) / 2;
 
@@ -78,24 +70,30 @@ const MovieCarousel = ({ movies, fn }) => {
         </div>
       </div>
 
-      <Slider {...settings}>
-        {movies.map((movie) => (
-          <MovieSlide
-            key={movie.id}
-            id={movie.id}
-            posterUrl={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
-                : ""
-            }
-            altText={`"${movie.title}" poster`}
-            title={`${movie.title}`}
-            genre={genreMapper(movie.genre_ids)}
-            isCurrent={currentTitle === movie.title ? true : false}
-            year={+movie.release_date.split("-")[0]}
-          />
-        ))}
-      </Slider>
+      {movies.length > 0 ? (
+        <Slider {...settings}>
+          {movies.map((movie) => (
+            <MovieSlide
+              key={movie.id}
+              id={movie.id}
+              posterUrl={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
+                  : ""
+              }
+              altText={`"${movie.title}" poster`}
+              title={`${movie.title}`}
+              genre={genreMapper(movie.genre_ids)}
+              isCurrent={currentTitle === movie.title ? true : false}
+              year={+movie.release_date.split("-")[0]}
+            />
+          ))}
+        </Slider>
+      ) : (
+        <div className="py-4 flex justify-center text-gray-500">
+          <Spinner size="2x" />
+        </div>
+      )}
     </div>
   );
 };
