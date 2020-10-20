@@ -1,37 +1,29 @@
-/* .Backdrop {
-  height: 18rem;
-} */
-
-/* .PosterExpand {
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  bottom: -24px;
+.Details {
+  max-width: 8rem;
 }
 
-.PosterContainer:hover .PosterExpand {
-  bottom: 0;
-} */
+.Genres {
+  --scrollWidth: 0;
+  transition: all 1s linear;
+}
 
-@media screen and (min-width: 640px) {
-  .Backdrop {
-    height: 25rem;
+.Genres:hover {
+  margin-left: calc(8rem - var(--scrollWidth));
+}
+
+@media screen and (min-width: 414px) {
+  .Details {
+    max-width: 14rem;
   }
 
+  .Genres:hover {
+    margin-left: calc(14rem - var(--scrollWidth));
+  }
+}
+
+@media screen and (min-width: 640px) {
   .PosterSec {
     display: grid;
     grid-template-columns: 0.4fr auto;
-  }
-
-  .CrewDetails,
-  .BoxDetails {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr;
-    gap: 8px;
-  }
-
-  .Details {
-    display: grid;
-    grid-template-columns: 0.75fr 1fr 0.5fr;
-    gap: 8px;
   }
 }

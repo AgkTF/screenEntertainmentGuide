@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import classes from "./Movie.module.css";
 import star from "../../images/star.svg";
 import axios from "../../axios";
@@ -13,6 +13,8 @@ import Spinner from "../../components/Spinner/Spinner";
 import Similar from "../Similar/Similar";
 
 const Movie = ({ match, history }) => {
+  const genreRef = useRef();
+
   console.log("RENDERED 🚀");
   const tmdb_id = match.params.id;
 
@@ -78,13 +80,26 @@ const Movie = ({ match, history }) => {
       });
   }, []);
 
+  const scroller = useCallback(() => {
+    if (!omdbLoading) {
+      console.log(genreRef.current.scrollWidth);
+      genreRef.current.style.setProperty(
+        "--scrollWidth",
+        `${genreRef.current.scrollWidth}px`
+      );
+    } else {
+      console.log("not set");
+    }
+  }, [omdbLoading]);
+
   useEffect(() => {
     fetchTMBdDetails(tmdb_id);
   }, [tmdb_id, fetchTMBdDetails]);
 
   useEffect(() => {
     fetchOMBdDetails(tmdbDetails.imdb_id);
-  }, [fetchOMBdDetails, tmdbDetails.imdb_id]);
+    scroller();
+  }, [scroller, fetchOMBdDetails, tmdbDetails.imdb_id]);
 
   let prodCompanies = !tmdbLoading ? (
     tmdbDetails.production_companies.map((company) => company.name).join(", ")
@@ -180,10 +195,17 @@ const Movie = ({ match, history }) => {
           images={!tmdbLoading ? tmdbDetails.images.posters : []}
           tmdbLoading={tmdbLoading}
         />
-        <div className="ml-4 sm:ml-6 sm:flex">
-          <div className="flex-grow-0 flex-shrink-0 whitespace-no-wrap">
-            <p className="font-bold text-lg sm:text-xl">{tmdbDetails.title}</p>
-            <p className="text-xs">
+        <div className="ml-4 sm:ml-6 sm:flex overflow-hidden">
+          <div
+            className={`flex-grow-0 flex-shrink-0 whitespace-no-wrap ${classes.Details}`}
+          >
+            <p className="font-bold text-lg sm:text-xl truncate">
+              {tmdbDetails.title}
+            </p>
+            <p
+              ref={genreRef}
+              className={`text-xs overflow-hidden whitespace-no-wrap  ${classes.Genres}`}
+            >
               {!omdbLoading ? (
                 omdbDetails.Genre.replaceAll(", ", "/")
               ) : (
