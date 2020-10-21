@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Roles = ({ known_for, cast, crew }) => {
-  console.log("ROLES 🐾");
+  // console.log("ROLES 🐾");
 
   const [filters, setFilters] = useState({
     mediaType: "movie",

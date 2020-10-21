@@ -23,11 +23,11 @@ const MovieSlide = ({
     axios
       .get(`/omovie/${title}/${year}`)
       .then((response) => {
-        console.log(response.data.movieDetails);
+        // console.log(response.data.movieDetails);
         setOmdbDetails({ [title]: response.data.movieDetails });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 

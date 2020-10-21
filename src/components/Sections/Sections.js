@@ -18,7 +18,6 @@ const Sections = ({
   cast,
   similar,
 }) => {
-  console.log();
   return (
     <>
       <section className="mt-6 sm:mt-8">

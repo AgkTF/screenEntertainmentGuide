@@ -9,7 +9,7 @@ const SearchInput = ({ shown }) => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (!query) {
-      console.log("Input cannot be empty");
+      // console.log("Input cannot be empty");
     } else {
       history.push(`/search?q=${query}`);
     }

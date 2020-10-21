@@ -19,7 +19,7 @@ const ResultsGrid = ({ url }) => {
       axios
         .get(`${url}?page=${newPage}`)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setCombinedState((prevState) => {
             return {
               ...prevState,
@@ -31,12 +31,12 @@ const ResultsGrid = ({ url }) => {
         })
         .catch((error) => {
           if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
           } else if (error.request) {
-            console.log(error.request);
+            // console.log(error.request);
           } else {
-            console.log("Error", error.message);
+            // console.log("Error", error.message);
           }
         });
     },

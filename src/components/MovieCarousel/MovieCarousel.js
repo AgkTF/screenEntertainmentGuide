@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 const MovieCarousel = ({ movies, fn }) => {
   const [windowWidth, setWindowWith] = useState(window.innerWidth);
   const [currentTitle, setCurrentTitle] = useState("");
-  console.log({ currentTitle });
+  // console.log({ currentTitle });
 
   const afterSlideChangeHandler = useCallback(() => {
     let newCurrentSlide = document.querySelector(

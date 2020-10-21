@@ -33,7 +33,7 @@ const Movie = ({ match }) => {
     axios
       .get(`/tmovie/${id}`)
       .then((response) => {
-        console.log(response.data.movieDetails);
+        // console.log(response.data.movieDetails);
         setTmdbDetails((prevState) => {
           return {
             ...prevState,
@@ -44,8 +44,8 @@ const Movie = ({ match }) => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
         } else if (error.request) {
           console.log(error.request);
         } else {

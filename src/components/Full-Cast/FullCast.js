@@ -13,7 +13,7 @@ const FullCast = ({ fullTeam }) => {
     );
     combined.push(single);
   }
-  console.log(combined);
+  // console.log(combined);
 
   let people = uniqueDepsArray.map((department, index) => {
     return (
