@@ -55,7 +55,7 @@ const MovieSlide = ({
 
   return (
     <div className="max-w-3xl flex flex-col justify-center">
-      <div className={classes.imgContainer}>
+      <div className={`rounded-xl ${classes.imgContainer}`}>
         <Image url={posterUrl} altText={altText} />
       </div>
 
@@ -70,14 +70,12 @@ const MovieSlide = ({
               <div className="flex items-center justify-center">
                 <img src={star} alt="rating star" className="w-3 h-3" />
                 <span className="ml-1 font-semibold">{imdbRating}</span>
-                {/* <span className="ml-1 font-semibold">6.6</span> */}
               </div>
               <p className="text-xs font-light">IMDb</p>
             </div>
             <div>
               <span className="p-1 bg-green-500 text-sm text-white font-semibold">
                 {metascore}
-                {/* 79 */}
               </span>
               <p className="mt-1 text-xs font-light">Metascore</p>
             </div>

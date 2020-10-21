@@ -53,10 +53,10 @@ const ResultsGrid = ({ url }) => {
   const createData = (data) => {
     return data.map((entry) => (
       <div
-        className="h-20 py-3 pr-3 flex items-center bg-white rounded-lg overflow-hidden shadow-md hover:shadow-sm text-gray-700"
+        className="h-20 py-3 pr-3 flex items-center bg-white rounded-md overflow-hidden shadow-md hover:shadow-sm text-gray-700"
         key={entry.id}
       >
-        <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
+        <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-r-md overflow-hidden">
           <Image
             url={`https://image.tmdb.org/t/p/w92${entry.poster_path}`}
             altText={`"${entry.title}" poster`}
@@ -139,7 +139,7 @@ const ResultsGrid = ({ url }) => {
         activeLinkClassName="font-bold text-blue-600"
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
-        containerClassName="my-8 mx-auto max-w-md font-semibold text-sm text-gray-600 bg-gray-500 rounded-lg flex h-8 items-center justify-around"
+        containerClassName="my-8 mx-auto max-w-md font-semibold text-sm text-gray-600 bg-gray-500 rounded-lg flex h-8 items-center justify-around list-none"
         onPageChange={(data) => fetchResults(data.selected + 1)}
       />
     </>

@@ -12,7 +12,7 @@ const Poster = ({ poster_path, title, tmdbLoading, images }) => {
 
   return (
     <div
-      className={`w-32 h-48 sm:w-40 sm:h-64 relative rounded-lg overflow-hidden border-2 border-gray-300 box-content ${classes.PosterContainer}`}
+      className={`w-32 h-48 sm:w-40 sm:h-64 relative rounded-xl overflow-hidden border-2 border-gray-300 box-content ${classes.PosterContainer}`}
     >
       <Image
         url={

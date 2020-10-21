@@ -1,5 +1,5 @@
 .Details {
-  max-width: 8rem;
+  max-width: 10rem;
 }
 
 .Genres {
@@ -8,16 +8,16 @@
 }
 
 .Genres:hover {
-  margin-left: calc(8rem - var(--scrollWidth));
+  margin-left: calc(10rem - var(--scrollWidth));
 }
 
 @media screen and (min-width: 414px) {
   .Details {
-    max-width: 14rem;
+    max-width: 15rem;
   }
 
   .Genres:hover {
-    margin-left: calc(14rem - var(--scrollWidth));
+    margin-left: calc(15rem - var(--scrollWidth));
   }
 }
 

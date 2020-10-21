@@ -159,7 +159,7 @@ const Person = ({ match, history }) => {
                 className="mr-5 sm:mr-4 flex flex-col items-center"
                 key={work.id}
               >
-                <div className="w-20 sm:w-24 h-32 sm:h-40 rounded overflow-hidden">
+                <div className="w-20 sm:w-24 h-32 sm:h-40 rounded-md overflow-hidden">
                   <Image
                     url={
                       work.poster_path
