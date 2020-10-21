@@ -40,7 +40,7 @@
 
 ☐ Show little movie preview on hover in person page
 
-☐ the `Link` component wraps around the image as well as the text.
+✅ the `Link` component wraps around the image as well as the text.
 
 ☐ In Movie page, the shadow of poster
 

@@ -5,15 +5,15 @@ import "./slick.css";
 import "./slick-theme.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import ErrorBoundary from "./components/Error/Error";
+// import ErrorBoundary from "./components/Error/Error";
 
 ReactDOM.render(
-  <ErrorBoundary>
-    <BrowserRouter>
-      {/* <React.StrictMode> */}
-      <App />
-      {/* </React.StrictMode> */}
-    </BrowserRouter>
-  </ErrorBoundary>,
+  // <ErrorBoundary>
+  <BrowserRouter>
+    {/* <React.StrictMode> */}
+    <App />
+    {/* </React.StrictMode> */}
+  </BrowserRouter>,
+  // </ErrorBoundary>,
   document.getElementById("root")
 );

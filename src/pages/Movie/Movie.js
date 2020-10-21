@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import Similar from "../Similar/Similar";
 
-const Movie = ({ match, history }) => {
+const Movie = ({ match }) => {
   const genreRef = useRef();
 
   console.log("RENDERED 🚀");
@@ -21,6 +21,7 @@ const Movie = ({ match, history }) => {
   const [{ tmdbDetails, tmdbLoading }, setTmdbDetails] = useState({
     tmdbDetails: {},
     tmdbLoading: true,
+    tError: "",
   });
 
   const [{ omdbDetails, omdbLoading }, setOmdbDetails] = useState({

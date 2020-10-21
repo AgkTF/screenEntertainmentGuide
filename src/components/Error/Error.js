@@ -7,13 +7,13 @@ class ErrorBoundary extends Component {
     errorInfo: "",
   };
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
+  // static getDerivedStateFromError(error) {
+  //   return { hasError: true, error };
+  // }
 
   componentDidCatch(error, errorInfo) {
     console.log({ error, errorInfo });
-    this.setState({ errorInfo });
+    this.setState({ hasError: true, error, errorInfo });
   }
 
   render() {
