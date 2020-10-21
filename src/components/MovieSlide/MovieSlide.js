@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "../../axios";
 import Spinner from "../Spinner/Spinner";
 import Image from "../Image/Image";
+import { isMobile } from "react-device-detect";
 
 const MovieSlide = ({
   posterUrl,
@@ -56,7 +57,13 @@ const MovieSlide = ({
   return (
     <div className="max-w-3xl flex flex-col justify-center">
       <div className={`rounded-xl ${classes.imgContainer}`}>
-        <Image url={posterUrl} altText={altText} />
+        {isMobile ? (
+          <Link to={`/movie/${id}/details`}>
+            <Image url={posterUrl} altText={altText} />
+          </Link>
+        ) : (
+          <Image url={posterUrl} altText={altText} />
+        )}
       </div>
 
       <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">

@@ -28,13 +28,13 @@
 
 ☐ Add error boundary
 
-☐ Clean up the app for production. Don't forget tailwind with purgeCss
+✅ Clean up the app for production. Don't forget tailwind with purgeCss
 
 ☐ clean up the console logs
 
 ☐ Adjust the app for TV shows
 
-☐ other photos in backdrop needs rework
+✅ other photos in backdrop needs rework
 
 ✅ Similar movies sometimes aren't there, we need to handle this case
 

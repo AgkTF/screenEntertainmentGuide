@@ -13,10 +13,12 @@ const SimilarSec = ({ movies }) => {
           <div
             className={`w-20 h-32 rounded-lg overflow-hidden shadow-md ${classes.poster}`}
           >
-            <Image
-              url={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-              altText={`"${movie.title}" poster`}
-            />
+            <Link to={`/movie/${movie.id}/details`}>
+              <Image
+                url={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                altText={`"${movie.title}" poster`}
+              />
+            </Link>
           </div>
 
           <span className="mt-2 font-semibold text-xs sm:text-sm leading-tight text-center">

@@ -8,10 +8,12 @@ const Cast = ({ cast }) => {
     ? cast.slice(0, 6).map((actor) => (
         <div key={actor.id} className="flex flex-col mr-3 sm:mr-4">
           <div className="w-20 h-24 sm:w-24 sm:h-32 overflow-hidden rounded-lg">
-            <Image
-              url={srcSelector(actor.profile_path, actor.gender)}
-              altText={`${actor.name} Profile Pic`}
-            />
+            <Link to={`/person/${actor.id}`}>
+              <Image
+                url={srcSelector(actor.profile_path, actor.gender)}
+                altText={`${actor.name} Profile Pic`}
+              />
+            </Link>
           </div>
           <p
             className="mt-2 font-semibold text-xs sm:text-sm text-center"

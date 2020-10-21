@@ -57,10 +57,12 @@ const ResultsGrid = ({ url }) => {
         key={entry.id}
       >
         <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-r-md overflow-hidden">
-          <Image
-            url={`https://image.tmdb.org/t/p/w92${entry.poster_path}`}
-            altText={`"${entry.title}" poster`}
-          />
+          <Link to={`/movie/${entry.id}/details`}>
+            <Image
+              url={`https://image.tmdb.org/t/p/w92${entry.poster_path}`}
+              altText={`"${entry.title}" poster`}
+            />
+          </Link>
         </div>
         <div className="ml-3 text-sm">
           <h3 className="font-semibold leading-tight">
@@ -82,7 +84,7 @@ const ResultsGrid = ({ url }) => {
           <Spinner size="2x" />
         </div>
       ) : (
-        <div className="mt-5 grid gap-y-4 xs:grid-cols-2 xs:gap-4">
+        <div className="mt-5 grid gap-y-4 sm:grid-cols-2 xs:gap-4">
           {createData(results)}
         </div>
       )}

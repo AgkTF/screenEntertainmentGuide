@@ -82,11 +82,9 @@ const Movie = ({ match, history }) => {
 
   const scroller = useCallback(() => {
     if (!omdbLoading) {
-      console.log(genreRef.current.scrollWidth);
-      genreRef.current.style.setProperty(
-        "--scrollWidth",
-        `${genreRef.current.scrollWidth}px`
-      );
+      let sw = genreRef.current.scrollWidth;
+      console.log(sw);
+      genreRef.current.style.setProperty("--scrollWidth", `${sw}px`);
     } else {
       console.log("not set");
     }
@@ -204,7 +202,7 @@ const Movie = ({ match, history }) => {
             </p>
             <p
               ref={genreRef}
-              className={`text-xs overflow-hidden whitespace-no-wrap  ${classes.Genres}`}
+              className={`text-xs overflow-hidden whitespace-no-wrap ${classes.Genres}`}
             >
               {!omdbLoading ? (
                 omdbDetails.Genre.replaceAll(", ", "/")

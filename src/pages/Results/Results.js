@@ -83,10 +83,13 @@ const Results = () => {
             key={movie.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <Image
-                url={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                altText={`"${movie.title}" poster`}
-              />
+              <Link to={`/movie/${movie.id}/details`}>
+                {" "}
+                <Image
+                  url={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                  altText={`"${movie.title}" poster`}
+                />
+              </Link>
             </div>
             <div className="ml-3 text-sm">
               <h3 className="font-semibold leading-tight">
@@ -107,10 +110,12 @@ const Results = () => {
             key={show.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <Image
-                url={`https://image.tmdb.org/t/p/w92${show.poster_path}`}
-                altText={show.name}
-              />
+              <Link to={`/show/${show.id}/details`}>
+                <Image
+                  url={`https://image.tmdb.org/t/p/w92${show.poster_path}`}
+                  altText={show.name}
+                />
+              </Link>
             </div>
             <div className="ml-3 text-sm">
               <h3 className="font-semibold leading-tight">
@@ -132,10 +137,12 @@ const Results = () => {
             key={person.id}
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
-              <Image
-                url={`https://image.tmdb.org/t/p/w92${person.profile_path}`}
-                altText={person.name}
-              />
+              <Link to={`/person/${person.id}`}>
+                <Image
+                  url={`https://image.tmdb.org/t/p/w92${person.profile_path}`}
+                  altText={person.name}
+                />
+              </Link>
             </div>
             <div className="ml-3 text-sm">
               <h3 className="font-semibold leading-tight">

@@ -1,6 +1,6 @@
 {
   "name": "screen-entertainment-guide",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
@@ -14,6 +14,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.13.5",
     "react": "^16.13.1",
+    "react-device-detect": "^1.14.0",
     "react-dom": "^16.13.1",
     "react-image-gallery": "^1.0.8",
     "react-modal": "^3.11.2",
