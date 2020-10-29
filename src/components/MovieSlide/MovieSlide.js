@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
-import star from "./star.svg";
-import classes from "./MovieSlide.module.css";
-import { Link } from "react-router-dom";
-import axios from "../../axios";
-import Spinner from "../Spinner/Spinner";
-import Image from "../Image/Image";
-import { isMobile } from "react-device-detect";
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import star from './star.svg';
+import classes from './MovieSlide.module.css';
+import { Link } from 'react-router-dom';
+import axios from '../../axios';
+import Image from '../Image/Image';
+import { isMobile } from 'react-device-detect';
 
 const MovieSlide = ({
   posterUrl,
@@ -40,19 +39,18 @@ const MovieSlide = ({
   }, [isCurrent, title, omdbDetails, fetchOMBdDetails, year]);
 
   let imdbRating =
-    omdbDetails[title] && omdbDetails[title].imdbRating ? (
-      omdbDetails[title].imdbRating
-    ) : (
-      <Spinner />
-    );
+    omdbDetails[title] && omdbDetails[title].imdbRating
+      ? omdbDetails[title].imdbRating
+      : 'N/A';
 
-  let metascoreRating = omdbDetails[title]
-    ? omdbDetails[title].Ratings.find(
-        (rating) => rating.Source === "Metacritic"
-      )
-    : "";
+  let metascoreRating =
+    omdbDetails[title] && omdbDetails[title].Ratings
+      ? omdbDetails[title].Ratings.find(
+          (rating) => rating.Source === 'Metacritic'
+        )
+      : '';
 
-  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
+  let metascore = metascoreRating ? metascoreRating.Value.split('/')[0] : 'N/A';
 
   return (
     <div className="max-w-3xl flex flex-col justify-center">
@@ -66,12 +64,12 @@ const MovieSlide = ({
         )}
       </div>
 
-      <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300">
+      <div className="mt-3 text-gray-700 font-bai text-center opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center">
         <Link to={`/movie/${id}/details`}>
           <p className="font-bold">{title}</p>
         </Link>
         <p className="text-xs">{genre}</p>
-        <div className="mt-3 flex flex-col items-center">
+        <div className="mt-3 flex flex-col items-center w-full ">
           <div className="w-full flex items-center justify-around">
             <div>
               <div className="flex items-center justify-center">
@@ -83,6 +81,7 @@ const MovieSlide = ({
             <div>
               <span className="p-1 bg-green-500 text-sm text-white font-semibold">
                 {metascore}
+                {/* 💩 */}
               </span>
               <p className="mt-1 text-xs font-light">Metascore</p>
             </div>

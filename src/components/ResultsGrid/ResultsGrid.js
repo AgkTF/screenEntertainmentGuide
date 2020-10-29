@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import Spinner from "../Spinner/Spinner";
-import { genreMapper } from "../../utils/utils";
-import Image from "../../components/Image/Image";
-import ReactPaginate from "react-paginate";
-import axios from "../../axios";
-import { Link } from "react-router-dom";
-import classes from "./ResultsGrid.module.css";
+import React, { useState, useCallback, useEffect } from 'react';
+import Spinner from '../Spinner/Spinner';
+import { genreMapper } from '../../utils/utils';
+import Image from '../../components/Image/Image';
+import ReactPaginate from 'react-paginate';
+import axios from '../../axios';
+import { Link } from 'react-router-dom';
+import classes from './ResultsGrid.module.css';
 
 const ResultsGrid = ({ url }) => {
   const [{ results, totalPages, loading }, setCombinedState] = useState({
@@ -68,7 +68,7 @@ const ResultsGrid = ({ url }) => {
           <h3 className="font-semibold leading-tight">
             <Link to={`/movie/${entry.id}/details`}>{entry.title}</Link>
             <span className="ml-1 font-normal text-gray-500 text-xs ">
-              ({entry.release_date.split("-")[0]})
+              ({entry.release_date.split('-')[0]})
             </span>
           </h3>
           <p className="mt-1 text-xs">{genreMapper(entry.genre_ids)}</p>
@@ -133,7 +133,7 @@ const ResultsGrid = ({ url }) => {
         nextClassName="bg-gray-300 px-1 rounded shadow-lg"
         nextLinkClassName="font-semibold text-gray-700"
         disabledClassName="text-gray-500 cursor-not-allowed"
-        breakLabel={"..."}
+        breakLabel={'...'}
         breakClassName="text-white tracking-widest"
         pageCount={totalPages}
         pageClassName={`px-1 h-5 text-center text-gray-500 bg-gray-300 rounded shadow-lg ${classes.page}`}

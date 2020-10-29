@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import classes from "./SimilarSec.module.css";
-import Image from "../Image/Image";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import classes from './SimilarSec.module.css';
+import Image from '../Image/Image';
 
 const SimilarSec = ({ movies }) => {
-  console.log({ similar: movies });
+  // console.log({ similar: movies });
 
   let rendered =
     movies.length > 0 ? (

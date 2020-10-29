@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import classes from "./Movie.module.css";
-import star from "../../images/star.svg";
-import axios from "../../axios";
-import { Route } from "react-router-dom";
-import Sections from "../../components/Sections/Sections";
-import FullCast from "../../components/Full-Cast/FullCast";
-import { timeExpander } from "../../utils/utils";
-import Poster from "../../components/Poster/Poster";
-import Backdrop from "../../components/Backdrop/Backdrop";
-import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner/Spinner";
-import Similar from "../Similar/Similar";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import classes from './Movie.module.css';
+import star from '../../images/star.svg';
+import axios from '../../axios';
+import { Route } from 'react-router-dom';
+import Sections from '../../components/Sections/Sections';
+import FullCast from '../../components/Full-Cast/FullCast';
+import { timeExpander } from '../../utils/utils';
+import Poster from '../../components/Poster/Poster';
+import Backdrop from '../../components/Backdrop/Backdrop';
+import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
+import Similar from '../Similar/Similar';
 
 const Movie = ({ match }) => {
   const genreRef = useRef();
 
-  console.log("RENDERED 🚀");
+  console.log('RENDERED 🚀');
   const tmdb_id = match.params.id;
 
   const [{ tmdbDetails, tmdbLoading }, setTmdbDetails] = useState({
     tmdbDetails: {},
     tmdbLoading: true,
-    tError: "",
+    tError: '',
   });
 
   const [{ omdbDetails, omdbLoading }, setOmdbDetails] = useState({
@@ -49,7 +49,7 @@ const Movie = ({ match }) => {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("Error", error.message);
+          console.log('Error', error.message);
         }
       });
   }, []);
@@ -60,7 +60,7 @@ const Movie = ({ match }) => {
     axios
       .get(`/omovie/${imdb_id}`)
       .then((response) => {
-        console.log({ imdb: response.data.movieDetails });
+        // console.log({ imdb: response.data.movieDetails });
         setOmdbDetails((prevState) => {
           return {
             ...prevState,
@@ -76,7 +76,7 @@ const Movie = ({ match }) => {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("Error", error.message);
+          console.log('Error', error.message);
         }
       });
   }, []);
@@ -84,10 +84,10 @@ const Movie = ({ match }) => {
   const scroller = useCallback(() => {
     if (!omdbLoading) {
       let sw = genreRef.current.scrollWidth;
-      console.log(sw);
-      genreRef.current.style.setProperty("--scrollWidth", `${sw}px`);
+      // console.log(sw);
+      genreRef.current.style.setProperty('--scrollWidth', `${sw}px`);
     } else {
-      console.log("not set");
+      // console.log("not set");
     }
   }, [omdbLoading]);
 
@@ -101,28 +101,28 @@ const Movie = ({ match }) => {
   }, [scroller, fetchOMBdDetails, tmdbDetails.imdb_id]);
 
   let prodCompanies = !tmdbLoading ? (
-    tmdbDetails.production_companies.map((company) => company.name).join(", ")
+    tmdbDetails.production_companies.map((company) => company.name).join(', ')
   ) : (
     <Spinner />
   );
 
   let langs = !tmdbLoading ? (
-    tmdbDetails.spoken_languages.map((lang) => lang.name).join(", ")
+    tmdbDetails.spoken_languages.map((lang) => lang.name).join(', ')
   ) : (
     <Spinner />
   );
 
   let metascoreRating = !omdbLoading
-    ? omdbDetails.Ratings.find((rating) => rating.Source === "Metacritic")
-    : "";
-  let metascore = metascoreRating ? metascoreRating.Value.split("/")[0] : "N/A";
+    ? omdbDetails.Ratings.find((rating) => rating.Source === 'Metacritic')
+    : '';
+  let metascore = metascoreRating ? metascoreRating.Value.split('/')[0] : 'N/A';
 
   let directors;
   if (!tmdbLoading) {
     directors = tmdbDetails.credits.crew
       .filter(
         (person) =>
-          person.department === "Directing" && person.job === "Director"
+          person.department === 'Directing' && person.job === 'Director'
       )
       .map((found) => (
         <span key={found.id} className="text-xs font-semibold sm:text-sm">
@@ -136,9 +136,9 @@ const Movie = ({ match }) => {
   let writers;
   if (!tmdbLoading) {
     writers = tmdbDetails.credits.crew
-      .filter((person) => person.department === "Writing")
+      .filter((person) => person.department === 'Writing')
       .map((found) => {
-        let job = found.job === "Writer" ? "" : ` (${found.job})`;
+        let job = found.job === 'Writer' ? '' : ` (${found.job})`;
         return (
           <Link to={`/person/${found.id}`} key={found.credit_id}>
             <p className="text-xs font-semibold sm:text-sm">
@@ -153,14 +153,14 @@ const Movie = ({ match }) => {
   let awards;
   if (omdbLoading) {
     awards = <Spinner />;
-  } else if (!omdbLoading && omdbDetails.Awards === "N/A") {
+  } else if (!omdbLoading && omdbDetails.Awards === 'N/A') {
     awards = (
       <span className="text-gray-600 text-xs font-normal sm:text-sm">
         No Awards for this movie yet!
       </span>
     );
   } else {
-    let parts = omdbDetails.Awards.split(".");
+    let parts = omdbDetails.Awards.split('.');
     awards =
       parts.length > 0 ? (
         <>
@@ -206,7 +206,7 @@ const Movie = ({ match }) => {
               className={`text-xs overflow-hidden whitespace-no-wrap ${classes.Genres}`}
             >
               {!omdbLoading ? (
-                omdbDetails.Genre.replaceAll(", ", "/")
+                omdbDetails.Genre.replaceAll(', ', '/')
               ) : (
                 <Spinner />
               )}
@@ -259,10 +259,10 @@ const Movie = ({ match }) => {
                   writers={writers}
                   released={new Date(
                     tmdbDetails.release_date
-                  ).toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
+                  ).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
                   })}
                   langs={langs}
                   country={omdbDetails.Country}

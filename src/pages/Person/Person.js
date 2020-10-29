@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import classes from "./Person.module.css";
-import { Link } from "react-router-dom";
-import Roles from "../../components/Roles/Roles";
-import axios from "../../axios";
-import Spinner from "../../components/Spinner/Spinner";
-import { srcSelector } from "../../utils/utils";
-import Image from "../../components/Image/Image";
+import React, { useState, useEffect } from 'react';
+import classes from './Person.module.css';
+import { Link } from 'react-router-dom';
+import Roles from '../../components/Roles/Roles';
+import axios from '../../axios';
+import Spinner from '../../components/Spinner/Spinner';
+import { srcSelector } from '../../utils/utils';
+import Image from '../../components/Image/Image';
 
 const Person = ({ match, history }) => {
-  console.log("Person RENDERED 🤵");
+  // console.log("Person RENDERED 🤵");
   const person_id = match.params.id;
 
   const [personDetails, setPersonDetails] = useState({});
@@ -25,31 +25,31 @@ const Person = ({ match, history }) => {
     axios
       .get(`/person/${person_id}`)
       .then((response) => {
-        console.log(response.data.person);
+        // console.log(response.data.person);
         setPersonDetails(response.data.person);
         setDetailsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [person_id]);
 
   let genderToRender;
   switch (personDetails.gender) {
     case 0:
-      genderToRender = "N/A";
+      genderToRender = 'N/A';
       break;
 
     case 1:
-      genderToRender = "Female";
+      genderToRender = 'Female';
       break;
 
     case 2:
-      genderToRender = "Male";
+      genderToRender = 'Male';
       break;
 
     default:
-      genderToRender = "N/A";
+      genderToRender = 'N/A';
   }
 
   return (
@@ -76,7 +76,7 @@ const Person = ({ match, history }) => {
             <span className="text-xs xs:text-sm">Place of birth</span>
             <span className="-mt-1 text-xs xs:text-sm font-semibold leading-tight">
               {!personDetails.place_of_birth
-                ? "-"
+                ? '-'
                 : personDetails.place_of_birth}
             </span>
           </div>
@@ -93,12 +93,12 @@ const Person = ({ match, history }) => {
             <span className="text-xs xs:text-sm">Birthday</span>
             <span className="-mt-1 text-xs xs:text-sm font-semibold">
               {!personDetails.birthday
-                ? "-"
-                : new Date(personDetails.birthday).toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}{" "}
+                ? '-'
+                : new Date(personDetails.birthday).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}{' '}
               {personDetails.birthday && (
                 <span className="font-normal">{`(${Math.trunc(
                   (new Date() - new Date(personDetails.birthday)) /
@@ -145,7 +145,7 @@ const Person = ({ match, history }) => {
             className="absolute right-4 font-semibold text-xs sm:text-sm underline"
             onClick={moreBioHandler}
           >
-            {moreBio ? "See less" : "See full bio"}
+            {moreBio ? 'See less' : 'See full bio'}
           </button>
         )}
       </section>
@@ -164,7 +164,7 @@ const Person = ({ match, history }) => {
                     url={
                       work.poster_path
                         ? `https://image.tmdb.org/t/p/w185${work.poster_path}`
-                        : ""
+                        : ''
                     }
                     altText={`${work.title} Movie poster`}
                   />

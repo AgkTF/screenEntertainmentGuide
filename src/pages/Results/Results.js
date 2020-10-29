@@ -1,21 +1,21 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
-import * as queryString from "query-string";
-import axios from "../../axios";
-import Spinner from "../../components/Spinner/Spinner";
-import classes from "./Results.module.css";
-import { genreMapper } from "../../utils/utils";
-import Image from "../../components/Image/Image";
-import ReactPaginate from "react-paginate";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import * as queryString from 'query-string';
+import axios from '../../axios';
+import Spinner from '../../components/Spinner/Spinner';
+import classes from './Results.module.css';
+import { genreMapper } from '../../utils/utils';
+import Image from '../../components/Image/Image';
+import ReactPaginate from 'react-paginate';
 
 //TODO: add a spinner when the data is being loaded
 const Results = () => {
   const location = useLocation();
   const query = queryString.parse(location.search).q;
   const encodedQuery = encodeURIComponent(queryString.parse(location.search).q);
-  console.log("🚀", encodedQuery);
+  // console.log("🚀", encodedQuery);
 
-  const [current, setCurrent] = useState("movies");
+  const [current, setCurrent] = useState('movies');
   const [{ results, totalPages, loading }, setCombinedState] = useState({
     results: [],
     totalPages: 0,
@@ -29,7 +29,7 @@ const Results = () => {
       axios
         .get(`/search/${encodedQuery}?page=${newPage}`)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setCombinedState((prevState) => {
             return {
               ...prevState,
@@ -41,12 +41,12 @@ const Results = () => {
         })
         .catch((error) => {
           if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
           } else if (error.request) {
             console.log(error.request);
           } else {
-            console.log("Error", error.message);
+            // console.log("Error", error.message);
           }
         });
     },
@@ -63,20 +63,20 @@ const Results = () => {
   let resultsCount = results ? results.length : <Spinner />;
 
   let movies = results
-    ? results.filter((result) => result.media_type === "movie")
+    ? results.filter((result) => result.media_type === 'movie')
     : [];
 
   let tv = results
-    ? results.filter((result) => result.media_type === "tv")
+    ? results.filter((result) => result.media_type === 'tv')
     : [];
 
   let people = results
-    ? results.filter((result) => result.media_type === "person")
+    ? results.filter((result) => result.media_type === 'person')
     : [];
 
   const createData = (current) => {
     switch (current) {
-      case "movies":
+      case 'movies':
         return movies.map((movie) => (
           <div
             className="h-20 py-3 pr-3 flex items-center bg-white rounded-lg overflow-hidden shadow-md hover:shadow-sm text-gray-700"
@@ -84,7 +84,7 @@ const Results = () => {
           >
             <div className="w-12 h-20 flex-shrink-0 text-gray-600 rounded-md overflow-hidden">
               <Link to={`/movie/${movie.id}/details`}>
-                {" "}
+                {' '}
                 <Image
                   url={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
                   altText={`"${movie.title}" poster`}
@@ -95,7 +95,7 @@ const Results = () => {
               <h3 className="font-semibold leading-tight">
                 <Link to={`/movie/${movie.id}/details`}>{movie.title}</Link>
                 <span className="ml-1 font-normal text-gray-500 text-xs ">
-                  ({movie.release_date.split("-")[0]})
+                  ({movie.release_date.split('-')[0]})
                 </span>
               </h3>
               <p className="mt-1 text-xs">{genreMapper(movie.genre_ids)}</p>
@@ -103,7 +103,7 @@ const Results = () => {
           </div>
         ));
 
-      case "tv":
+      case 'tv':
         return tv.map((show) => (
           <div
             className="h-20 py-3 pr-3 flex items-center bg-white rounded-lg overflow-hidden shadow-md hover:shadow-sm text-gray-700"
@@ -121,7 +121,7 @@ const Results = () => {
               <h3 className="font-semibold leading-tight">
                 <Link to={`/show/${show.id}/details`}>{show.name}</Link>
                 <span className="ml-1 font-normal text-gray-500 text-xs">
-                  ({show.first_air_date.split("-")[0]})
+                  ({show.first_air_date.split('-')[0]})
                 </span>
               </h3>
               <p className="mt-1 text-xs">{genreMapper(show.genre_ids)}</p>
@@ -129,7 +129,7 @@ const Results = () => {
           </div>
         ));
 
-      case "people":
+      case 'people':
         //FIXME: the works disappear when moving between categories
         return people.map((person) => (
           <div
@@ -157,13 +157,13 @@ const Results = () => {
                     <span key={work.id} className="hover:text-blue-700">
                       <Link to={`/movie/${work.id}/details`}>
                         {work.title}
-                        {i < 2 ? ", " : ""}
+                        {i < 2 ? ', ' : ''}
                       </Link>
                     </span>
                   ) : (
                     <span key={work.id} className="hover:text-blue-700">
                       {work.name}
-                      {i < 2 ? ", " : ""}
+                      {i < 2 ? ', ' : ''}
                     </span>
                   )
                 )}
@@ -180,16 +180,16 @@ const Results = () => {
   return (
     <div className="pt-12 sm:pt-16 mx-5 font-bai text-gray-700">
       <h2 className="mt-4 font-bold xs:text-xl">
-        Displaying {resultsCount} results for{" "}
+        Displaying {resultsCount} results for{' '}
         <span className="italic">"{query}"</span>
       </h2>
       <div>
         <div className="pb-2 mt-5 flex justify-between text-sm font-semibold border-b-2 border-gray-300 max-w-sm mx-auto">
           <button
             className={`sm:text-base font-semibold hover:text-gray-700 ${
-              current === "movies" ? "" : "text-gray-500"
+              current === 'movies' ? '' : 'text-gray-500'
             }`}
-            onClick={() => setCurrent("movies")}
+            onClick={() => setCurrent('movies')}
             disabled={!movies.length ? true : false}
           >
             Movies
@@ -202,9 +202,9 @@ const Results = () => {
 
           <button
             className={`sm:text-base font-semibold hover:text-gray-700 ${
-              current === "tv" ? "" : "text-gray-500"
+              current === 'tv' ? '' : 'text-gray-500'
             }`}
-            onClick={() => setCurrent("tv")}
+            onClick={() => setCurrent('tv')}
             disabled={!tv.length ? true : false}
           >
             TV shows
@@ -217,9 +217,9 @@ const Results = () => {
 
           <button
             className={`sm:text-base font-semibold hover:text-gray-700 ${
-              current === "people" ? "" : "text-gray-500"
+              current === 'people' ? '' : 'text-gray-500'
             }`}
-            onClick={() => setCurrent("people")}
+            onClick={() => setCurrent('people')}
             disabled={!people.length ? true : false}
           >
             People
@@ -286,7 +286,7 @@ const Results = () => {
         nextClassName="bg-gray-300 px-1 rounded shadow-lg"
         nextLinkClassName="font-semibold text-gray-700"
         disabledClassName="text-gray-500 cursor-not-allowed"
-        breakLabel={"..."}
+        breakLabel={'...'}
         breakClassName="text-white tracking-widest"
         pageCount={totalPages}
         pageClassName={`px-1 h-5 text-center text-gray-500 bg-gray-300 rounded shadow-lg ${classes.page}`}
@@ -294,7 +294,7 @@ const Results = () => {
         activeLinkClassName="font-bold text-blue-600"
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
-        containerClassName="my-8 mx-auto max-w-md font-semibold text-sm text-gray-600 bg-gray-500 rounded-lg flex h-8 items-center justify-around"
+        containerClassName="my-8 mx-auto max-w-md font-semibold text-sm text-gray-600 bg-gray-500 rounded-lg flex h-8 items-center justify-around list-none"
         onPageChange={(data) => fetchResults(data.selected + 1)}
       />
     </div>
